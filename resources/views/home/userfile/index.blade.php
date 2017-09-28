@@ -214,7 +214,7 @@
                     page_size = json.page_size; //每页数量
                     page_cur = page; //当前页
                     page_total_num = json.page_total_num; //总页数businessScope unix_to_datetime(unix);   getLocalTime(parseInt(array.ctime,10)) SProductName out_logi_no
-                    var li = "<tr><th width='120'>ID</th><th>素材名称</th><th>素材类型</th><th>素材数量</th><th>审核状态</th><th>支付金额</th><th>审核备注</th><th>支付状态</th><th>上传时间</th><th>操作</th></tr>";
+                    var li = "<tr><th width='120'>ID</th><th>素材名称</th><th>素材类型</th><th>素材数量</th><th>审核状态</th><th>金额</th><th>审核备注</th><th>支付状态</th><th>上传时间</th><th>操作</th></tr>";
                     var list = json.list;
                     $.each(list, function(index, array) { //遍历返回json
                         showbutton ='';
