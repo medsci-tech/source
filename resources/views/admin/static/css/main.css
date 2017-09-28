@@ -1,0 +1,166 @@
+/*时间插件样式开始*/
+.l{float: left;}
+.r{float: right;}
+
+.ml10{margin-left:10px;}
+.mt12{margin-top:12px;}
+.form-x {overflow: hidden}
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { float: left; clear:left; padding: 0 0 0 5px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 45%; padding: 0;}
+.ui-timepicker-div td { font-size: 90%; }
+.doc-dd .input { background-color: #fff; display: inline-block}
+.form-group {width: 19%;  float: left;margin-left:2%;padding-bottom:0;max-height: 60px;min-width: 170px;height: 26px;}
+.form-group.ml3 {margin-left:3%;}
+.form-x .form-group .label {width: initial;float: left;}
+
+
+.MsgBox{display:none;position:absolute;font-size:12px;width:300px;overflow:hidden;z-index:999; border-radius:3px; font-family:微软雅黑;border: 1px solid #eee;top:20%;left:50%;
+    margin-left:-150px;    margin-left:-150px;width: 300px;}
+.MsgBox .top{height:40px; background-color:#0ae;float:left; width:100%;}
+.MsgBox .top .title{height:100%;line-height:40px;color:#fff;vertical-align:middle;font-size:14px;overflow:hidden;text-align: center;}
+.MsgBox .body{background:#fff;width: 100%;}
+.MsgBox .body p {text-align: center;margin-top:15px;font-size:14px;}
+.MsgBox .bottom{background:#fff;width: 100%;}
+input.btn{width:56px;   border-radius: 3px; font-family:微软雅黑; cursor:pointer; color:#fff; border:none; height:25px; text-align:center;  background-color:#0ae;text-align:center; margin:0px auto;}
+input.btnfocus{ background-color:#EC6D51; font-family:微软雅黑;   border-radius: 3px;width:56px;margin:0px auto; border:none; height:25px; cursor:pointer; color:#fff;}
+.MsgBox .icon{width:32px;height:32px;float:left;margin-right:10px;}
+.MsgBox .clear{clear:both;}
+.MsgBox .height{height:10px;line-height:10px;}
+.ShowBolightBox{display:none;-moz-opacity:0.5;filter:alpha(opacity=50);opacity:0.5;background-color:#000000;z-index:100;position:absolute;left:0px;top:0px;}
+.MsgBtns{ text-align:center; width:100%;}
+.lightBox {width: 100%; display: none;  -moz-opacity: 0.5;  filter: alpha(opacity=50);  opacity: 0.5;  background-color: #000000;  z-index: 100;  position: absolute;  left: 0px;  top: 0px;  }
+/*confirm样式*/
+
+
+@media (min-width: 760px) {.form-x .form-group .field {
+        float: left;
+        width:70%;
+    }
+}
+@media (max-width: 759px) {
+    .form-x .form-group .label {
+        float: left;
+    }
+    .form-x .form-group .field {
+        float: left;
+        width:70%;
+    }
+}
+.form-x .w100 {width: 100%;}
+.input{padding: 2px;}
+.form-x .form-group .label{padding: 0 0 0 3px;float: left;}
+.form-x .form-group .field {
+    width:50%;
+    float: left;
+}
+/*时间插件样式结束*/
+
+/*工具分享样式开始*/
+.tool-btns{width: 30%;}
+.icon-upload {position: relative;display: inline-block;}
+.icon-upload input{width:49px;height:26px;display:block;position: absolute;  top: 0;  right: 0;  margin: 0;  opacity: 0;  -ms-filter: 'alpha(opacity=0)';  font-size: 12px !important; direction: ltr;  cursor: pointer;}
+/*工具分享样式结束*/
+
+/*医生管理开始*/
+#distpicker5{
+    width:auto;
+    min-width: 340px;
+}
+#distpicker5 select , .w33 select{
+    width: 33.3%;
+}
+.w20{
+    width:30%;
+}
+.w20 select{
+    width: 50%;
+}
+.w48 select{
+    width: 48%;
+}
+.form-x .w22 {
+    width: 22%;
+}
+.form-x.w22 select{
+    width: 100%;
+}
+
+.doctor-w200{min-width: 220px;}
+/*医生管理结束*/
+
+.form-x .form-group .field76 {
+    width: 76%;
+}
+.w240 {
+    min-width: 240px;
+}
+/*素材管理弹框*/
+.alert-form {
+    width: 90%;
+    margin:5%;
+    height: auto;
+}
+.alert-form .form-group {
+    width:100%;
+    margin-left:0;
+}
+.alert-form .form-group .label {
+    width: 40%;
+    float: left;
+    text-align: center;
+}
+.alert-form .form-group .field {
+    width: 58%;
+    float: right;
+}
+.alert-form .infotextarea {
+    width:100%;
+    height:100px;
+    border: 1px solid #ddd;
+}
+.alert-form table{
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+.alert-form .form-groups {
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    margin-top:12px;
+}
+.alert-form .form-groups .form-group{
+    width: 45%;
+}
+.alert-form .doctorArea {
+    padding-bottom:10px;
+}
+.alert-form .doctorArea .label {
+    width:20%;
+    text-align: center;
+}
+.alert-form .doctorArea .field {
+    width:80%;
+}
+.alert-form .doctorArea .field select{
+    width:29%;
+}
+
+
+.alert-form .hospitalArea {
+    padding-bottom:10px;
+    border: none;
+}
+.alert-form .hospitalArea .label {
+    width:40%;
+    text-align: center;
+}
+.alert-form .hospitalArea .field {
+    width:58%;
+}
+.alert-form .hospitalArea .field select{
+    width:100%;
+    margin-bottom:2px;
+}
+.panel-head strong {
+    font-size: 20px;
+}

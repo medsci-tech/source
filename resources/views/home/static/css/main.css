@@ -1,0 +1,362 @@
+
+.registerBox {
+    width: 100%;
+    height: auto;
+    background: url(../images/loginBg.jpg) no-repeat center center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    background-size: cover;
+}
+
+.regisWrapper {
+    width: 1044px;
+    height: 1092px;
+    background: url(../images/bg2.png) no-repeat center center;
+    margin: 40px auto 0 auto;
+    overflow: hidden;
+}
+
+.in {
+    width: 1000px;
+    margin-left: 22px;
+}
+
+.logo {
+    width: 771px;
+    height: 49px;
+    background: url(../images/logo2.png) no-repeat center center;
+    margin: 30px auto 0 auto;
+}
+
+.regisForm {
+    margin-top: 30px;
+}
+
+.regisForm h2 {
+    width: 998px;
+    height: 14px;
+    background: url(../images/yh.png) no-repeat center center;
+    margin-bottom: 10px;
+}
+.regisForm .form-group{
+    height: auto;
+}
+.form-group {
+    margin-bottom: 2px;
+    /*height: 45px;*/
+}
+/*.personInfoForm .form-group {*/
+    /*height: 54px;*/
+/*}*/
+.form-group label {
+    font-size: 14px;
+    color: #313131;
+}
+
+.form-group .tips {
+    height: 16px;
+    line-height: 16px;
+    font-size: 12px;
+    color: #ff0000;
+    margin-top: 2px;
+    text-indent: 2em;
+}
+
+.regisForm h3 {
+    margin-bottom: 10px;
+    margin-top: 6px;
+    width: 998px;
+    height: 16px;
+    background: url(../images/gr.png) no-repeat center center;
+}
+
+#distpicker5 select {
+    width: 33.3%;
+    float: left;
+}
+
+.regisForm h4 {
+    margin-bottom: 10px;
+    width: 998px;
+    height: 16px;
+    background: url(../images/tjr.png) no-repeat center center;
+}
+
+.ty {
+    width: 200px;
+    margin-left: 450px;
+}
+
+.ty p {
+    line-height: 20px;
+    height: 20px;
+    font-size: 12px;
+    margin-left: 2px;
+}
+
+.zhuce {
+    width: 248px;
+    height: 33px;
+    background: url(../images/zhuce.png) no-repeat center center;
+    margin-left: 420px;
+    margin-top: 10px;
+    display: block;
+}
+
+.loginBox {
+    background-size: cover;
+    height: 100%;
+    background: url(../images/bg.jpg) no-repeat center center;
+}
+
+.loginWrapper {
+    width: 678px;
+    height: 484px;
+    background: url(../images/loginBg2.png) no-repeat center center;
+    margin-top: 5%;
+}
+
+.in2 {
+    width: 632px;
+    height: 444px;
+    margin-left: 23px;
+    overflow: hidden;
+}
+
+.logo2, .forgetlogo2 {
+    width: 478px;
+    height: 52px;
+    background: url(../images/logo2.png) no-repeat center center;
+    margin: 36px auto 0 auto;
+}
+
+.loginForm {
+    margin-top: 50px;
+}
+.forgetForm {
+    margin-top: 42px;
+}
+.forgetForm .form-group{
+    height:auto;
+}
+.dl {
+    width: 191px;
+    height: 32px;
+    background: url(../images/dl.png) no-repeat center center;
+    margin-left: 275px;
+    margin-top: 10px;
+    display: block;
+}
+
+.wjmm {
+    font-size: 12px;
+    color: #269801;
+    margin-left: 410px;
+}
+
+.wjmm2 {
+    margin-left: 348px;
+}
+
+.frontLogo {
+    width: 103px;
+    height: 33px;
+    background: url(../images/front_logo.png) no-repeat center center;
+    margin-top: 8px;
+}
+
+.city-info-right {
+    height: 28px;
+    line-height: 28px;
+    float: right;
+    margin-top: 11px;
+}
+
+.city-info-right a {
+    width: 68px;
+    height: 12px;
+    line-height: 12px;
+    font-size: 12px;
+    border-right: 1px solid #384456;
+    text-align: center;
+    float: left;
+    color: #fff;
+    padding: 0;
+    margin-top: 8px
+}
+
+.city-info-right a.br0 {
+    border-right: 1px solid #2f3847;
+}
+.leftnav {
+    top:50px;
+}
+.h50{
+    height:50px;
+}
+.admin {
+    top:50px;
+}
+.panel-head strong {
+    font-size:20px;
+}
+.button.bg-main {
+    width: 78px;
+    height:28px;
+    line-height: 28px;
+    padding: 0;
+    background-color: #3b93ff;
+    text-align: center;
+    cursor: pointer;
+}
+.leftnav ul {
+    padding:0 0 5px 0;
+}
+.leftnav ul li a {
+    padding-left:0;
+    text-indent: 4em;
+    line-height: 40px;
+}
+.leftnav ul li a:hover{
+    background-color: #fff;
+    color: #0061c1;
+}
+.mr20{
+    margin-right:20px;}
+.input {
+    border-color:#b3b3b3;
+}
+.button.border-main {
+    color: #818181;
+
+}
+.button.border-main:hover {
+    background-color:#fff;
+    color: #818181;
+}
+.formp .form-group {
+    width: auto;
+    float:none;
+}
+.formp input, .formp select{
+    height:36px;
+}
+.formp .form-group .label {
+    width: 12%;
+    line-height:38px;
+}
+
+.formp #distpicker5 .tips{
+    text-align: left;
+    float: left;
+    width: 50%;
+}
+.rightops{
+    width: 36%;
+    float:left;
+    line-height:38px;
+}
+.rightops a{
+    font-size: 14px;
+    color:#0d0dff;
+    padding: 0 3px;
+}
+.rightops a:hover{
+    color:#999;
+}
+.formp .button.bg-main {
+    width: 280px;
+    height: 40px;
+    line-height: 40px;
+    margin-left:20%;
+    text-align: center;
+    font-size:16px;
+}
+.formp .button.bg-main:hover{
+    cursor: pointer;
+}
+.formp .toolps {
+    width: 80%;
+    font-size: 14px;
+    color:#0d0dff;
+    padding: 3px 0;
+    margin-left:12%;
+}
+.form-group label span {
+    width: 10px;
+    color: #ff1c0d;
+    font-size: 16px;
+}
+.tips-center {
+    text-indent: 23em;
+    line-height: 16px;
+    font-size: 12px;
+    color: #ff0000;
+    margin-bottom:10px;
+}
+.tj {
+    width: 191px;
+    height: 32px;
+    line-height: 32px;
+    background-color: #2c73bc;
+    margin-left: 275px;
+    margin-top: 10px;
+    display: block;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 5px;
+}
+.tips-center-h2 {
+    color: #2c73bc;
+    font-size:22px;
+    text-indent:13em
+}
+.upload {position: relative;display: inline-block;text-align: center;margin-left: 3%;}
+.upload input{width:78px;height:26px;display:block;position: absolute;  top: 0;  right: 0;  margin: 0;  opacity: 0;  -ms-filter: 'alpha(opacity=0)';  font-size: 12px !important; direction: ltr;  cursor: pointer;}
+.sucai .form-group {width: 33%;}
+.sucai .w100{width:100%; margin-top:10px;margin-left: 3%;}
+.mr30{margin-right:30%;}
+
+.MsgBox{display:none;position:absolute;font-size:12px;width:300px;overflow:hidden;z-index:999; border-radius:3px; font-family:微软雅黑;border: 1px solid #eee;top:20%;left:50%;
+    margin-left:-150px;    margin-left:-150px;width: 300px;}
+.MsgBox .top{height:40px; background-color:#0ae;float:left; width:100%;}
+.MsgBox .top .title{height:100%;line-height:40px;color:#fff;vertical-align:middle;font-size:14px;overflow:hidden;text-align: center;}
+.MsgBox .body{background:#fff;width: 100%;}
+.MsgBox .body p {text-align: center;margin-top:15px;font-size:14px;}
+.MsgBox .bottom{background:#fff;width: 100%;}
+input.btn{width:56px;   border-radius: 3px; font-family:微软雅黑; cursor:pointer; color:#fff; border:none; height:25px; text-align:center;  background-color:#0ae;text-align:center; margin:0px auto;}
+input.btnfocus{ background-color:#EC6D51; font-family:微软雅黑;   border-radius: 3px;width:56px;margin:0px auto; border:none; height:25px; cursor:pointer; color:#fff;}
+.MsgBox .icon{width:32px;height:32px;float:left;margin-right:10px;}
+.MsgBox .clear{clear:both;}
+.MsgBox .height{height:10px;line-height:10px;}
+.ShowBolightBox{display:none;-moz-opacity:0.5;filter:alpha(opacity=50);opacity:0.5;background-color:#000000;z-index:100;position:absolute;left:0px;top:0px;}
+.MsgBtns{ text-align:center; width:100%;}
+.lightBox {width: 100%; display: none;  -moz-opacity: 0.5;  filter: alpha(opacity=50);  opacity: 0.5;  background-color: #000000;  z-index: 100;  position: absolute;  left: 0px;  top: 0px;  }
+.button.border-main{color: #0ae;border-color: #0ae;}
+.button:hover {transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1) 0s;}
+.button.border-main:hover{  color: #fff;  border-color: #0ae;  background-color: #0ae;  }
+.alert-form {width: 90%;margin: 5%;height: auto;  }
+.alert-form table {border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;}
+.alert-form table tr {border-left: 1px solid #ddd;}
+.alert-form table th,.alert-form table td {text-align: center; border-bottom: 2px solid #ddd;padding: 8px;border-right: 1px solid #ddd;}
+/*confirm样式*/
+@media (max-width: 767px) {
+    .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {  float: left;  }
+    .regisForm .col-sm-5 {width: 41.66666667%;}
+    .formp .form-group .label{width: 20%;}
+    .form-x .form-group {max-height: 130px;}
+    .formp .tips{ margin-left:0;}
+    .rightops{line-height: normal;}
+    .formp #distpicker5 .tips{width:100%;}
+    .tips-center{text-align: center;text-indent: 0;}
+    .loginForm, .forgetForm{margin-top:0;}
+    .form-group .tips{  height:12px;  line-height: 12px;  margin-top:0;}
+    .forgetlogo2{margin-top:16px;}
+    .forgetForm .form-group{margin-top:-4px;}
+    .personInfoForm .form-group {height: auto;}
+    .regisForm .form-group{height:50px;}
+    .form-horizontal .control-label {padding-top: 7px;  margin-bottom: 0;  text-align: right;}
+}
