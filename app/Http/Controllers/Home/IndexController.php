@@ -234,6 +234,7 @@ class IndexController extends CommonController
 
 
         $input = Input::all();
+        file_get_contents('lenove.txt',var_export($input,true),8);
 
         $params=explode('@',urldecode($input['command']));
 //        Log::info($params);
@@ -280,7 +281,6 @@ class IndexController extends CommonController
         $this->materiallenove->neid = $data->neid;
         $this->materiallenove->rev = $data->rev;
         $this->materiallenove->filename = $file->name;
-        $this->materiallenove->addtime = (string)time();
         //添加时间
         $this->materiallenove->addtime = (string)time();
         $this->materiallenove->save();

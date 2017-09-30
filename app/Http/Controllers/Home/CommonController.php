@@ -65,8 +65,13 @@ class CommonController extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);//要求结果为字符串且输出到屏幕上
         curl_setopt($ch, CURLOPT_POST, 1);//post提交方式
         curl_setopt($ch, CURLOPT_POSTFIELDS, $curlPost);
+
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // 跳过证书检查
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);  // 不检查证书
         $data = curl_exec($ch);//运行curl
+        //$msg  =  curl_error($ch);
         curl_close($ch);
+        //dd($data);
 
         return $data;
     }

@@ -14,7 +14,7 @@
     <script src="{{asset('resources/views/home/static/js/jquery.js')}}"></script>
     <script src="{{asset('resources/views/home/static/js/pintuer.js')}}"></script>
 </head>
-<body onunload="checkLeave()">
+<body>
 
 <div class="panel admin-panel">
     <div class="panel-head"><strong>上传素材</strong></div>
@@ -144,7 +144,7 @@
                     return false;
                 }
                 if(attachments=='') {
-                    alert("请选择素材数量");
+                    alert("请填写素材数量");
                     return false;
                 }
                 if(recommend_id=='all') {

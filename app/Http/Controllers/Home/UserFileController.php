@@ -124,8 +124,9 @@ class UserFileController extends CommonController
                 return response()->json($returnInfo);
                 break;
             case 'lenovo':
-                $lenovo=$this->getLenovoInfo();
 
+                $lenovo=$this->getLenovoInfo();
+                //dd($lenovo);
 
                 //这里是回调地址
                 $callBackUrl ="http://".$_SERVER['HTTP_HOST']."/callbackmaterial";

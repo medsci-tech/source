@@ -125,6 +125,39 @@
                     $("#recommend_name").val(data.recommend_name);
                     $("#recommend_name").attr('readonly','readonly');
                     $("#big_area_id").val(data.big_area_id);
+                    var edit_big_area_id = data.big_area_id;
+                    $.ajax({
+                        type: 'post',
+                        url: '{{url('home/recommendinfo/ajax')}}',
+                        data: {'action': 'getArea','big_area_id':edit_big_area_id},
+                        dataType: 'json',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                        },
+                        beforeSend: function(XMLHttpRequest) {
+//                $('body').showLoading();
+                        },
+                        success: function(json) {
+                            if (json.status == 1) {
+                                var data =json.data;
+                                $("#area_id").empty();
+                                li="";
+                                $.each(data, function(index, value) {
+                                    li +="<option value='"+value._id+"'>"+value.area_name+"</option>";
+                                })
+                                $("#area_id").append(li);
+                                $("#area_id").trigger('change');
+                            } else {
+                                alert("非法的请求!");
+                            }
+                        },
+                        complete: function() {
+
+                        },
+                        error: function() {
+                            alert("服务器繁忙！");
+                        }
+                    });
                     $("#area_id").val(data.area_id);
                     $("#sales_id").val(data.sales_id);
 //                    $("#recommend_id_card").val(data.recommend_id_card);

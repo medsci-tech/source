@@ -34,7 +34,6 @@ class RecommendController extends CommonController
         switch($input['action']){
             case 'getlist':
                 $pagesize=8;
-                $input = Input::all();
                 $input['page']=($input['page']==0 || $input['page']>100) ? 1 :$input['page'];
                 $result=$this->recommend->getRecommendList($pagesize,$input['page'],$input);
                 if(count($result[1])>0) {
@@ -42,8 +41,10 @@ class RecommendController extends CommonController
                         $bigarea = Bigarea::where('_id',$v->big_area_id)->first();
                         $area = Area::where('_id',$v->area_id)->first();
                         $sales = Sales::where('_id',$v->sales_id)->first();
-                        if($bigarea->big_area_name){
+                        if($bigarea && $bigarea->big_area_name){
                             $result[1][$k]->big_area_name =$bigarea->big_area_name;
+                        }else{
+                            $result[1][$k]->big_area_name = '暂无';
                         }
                         if(isset($area->area_name) && $area->area_name){
                             $result[1][$k]->area_name =$area->area_name;
@@ -52,6 +53,8 @@ class RecommendController extends CommonController
                         }
                         if($sales!=null && $sales->sales_name){
                             $result[1][$k]->sales_name =$sales->sales_name;
+                        }else{
+                            $result[1][$k]->sales_name = '暂无';
                         }
                     }
                     $returnInfo=array(
