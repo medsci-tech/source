@@ -279,7 +279,7 @@
 <!--审核弹框结束-->
 
 <!--附件弹框开始-->
-<div style="display: none;width:400px;left:45%" class="MsgBox clearfix" id="uploadBox">
+<div style="display: none;width:400px;left:45%;top:25%;" class="MsgBox clearfix" id="uploadBox">
     <div class="top">
         <div class="title" class="MsgTitle">素材下载列表</div>
     </div>
@@ -769,4 +769,12 @@
         $("#uploadBox").css('display','none');
 
     }
+
+    $(window).scroll(function () {
+        //console.log($(this).scrollTop());
+        var scrollTop = $(this).scrollTop();
+        var winWidth = $(this).height();
+        var width =  $('#uploadBox').css('top');
+        console.log($('#uploadBox').css('margin-top',scrollTop));
+    });
 </script>
