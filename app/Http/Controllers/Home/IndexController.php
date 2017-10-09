@@ -234,7 +234,8 @@ class IndexController extends CommonController
 
 
         $input = Input::all();
-        file_get_contents('lenove.txt',var_export($input,true),8);
+        //file_get_contents('lenove.txt',var_export($input,true),8);
+        //Log::debug($input);
 
         $params=explode('@',urldecode($input['command']));
 //        Log::info($params);
