@@ -40,8 +40,8 @@ class RecommendInfoController extends CommonController
             $doctorrecommend[$k]->recommend_name =$recommend->recommend_name;
             $doctorrecommend[$k]->recommend_mobile =$recommend->recommend_mobile;
             $doctorrecommend[$k]->big_area_name =$bigarea->big_area_name;
-            $doctorrecommend[$k]->area_name =$area->area_name;
-            $doctorrecommend[$k]->sales_name =$sales->sales_name;
+            $doctorrecommend[$k]->area_name =$area?$area->area_name:'';
+            $doctorrecommend[$k]->sales_name =$sales?$sales->sales_name:'';
         }
 
         return view('home.recommendinfo.index',compact('doctorrecommend'));
