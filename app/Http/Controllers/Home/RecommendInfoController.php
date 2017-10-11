@@ -38,8 +38,8 @@ class RecommendInfoController extends CommonController
             $area = Area::where('_id',$recommend->area_id)->first();
             $sales = Sales::where('_id',$recommend->sales_id)->first();
             $doctorrecommend[$k]->recommend_name =$recommend->recommend_name;
-            $doctorrecommend[$k]->recommend_mobile =$recommend->recommend_mobile;
-            $doctorrecommend[$k]->big_area_name =$bigarea->big_area_name;
+            $doctorrecommend[$k]->recommend_mobile =$recommend?$recommend->recommend_mobile:'';
+            $doctorrecommend[$k]->big_area_name =$bigarea?$bigarea->big_area_name:'';
             $doctorrecommend[$k]->area_name =$area?$area->area_name:'';
             $doctorrecommend[$k]->sales_name =$sales?$sales->sales_name:'';
         }
