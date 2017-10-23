@@ -150,4 +150,4 @@ Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace
 
 
 });
-Route::get('wechat', 'Home\WechatController@index');
+Route::any('wechat', 'Home\WechatController@index');
