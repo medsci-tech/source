@@ -147,5 +147,6 @@ Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace
 //    Route::resource('config', 'ConfigController');
 //
 //    Route::any('upload', 'CommonController@upload');
+    Route::get('wechat', 'Home\WechatController@index');
 
 });
