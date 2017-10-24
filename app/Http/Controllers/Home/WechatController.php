@@ -18,7 +18,7 @@ class WechatController extends Controller
             'app_id' => 'wxfaf3fc9d91941274',
             'secret' => 'a7647bc30362006e36dd1f492d52ff24',
             'token'  => 'easywechat',
-            // 'aes_key' => null, // 可选
+            'aes_key' => 'HMKzeUgxtUgvQZ7MldSIXA52g3741f17oXHaWT35FX4', // 可选
             'log' => [
                 'level' => 'debug',
                 'file'  => storage_path('logs/easywechat.log'),
@@ -275,6 +275,7 @@ class WechatController extends Controller
             ],
         ];
         $menu->add($buttons);
+        return 'success';
     }
 
     /**
