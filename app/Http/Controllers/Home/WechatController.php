@@ -6,6 +6,7 @@ use EasyWeChat\Foundation\Application;
 use App\Http\Controllers\Controller;
 use EasyWeChat\Message\News;
 use EasyWeChat\Message\Text;
+use Illuminate\Http\Request;
 
 class WechatController extends Controller
 {
@@ -34,11 +35,11 @@ class WechatController extends Controller
             // 注意，这里的 $message 不仅仅是用户发来的消息，也可能是事件
             // 当 $message->MsgType 为 event 时为事件
             if ($message->MsgType == 'event' && $message->Event == 'subscribe') {
-                return '领取你的<a href=\' \'>专属登机牌</a>👈\n\n点击观看"诊疗之旅"课程\n\n<a href=\'http://airclass.mime.org.cn\'>李娟教授：高尿酸血症与痛风的临床诊断</a>\n\n<a href=\'http://airclass.mime.org.cn\'>姜林娣教授：痛风影像学检查及解读</a>';
+                return "领取你的<a href='http://source.mime.org.cn/boarding/".$message->FromUserName."'>专属登机牌</a>👈\n\n点击观看“诊疗之旅”课程\n\n<a href='http://airclass.mime.org.cn'>李娟教授：高尿酸血症与痛风的临床诊断</a>\n\n<a href='http://airclass.mime.org.cn'>姜林娣教授：痛风影像学检查及解读</a>";
             }elseif($message->MsgType == 'text'){
                 switch ($message->Content) {
                     case '登机牌':
-                        return new Text(['content'=>'领取你的<a href=\' \'>专属登机牌</a>👈\n\n点击观看"诊疗之旅"课程\n\n<a href=\'http://airclass.mime.org.cn\'>李娟教授：高尿酸血症与痛风的临床诊断</a>\n\n<a href=\'http://airclass.mime.org.cn\'>姜林娣教授：痛风影像学检查及解读</a>']);break;
+                        return new Text(["content"=>"领取你的<a href='http://source.mime.org.cn/boarding/".$message->FromUserName."'>专属登机牌</a>👈\n\n点击观看“诊疗之旅”课程\n\n<a href='http://airclass.mime.org.cn'>李娟教授：高尿酸血症与痛风的临床诊断</a>\n\n<a href='http://airclass.mime.org.cn'>姜林娣教授：痛风影像学检查及解读</a>"]);break;
                     case '甲功':
                         $new1 = new News([
                             'title'=>'这莫非就是失传已久的《甲功分析大法》？',
@@ -76,8 +77,8 @@ class WechatController extends Controller
                         return new News([
                             'title'=>'【直播预告】中国胰岛素泵治疗护理管理规范专题发布会会议直播',
                             'description'=>'美敦力开启胰岛素泵师“跨界管理”新模式',
-                            'url'=>'http://www.baidu.com',
-                            'image'=>'https://gss0.bdstatic.com/5bVWsj_p_tVS5dKfpU_Y_D3/res/r/image/2017-09-26/352f1d243122cf52462a2e6cdcb5ed6d.png'
+                            'url'=>'https://mp.weixin.qq.com/s?__biz=MzA4NTI3MzY2NA==&tempkey=OTI3X0ZYeUxCK3FWSW0vRFdrb1I1SzE0dkpqeWNZR09FWWdMdHE1NFZHVG5kRmRMc1V0N3hUZzF1Mlh4VDhYajNiLXNIMngydDNUZ0hEUmFqV282MFkyZ0JtcFdreWxoaXJoZVF1dkZuanlKMVd5dm4zR1lQdHQ1NzRDcjRqQzNDSTVXNnZHOWh5dHREczV0MlE3MHVlY3BtN1g5aGRPS3lHemtQd2RCMWd%2Bfg%3D%3D&chksm=046af727331d7e31431b6d21b25b17daadcdab9b67cc28f28c36c65b18a9609b898cb6b0dd77#rd',
+                            'image'=>'https://mmbiz.qlogo.cn/mmbiz_png/ZXbFIIEOcwicIfAYxRoKatr1J6CBFrictQoP5wN1GwDoYBHiaqUozvHTibMOYZ6EEnmjKDX0MlrYnZEI1j1RVLubhg/0?wx_fmt=png'
                         ]);
                         break;
                     case '历史':
@@ -100,8 +101,8 @@ class WechatController extends Controller
                         return new News([
                             'title'=>'所有关于高尿酸血症与痛风的文章',
                             'description'=>'本微信公众号在高尿酸血症与痛风领域心血集成',
-                            'url'=>'http://www.baidu.com',
-                            'image'=>'https://gss0.bdstatic.com/5bVWsj_p_tVS5dKfpU_Y_D3/res/r/image/2017-09-26/352f1d243122cf52462a2e6cdcb5ed6d.png'
+                            'url'=>'https://mp.weixin.qq.com/s?__biz=MzA4NTI3MzY2NA==&tempkey=OTI3X3M2K2tPQzBlbWFUT3Jwb1E1SzE0dkpqeWNZR09FWWdMdHE1NFZHVG5kRmRMc1V0N3hUZzF1Mlh4VDhVdWNwSFgtSzdJY2cyVUliczhTLWNzVDdIamxEZlFzbVFWMURSeFZqeFpCS1B4dEF0cWUyRVZJWWU2WjBCcXBobUVzUWpVTzJMbTJyTEFmdWc3OVFjVEQ4UXU0ZkF5N1pnd1NxR0pYNXV0cnd%2Bfg%3D%3D&chksm=046afb8a331d729c526bd96606a3eceb0a150de014633fb26ea7fceae35eac48cb6bde4f72f6#rd',
+                            'image'=>'https://mmbiz.qlogo.cn/mmbiz_jpg/ZXbFIIEOcw9ia8icTZYLsiasPiaI2FZNV0tjGdsVNKibRa6eicWibXd0DWWpqSic04YnicXaqfz5ZxOhHwb3Hrh6397EG3A/0?wx_fmt=jpeg'
                         ]);
                         break;
                     case '空课':
@@ -274,5 +275,17 @@ class WechatController extends Controller
             ],
         ];
         $menu->add($buttons);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function boarding(Request $request)
+    {
+        $app = new Application($this->options);
+        $user = $app->user->get($request->openid);
+        return view('wechat.boarding',['user'=>$user]);
+
     }
 }
