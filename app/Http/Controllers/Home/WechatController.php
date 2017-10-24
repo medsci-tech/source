@@ -285,7 +285,7 @@ class WechatController extends Controller
     {
         $app = new Application($this->options);
         $user = $app->user->get($request->openid);
-        return view('wechat.boarding',['user'=>$user]);
+        return view('home.wechat.boarding',['user'=>$user]);
 
     }
 }
