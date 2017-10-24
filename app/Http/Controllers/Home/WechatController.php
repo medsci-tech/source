@@ -15,8 +15,8 @@ class WechatController extends Controller
     {
         $this->options = [
             'debug'  => true,
-            'app_id' => 'wxe64196a2b2a34571',
-            'secret' => '3d0085937747e85d2fcb0b1399a6e64b',
+            'app_id' => 'wxfaf3fc9d91941274',
+            'secret' => 'a7647bc30362006e36dd1f492d52ff24',
             'token'  => 'easywechat',
             // 'aes_key' => null, // 可选
             'log' => [
