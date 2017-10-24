@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-    <img src="{{ asset('resources/views/home/wechat/boarding') }}" style="width:100%;">
+    <img src="{{ asset('resources/views/home/static/wechat/images/boarding.jpg') }}" style="width:100%;">
     <div style="position:absolute;top:15%;left:5%;width:60%;color:#F6F6F6">
         <img src="{{ $user->headimgurl }}" class="img-circle pull-left" style="width:36%;">
         <div class="pull-left" style="padding-left:20px;">
