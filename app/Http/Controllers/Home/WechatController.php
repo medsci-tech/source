@@ -35,11 +35,11 @@ class WechatController extends Controller
             // 注意，这里的 $message 不仅仅是用户发来的消息，也可能是事件
             // 当 $message->MsgType 为 event 时为事件
             if ($message->MsgType == 'event' && $message->Event == 'subscribe') {
-                return "领取你的<a href='http://source.mime.org.cn/boarding/".$message->FromUserName."'>专属登机牌</a>👈\n\n点击观看“诊疗之旅”课程\n\n<a href='http://airclass.mime.org.cn'>李娟教授：高尿酸血症与痛风的临床诊断</a>\n\n<a href='http://airclass.mime.org.cn'>姜林娣教授：痛风影像学检查及解读</a>";
+                return "领取你的<a href='http://source.mime.org.cn/boarding/".$message->FromUserName."'>专属登机牌</a>👈\n\n点击观看“诊疗之旅”课程\n\n<a href='https://mp.weixin.qq.com/s?__biz=MzA4NTI3MzY2NA==&tempkey=OTI3X1BSUTVlNDNOaG9mT3F6eDg1SzE0dkpqeWNZR09FWWdMdHE1NFZHVG5kRmRMc1V0N3hUZzF1Mlh4VDhWZnAwdndFcjg3ZzVLSHNmbE9PY0NCVS13dEQzWTJaZkV3RjFDSEZ4VU9lUnlSVmZybkxSYVd5ZF9aSFV1RmRjcmZVdmNUMm5pbzRaNUU1NmlRNVhmWXBBMTJpUUZXdWNnMGVxem13aGdrWHd%2Bfg%3D%3D&chksm=046af64d331d7f5b32413e1728f745e238546ecdc5867f3f0bba9ac8f7b360c5a2ed111b6945#rd'>李娟教授：高尿酸血症与痛风的临床诊断</a>\n\n<a href='https://mp.weixin.qq.com/s?__biz=MzA4NTI3MzY2NA==&tempkey=OTI3X05wcm1rSml3bnpkVXRqelM1SzE0dkpqeWNZR09FWWdMdHE1NFZHVG5kRmRMc1V0N3hUZzF1Mlh4VDhWR1BHWnRTVU53MU5Ud3BqVzJRVVN5UjhoaFNsQkhVTDQwdDRvQjdfWmlJUzVRbzhhUGcwR0hZT3RjWU5MVEpOS09jSENmZlZlUE9pS01rSmRHd0JGUmhVdE5wTUJfb3U3Szd2OEgybUdXR0F%2Bfg%3D%3D&chksm=046af654331d7f423b3cd8931f6232e230b02219815534100f6a06e3f275bead101d6b8599a4#rd'>姜林娣教授：痛风影像学检查及解读</a>";
             }elseif($message->MsgType == 'text'){
                 switch ($message->Content) {
                     case '登机牌':
-                        return new Text(["content"=>"领取你的<a href='http://source.mime.org.cn/boarding/".$message->FromUserName."'>专属登机牌</a>👈\n\n点击观看“诊疗之旅”课程\n\n<a href='http://airclass.mime.org.cn'>李娟教授：高尿酸血症与痛风的临床诊断</a>\n\n<a href='http://airclass.mime.org.cn'>姜林娣教授：痛风影像学检查及解读</a>"]);break;
+                        return new Text(["content"=>"领取你的<a href='http://source.mime.org.cn/boarding/".$message->FromUserName."'>专属登机牌</a>👈\n\n点击观看“诊疗之旅”课程\n\n<a href='https://mp.weixin.qq.com/s?__biz=MzA4NTI3MzY2NA==&tempkey=OTI3X1BSUTVlNDNOaG9mT3F6eDg1SzE0dkpqeWNZR09FWWdMdHE1NFZHVG5kRmRMc1V0N3hUZzF1Mlh4VDhWZnAwdndFcjg3ZzVLSHNmbE9PY0NCVS13dEQzWTJaZkV3RjFDSEZ4VU9lUnlSVmZybkxSYVd5ZF9aSFV1RmRjcmZVdmNUMm5pbzRaNUU1NmlRNVhmWXBBMTJpUUZXdWNnMGVxem13aGdrWHd%2Bfg%3D%3D&chksm=046af64d331d7f5b32413e1728f745e238546ecdc5867f3f0bba9ac8f7b360c5a2ed111b6945#rd'>李娟教授：高尿酸血症与痛风的临床诊断</a>\n\n<a href='https://mp.weixin.qq.com/s?__biz=MzA4NTI3MzY2NA==&tempkey=OTI3X05wcm1rSml3bnpkVXRqelM1SzE0dkpqeWNZR09FWWdMdHE1NFZHVG5kRmRMc1V0N3hUZzF1Mlh4VDhWR1BHWnRTVU53MU5Ud3BqVzJRVVN5UjhoaFNsQkhVTDQwdDRvQjdfWmlJUzVRbzhhUGcwR0hZT3RjWU5MVEpOS09jSENmZlZlUE9pS01rSmRHd0JGUmhVdE5wTUJfb3U3Szd2OEgybUdXR0F%2Bfg%3D%3D&chksm=046af654331d7f423b3cd8931f6232e230b02219815534100f6a06e3f275bead101d6b8599a4#rd'>姜林娣教授：痛风影像学检查及解读</a>"]);break;
                     case '甲功':
                         $new1 = new News([
                             'title'=>'这莫非就是失传已久的《甲功分析大法》？',
@@ -204,7 +204,7 @@ class WechatController extends Controller
         $menu = $app->menu;
         $buttons = [
             [
-                "name"       => "迈德干货1",
+                "name"       => "迈德干货",
                 "sub_button" => [
                     [
                         "type" => "view",
@@ -234,7 +234,7 @@ class WechatController extends Controller
                 ],
             ],
             [
-                "name" => "这里有课1",
+                "name" => "这里有课",
                 "sub_button" => [
                     [
                         "type" => "view",
@@ -256,7 +256,7 @@ class WechatController extends Controller
                 ]
             ],
             [
-                "name" => "关于迈德1",
+                "name" => "关于迈德",
                 "sub_button" => [
                     [
                         "type" => "view",
