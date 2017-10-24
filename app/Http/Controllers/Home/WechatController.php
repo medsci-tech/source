@@ -39,7 +39,7 @@ class WechatController extends Controller
                 if($message->Event == 'subscribe'){
                     return "领取你的<a href='http://source.mime.org.cn/boarding/" . $message->FromUserName . "'>专属登机牌</a>👈\n\n点击观看“诊疗之旅”课程\n\n<a href='http://open.mime.org.cn/thyroid-class/course/view?course_id=35'>李娟教授：高尿酸血症与痛风的临床诊断</a>\n\n<a href='http://open.mime.org.cn/thyroid-class/course/view?course_id=40 '>姜林娣教授：痛风影像学检查及解读</a>";
                 }elseif ($message->Event == 'click' && $message->EventKey=='V1001_LIVE') {
-                    return new Image(['media_id' => '']);
+                    return new Image(['media_id' => 'PqlSwJo0znqYrbKlEl9k7gOYI-7UYo_U14DcJTVsE40']);
                 }
             }elseif($message->MsgType == 'text'){
                 switch ($message->Content) {
