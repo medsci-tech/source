@@ -10,10 +10,10 @@
     </style>
 </head>
 <body>
-    <img src="{{ asset('resources/views/home/static/wechat/images/boarding.jpg') }}" style="width:100%;">
-    <div style="position:absolute;top:15%;left:5%;width:60%;color:#F6F6F6">
-        <img src="{{ $user->headimgurl }}" class="img-circle pull-left" style="width:36%;">
-        <div class="pull-left" style="padding-left:20px;">
+    <img src="{{ asset('resources/views/home/static/images/boarding.jpg') }}" style="width:100%;">
+    <div style="position:absolute;top:14%;left:5%;width:60%;color:#F6F6F6">
+        <img src="{{ $user->headimgurl }}" class="img-circle pull-left" style="width:30%;">
+        <div class="pull-left" style="padding:14px 0 0 20px;">
             <p>{{ $user->nickname }}</p>
             <p>送你一张学习机票</p>
         </div>
