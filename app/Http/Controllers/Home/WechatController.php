@@ -49,11 +49,12 @@ class WechatController extends Controller
                     case '痛风之旅':
                     case '登机牌':
                         $user= $message->FromUserName;
-                        $media_id = $this->dealImg($user);
-                        $img = new Image(['meddia_id'=>$media_id]);
-                        $app->staff->message($img)->to($user)->send();
                         $text =  new Text(["content"=>"领取你的<a href='http://source.mime.org.cn/boarding/".$message->FromUserName."'>专属登机牌</a>👈\n\n点击观看“诊疗之旅”课程\n\n<a href='http://open.mime.org.cn/thyroid-class/course/view?course_id=35'>李娟教授：高尿酸血症与痛风的临床诊断</a>\n\n<a href='http://open.mime.org.cn/thyroid-class/course/view?course_id=40 '>姜林娣教授：痛风影像学检查及解读</a>"]);
                         $app->staff->message($text)->to($user)->send();
+
+                        $media_id = $this->dealImg($user);
+                        $img = new Image(['media_id'=>$media_id]);
+                        $app->staff->message($img)->to($user)->send();
                         return 'ok';break;
                     case '课件':
                         return new Text(['content'=>'您好，请您提供邀请的3位注册人姓名。根据活动规则，邀请3人注册报名听课，即可获赠课件。待工作人员收到消息核实后，会统一时间给您发送下载链接，请您耐心等待！（温馨提示：注册姓名一定要书写正确哦）']);break;
@@ -347,11 +348,12 @@ class WechatController extends Controller
     /**
      * @return mixed
      */
-    public function dealImg($openid){
+    public function dealImg($openid=''){
+        $openid = 'oQIrlty0E1HFn5WvwwbWDgc9IwP0';
         $app = new Application($this->options);
 
         //读取缓存，查看是有上传用户登机牌素材
-        if(!\Redis::exsits($openid)){
+        if(!\Redis::exists($openid)){
             $user = $app->user->get($openid);
             //$file_path = '/app/public/'.$request->openid.'.jpg';
             $file_path = storage_path() . '/app/public/' . $openid . '.jpg';
