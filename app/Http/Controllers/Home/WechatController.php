@@ -349,14 +349,12 @@ class WechatController extends Controller
      * @return mixed
      */
     public function dealImg($openid=''){
-        $openid = 'oQIrlty0E1HFn5WvwwbWDgc9IwP0';
         $app = new Application($this->options);
-
+        $user = $app->user->get($openid);
+        //$file_path = '/app/public/'.$request->openid.'.jpg';
+        $file_path = storage_path() . '/app/public/' . $openid . '.jpg';
         //读取缓存，查看是有上传用户登机牌素材
-        if(!\Redis::exists($openid)){
-            $user = $app->user->get($openid);
-            //$file_path = '/app/public/'.$request->openid.'.jpg';
-            $file_path = storage_path() . '/app/public/' . $openid . '.jpg';
+        if(!file_exists($file_path)){
             /*if(file_exists(storage_path().$file_path)){
                 return view('home.wechat.boarding',['filepath'=>$file_path]);
             }*/
