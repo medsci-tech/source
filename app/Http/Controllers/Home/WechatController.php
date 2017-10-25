@@ -295,11 +295,12 @@ class WechatController extends Controller
     {
         $app = new Application($this->options);
         $user = $app->user->get($request->openid);
+        $user = null;
         //return view('home.wechat.boarding',['user'=>$user]);
         $pic1= public_path('boarding.jpg');
         $pic2= $user->headimgurl;//用户头像
-        $img = \Intervention\Image\Facades\Image::make($pic1);
-        $img2 = \Intervention\Image\Facades\Image::make($pic2)->resize(120,120);
+        $img = \Images::make($pic1);
+        $img2 = \Images::make($pic2)->resize(120,120);
         $img->insert($img2,'top-left',40,160);
         $img->text($user->nickname,180,210,function($font){
             $font->file(public_path('Dengb.ttf'));
@@ -333,8 +334,8 @@ class WechatController extends Controller
     public function dealImg(){
         $pic1= public_path('boarding.jpg');
         $pic2= public_path('img/2759.jpg');
-        $img = \Intervention\Image\Facades\Image::make($pic1);
-        $img2 = \Intervention\Image\Facades\Image::make($pic2)->resize(120,120);
+        $img = \Images::make($pic1);
+        $img2 = \Images::make($pic2)->resize(120,120);
         $img->insert($img2,'top-left',40,160);
         $img->text("名字",180,210,function($font){
             $font->file(public_path('font/Dengb.ttf'));

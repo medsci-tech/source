@@ -162,6 +162,7 @@ return [
 
 
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class
     ],
 
     /*
@@ -210,6 +211,7 @@ return [
         'Moloquent' => 'Jenssegers\Mongodb\Eloquent\Model',
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 //        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
+        'Images' => Intervention\Image\Facades\Image::class
 
     ],
 
