@@ -295,7 +295,6 @@ class WechatController extends Controller
     {
         $app = new Application($this->options);
         $user = $app->user->get($request->openid);
-        $user = null;
         //return view('home.wechat.boarding',['user'=>$user]);
         $pic1= public_path('boarding.jpg');
         $pic2= $user->headimgurl;//用户头像
