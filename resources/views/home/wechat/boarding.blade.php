@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-    <img src="{{ $filepath }}" style="width:100%;">
+    <img src="{{ asset('storage'.$filepath) }}" style="width:100%;">
 </div>
 </body>
 </html>
