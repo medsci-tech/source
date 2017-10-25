@@ -49,6 +49,8 @@ class WechatController extends Controller
                     case '痛风之旅':
                     case '登机牌':
                         return new Text(["content"=>"领取你的<a href='http://source.mime.org.cn/boarding/".$message->FromUserName."'>专属登机牌</a>👈\n\n点击观看“诊疗之旅”课程\n\n<a href='http://open.mime.org.cn/thyroid-class/course/view?course_id=35'>李娟教授：高尿酸血症与痛风的临床诊断</a>\n\n<a href='http://open.mime.org.cn/thyroid-class/course/view?course_id=40 '>姜林娣教授：痛风影像学检查及解读</a>"]);break;
+                    case '课件':
+                        return new Text(['content'=>'您好，请您提供邀请的3位注册人姓名。根据活动规则，邀请3人注册报名听课，即可获赠课件。待工作人员收到消息核实后，会统一时间给您发送下载链接，请您耐心等待！（温馨提示：注册姓名一定要书写正确哦）']);break;
                     case '甲功':
                         $new1 = new News([
                             'title'=>'这莫非就是失传已久的《甲功分析大法》？',
@@ -303,23 +305,25 @@ class WechatController extends Controller
         if(file_exists(storage_path().$file_path)){
             return view('home.wechat.boarding',['filepath'=>$file_path]);
         }
-        $pic1= public_path('boarding.jpg');
-        $pic2= $user->headimgurl;//用户头像
+        //组合图片
+        $pic1 = public_path('boarding.jpg');
+        $pic2 = $user->headimgurl;//用户头像
         $img = \Images::make($pic1);
-        $img2 = \Images::make($pic2)->resize(120,120);
-        $img->insert($img2,'top-left',40,160);
-        $img->text($user->nickname,180,210,function($font){
+        $img2 = \Images::make($pic2)->resize(120, 120);
+        $img->insert($img2, 'top-left', 40, 160);
+        $img->text($user->nickname, 180, 210, function ($font) {
             $font->file(public_path('Dengb.ttf'));
             $font->size(30);
             $font->color('#fff');
         });
-        $img->text("送你一张学习机票",180,260,function($font){
+        $img->text("送你一张学习机票", 180, 260, function ($font) {
             $font->file(public_path('Deng.ttf'));
             $font->size(30);
             $font->color('#fff');
         });
         $img->save(storage_path().$file_path);
         return $img->response();
+
 
     }
 
@@ -337,23 +341,45 @@ class WechatController extends Controller
     /**
      * @return mixed
      */
-    public function dealImg(){
-        $pic1= public_path('boarding.jpg');
-        $pic2= public_path('img/2759.jpg');
-        $img = \Images::make($pic1);
-        $img2 = \Images::make($pic2)->resize(120,120);
-        $img->insert($img2,'top-left',40,160);
-        $img->text("名字",180,210,function($font){
-            $font->file(public_path('font/Dengb.ttf'));
-            $font->size(30);
-            $font->color('#fff');
+    public function dealImg(Request $request){
+        $app = new Application($this->options);
+
+        //读取缓存，查看是有上传用户登机牌素材
+        if(!\Redis::exsits($request->openid)){
+            $user = $app->user->get($request->openid);
+            //$file_path = '/app/public/'.$request->openid.'.jpg';
+            $file_path = storage_path() . '/app/public/' . $request->openid . '.jpg';
+            /*if(file_exists(storage_path().$file_path)){
+                return view('home.wechat.boarding',['filepath'=>$file_path]);
+            }*/
+            //组合图片
+            $pic1 = public_path('boarding.jpg');
+            $pic2 = $user->headimgurl;//用户头像
+            $img = \Images::make($pic1);
+            $img2 = \Images::make($pic2)->resize(120, 120);
+            $img->insert($img2, 'top-left', 40, 160);
+            $img->text($user->nickname, 180, 210, function ($font) {
+                $font->file(public_path('Dengb.ttf'));
+                $font->size(30);
+                $font->color('#fff');
+            });
+            $img->text("送你一张学习机票", 180, 260, function ($font) {
+                $font->file(public_path('Deng.ttf'));
+                $font->size(30);
+                $font->color('#fff');
+            });
+            $img->save($file_path);
+            //return $img->response();
+            //上传素材并添加到缓存
+            $material = $app->material;
+            $result = $material->uploadImage($file_path);
+            \Redis::set($request->openid, $result->media_id);
+        }
+        $media_id = \Redis::get($request->openid);
+        $server = $app->server;
+        $server->setMessageHandler(function($message) use ($media_id){
+            return new Image(['media_id'=>$media_id]);
         });
-        $img->text("送你一张学习机票",180,260,function($font){
-            $font->file(public_path('font/Deng.ttf'));
-            $font->size(30);
-            $font->color('#fff');
-        });
-        //$img->save(public_path('img/avatar.jpg'));
-        return $img->response();
+        return $server->serve();
     }
 }
