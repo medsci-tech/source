@@ -43,6 +43,10 @@ class WechatController extends Controller
                 }
             }elseif($message->MsgType == 'text'){
                 switch ($message->Content) {
+                    case '暗号':
+                    case '飞机票':
+                    case '机票':
+                    case '痛风之旅':
                     case '登机牌':
                         return new Text(["content"=>"领取你的<a href='http://source.mime.org.cn/boarding/".$message->FromUserName."'>专属登机牌</a>👈\n\n点击观看“诊疗之旅”课程\n\n<a href='http://open.mime.org.cn/thyroid-class/course/view?course_id=35'>李娟教授：高尿酸血症与痛风的临床诊断</a>\n\n<a href='http://open.mime.org.cn/thyroid-class/course/view?course_id=40 '>姜林娣教授：痛风影像学检查及解读</a>"]);break;
                     case '甲功':
