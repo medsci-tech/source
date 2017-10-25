@@ -299,7 +299,10 @@ class WechatController extends Controller
     {
         $app = new Application($this->options);
         $user = $app->user->get($request->openid);
-        //return view('home.wechat.boarding',['user'=>$user]);
+        $file_path = storage_path().'/app/public/'.$request->openid.'.jpg';
+        if(file_exists($file_path)){
+            return view('home.wechat.boarding',['filepath'=>$file_path]);
+        }
         $pic1= public_path('boarding.jpg');
         $pic2= $user->headimgurl;//用户头像
         $img = \Images::make($pic1);
@@ -315,7 +318,7 @@ class WechatController extends Controller
             $font->size(30);
             $font->color('#fff');
         });
-        //$img->save(public_path('img/avatar.jpg'));
+        $img->save($file_path);
         return $img->response();
 
     }
