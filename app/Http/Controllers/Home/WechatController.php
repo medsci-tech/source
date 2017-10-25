@@ -314,7 +314,7 @@ class WechatController extends Controller
                 $font->size(30);
                 $font->color('#fff');
             });
-            $img->text("送你一张飞机票", 180, 260, function ($font) {
+            $img->text("送你一张学习机票", 180, 260, function ($font) {
                 $font->file(public_path('Deng.ttf'));
                 $font->size(30);
                 $font->color('#fff');
