@@ -38,7 +38,7 @@ class WechatController extends Controller
             if ($message->MsgType == 'event') {
                 if($message->Event == 'subscribe'){
                     return "领取你的<a href='http://source.mime.org.cn/boarding/" . $message->FromUserName . "'>专属登机牌</a>👈\n\n点击观看“诊疗之旅”课程\n\n<a href='http://open.mime.org.cn/thyroid-class/course/view?course_id=35'>李娟教授：高尿酸血症与痛风的临床诊断</a>\n\n<a href='http://open.mime.org.cn/thyroid-class/course/view?course_id=40 '>姜林娣教授：痛风影像学检查及解读</a>";
-                }elseif ($message->Event == 'click' && $message->EventKey=='V1001_LIVE') {
+                }elseif ($message->Event == 'CLICK' && $message->EventKey=='V1001_LIVE') {
                     return new Image(['media_id' => 'PqlSwJo0znqYrbKlEl9k7gOYI-7UYo_U14DcJTVsE40']);
                 }
             }elseif($message->MsgType == 'text'){
@@ -295,15 +295,58 @@ class WechatController extends Controller
     {
         $app = new Application($this->options);
         $user = $app->user->get($request->openid);
-        return view('home.wechat.boarding',['user'=>$user]);
+        //return view('home.wechat.boarding',['user'=>$user]);
+        $pic1= public_path('boarding.jpg');
+        $pic2= $user->headimgurl;//用户头像
+        $img = \Intervention\Image\Facades\Image::make($pic1);
+        $img2 = \Intervention\Image\Facades\Image::make($pic2)->resize(120,120);
+        $img->insert($img2,'top-left',40,160);
+        $img->text($user->nickname,180,210,function($font){
+            $font->file(public_path('Dengb.ttf'));
+            $font->size(30);
+            $font->color('#fff');
+        });
+        $img->text("送你一张学习机票",180,260,function($font){
+            $font->file(public_path('Deng.ttf'));
+            $font->size(30);
+            $font->color('#fff');
+        });
+        //$img->save(public_path('img/avatar.jpg'));
+        return $img->response();
 
     }
 
+    /**
+     * 上传素材
+     */
     public function uploadimg()
     {
         $app = new Application($this->options);
         $material = $app->material;
         $result = $material->uploadImage(public_path('live.jpg'));
         var_dump($result);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function dealImg(){
+        $pic1= public_path('boarding.jpg');
+        $pic2= public_path('img/2759.jpg');
+        $img = \Intervention\Image\Facades\Image::make($pic1);
+        $img2 = \Intervention\Image\Facades\Image::make($pic2)->resize(120,120);
+        $img->insert($img2,'top-left',40,160);
+        $img->text("名字",180,210,function($font){
+            $font->file(public_path('font/Dengb.ttf'));
+            $font->size(30);
+            $font->color('#fff');
+        });
+        $img->text("送你一张学习机票",180,260,function($font){
+            $font->file(public_path('font/Deng.ttf'));
+            $font->size(30);
+            $font->color('#fff');
+        });
+        //$img->save(public_path('img/avatar.jpg'));
+        return $img->response();
     }
 }
