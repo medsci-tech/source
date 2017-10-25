@@ -302,27 +302,27 @@ class WechatController extends Controller
         $app = new Application($this->options);
         $user = $app->user->get($request->openid);
         $file_path = '/app/public/'.$request->openid.'.jpg';
-        if(file_exists(storage_path().$file_path)){
-            return view('home.wechat.boarding',['filepath'=>$file_path]);
+        if(!file_exists(storage_path().$file_path)){
+            //组合图片
+            $pic1 = public_path('boarding.jpg');
+            $pic2 = $user->headimgurl;//用户头像
+            $img = \Images::make($pic1);
+            $img2 = \Images::make($pic2)->resize(120, 120);
+            $img->insert($img2, 'top-left', 40, 160);
+            $img->text($user->nickname, 180, 210, function ($font) {
+                $font->file(public_path('Dengb.ttf'));
+                $font->size(30);
+                $font->color('#fff');
+            });
+            $img->text("送你一张飞机票", 180, 260, function ($font) {
+                $font->file(public_path('Deng.ttf'));
+                $font->size(30);
+                $font->color('#fff');
+            });
+            $img->save(storage_path().$file_path);
         }
-        //组合图片
-        $pic1 = public_path('boarding.jpg');
-        $pic2 = $user->headimgurl;//用户头像
-        $img = \Images::make($pic1);
-        $img2 = \Images::make($pic2)->resize(120, 120);
-        $img->insert($img2, 'top-left', 40, 160);
-        $img->text($user->nickname, 180, 210, function ($font) {
-            $font->file(public_path('Dengb.ttf'));
-            $font->size(30);
-            $font->color('#fff');
-        });
-        $img->text("送你一张学习机票", 180, 260, function ($font) {
-            $font->file(public_path('Deng.ttf'));
-            $font->size(30);
-            $font->color('#fff');
-        });
-        $img->save(storage_path().$file_path);
-        return $img->response();
+        //return $img->response();
+        return view('home.wechat.boarding',['filepath'=>$file_path]);
 
 
     }
