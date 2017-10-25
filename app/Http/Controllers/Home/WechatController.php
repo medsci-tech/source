@@ -61,7 +61,7 @@ class WechatController extends Controller
                         $img = new Image(['media_id'=>$media_id]);
                         $app->staff->message($img)->to($user)->send();break;
                     case '课件':
-                        return new Text(['content'=>'您好，请您提供邀请的3位注册人姓名。根据活动规则，邀请3人注册报名听课，即可获赠课件。待工作人员收到消息核实后，会统一时间给您发送下载链接，请您耐心等待！（温馨提示：注册姓名一定要书写正确哦）']);break;
+                        return new Text(['content'=>'您好，请添加微信号“痛风公开课小秘书”（tfgkkxms）获赠PDF版课件。成功添加后小秘书会给您一一回复，请您耐心等待！']);break;
                     case '甲功':
                         $new1 = new News([
                             'title'=>'这莫非就是失传已久的《甲功分析大法》？',
