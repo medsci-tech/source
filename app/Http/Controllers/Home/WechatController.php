@@ -52,7 +52,7 @@ class WechatController extends Controller
                 $app->staff->message($img)->to($user)->send();
                 return '';
             }elseif ($message->MsgType == 'event' && $message->Event == 'CLICK' && $message->EventKey=='V1001_LIVE') {
-                    return new Image(['media_id' => 'PqlSwJo0znqYrbKlEl9k7gOYI-7UYo_U14DcJTVsE40']);
+                    return new Image(['media_id' => 'PqlSwJo0znqYrbKlEl9k7tmuqPsdjm7fy3jwq3L035E']);
             }elseif($message->MsgType == 'text'){
                 switch ($message->Content) {
                     case '课件':
