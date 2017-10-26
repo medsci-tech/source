@@ -35,31 +35,26 @@ class WechatController extends Controller
         $server->setMessageHandler(function($message)use($app){
             // 注意，这里的 $message 不仅仅是用户发来的消息，也可能是事件
             // 当 $message->MsgType 为 event 时为事件
-            if ($message->MsgType == 'event') {
-                if($message->Event == 'subscribe'){
-                    return "领取你的<a href='http://source.mime.org.cn/boarding/" . $message->FromUserName . "'>专属登机牌</a>👈\n\n点击观看“诊疗之旅”课程\n\n<a href='http://open.mime.org.cn/thyroid-class/course/view?course_id=35'>李娟教授：高尿酸血症与痛风的临床诊断</a>\n\n<a href='http://open.mime.org.cn/thyroid-class/course/view?course_id=40 '>姜林娣教授：痛风影像学检查及解读</a>";
-                }elseif ($message->Event == 'CLICK' && $message->EventKey=='V1001_LIVE') {
-                    return new Image(['media_id' => 'PqlSwJo0znqYrbKlEl9k7gOYI-7UYo_U14DcJTVsE40']);
+
+            //关注事件和关键词‘登机牌’回复
+            if (($message->MsgType == 'event' && $message->Event == 'subscribe') || ($message->MsgType == 'text' && in_array($message->Content,['暗号','机票','飞机票','痛风之旅','登机牌']))){
+                $key = $message->FromUserName.':'.$message->CreateTime;
+                if(\Redis::exists($key)){
+                    return '';
                 }
+                \Redis::setex($key,15,1);
+                $user= $message->FromUserName;
+                $text =  new Text(["content"=>"领取你的<a href='http://source.mime.org.cn/boarding/".$message->FromUserName."'>专属登机牌</a>👈\n\n点击观看“诊疗之旅”课程\n\n<a href='http://open.mime.org.cn/thyroid-class/course/view?course_id=35'>李娟教授：高尿酸血症与痛风的临床诊断</a>\n\n<a href='http://open.mime.org.cn/thyroid-class/course/view?course_id=40 '>姜林娣教授：痛风影像学检查及解读</a>"]);
+                $app->staff->message($text)->to($user)->send();
+
+                $media_id = $this->dealImg($user);
+                $img = new Image(['media_id'=>$media_id]);
+                $app->staff->message($img)->to($user)->send();
+                return '';
+            }elseif ($message->MsgType == 'event' && $message->Event == 'CLICK' && $message->EventKey=='V1001_LIVE') {
+                    return new Image(['media_id' => 'PqlSwJo0znqYrbKlEl9k7gOYI-7UYo_U14DcJTVsE40']);
             }elseif($message->MsgType == 'text'){
                 switch ($message->Content) {
-                    case '暗号':
-                    case '飞机票':
-                    case '机票':
-                    case '痛风之旅':
-                    case '登机牌':
-                        $msg = (string)$message->MsgId;
-                        if(\Redis::exists($msg)){
-                            return 'success';
-                        }
-                        \Redis::set($msg,1);
-                        $user= $message->FromUserName;
-                        $text =  new Text(["content"=>"领取你的<a href='http://source.mime.org.cn/boarding/".$message->FromUserName."'>专属登机牌</a>👈\n\n点击观看“诊疗之旅”课程\n\n<a href='http://open.mime.org.cn/thyroid-class/course/view?course_id=35'>李娟教授：高尿酸血症与痛风的临床诊断</a>\n\n<a href='http://open.mime.org.cn/thyroid-class/course/view?course_id=40 '>姜林娣教授：痛风影像学检查及解读</a>"]);
-                        $app->staff->message($text)->to($user)->send();
-
-                        $media_id = $this->dealImg($user);
-                        $img = new Image(['media_id'=>$media_id]);
-                        $app->staff->message($img)->to($user)->send();break;
                     case '课件':
                         return new Text(['content'=>'您好，请添加微信号“痛风公开课小秘书”（tfgkkxms）获赠PDF版课件。成功添加后小秘书会给您一一回复，请您耐心等待！']);break;
                     case '甲功':
@@ -345,7 +340,7 @@ class WechatController extends Controller
     {
         $app = new Application($this->options);
         $material = $app->material;
-        $result = $material->uploadImage(public_path('live.jpg'));
+        $result = $material->uploadImage(public_path('live26.jpg'));
         var_dump($result);
     }
 
@@ -381,11 +376,16 @@ class WechatController extends Controller
             $img->save($file_path);
             //return $img->response();
             //上传素材并添加到缓存
-            $material = $app->material;
-            $result = $material->uploadImage($file_path);
+            $result = $app->material->uploadImage($file_path);
             \Redis::set($openid, $result->media_id);
         }
         $media_id = \Redis::get($openid);
+        //如果media_id没有缓存,重新上传素材并缓存
+        if(!$media_id){
+            $result = $app->material->uploadImage($file_path);
+            \Redis::set($openid, $result->media_id);
+            $media_id = $result->media_id;
+        }
 
         return $media_id;
     }
