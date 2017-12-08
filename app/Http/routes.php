@@ -86,6 +86,7 @@ Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace
     Route::post('material/ajax', 'MaterialController@ajax');
     Route::get('material/downloadfile/{material_id}', 'MaterialController@downloadFile');
     Route::get('material/addMaterial', 'MaterialController@addMaterial');
+    Route::any('material/importExcel', 'MaterialController@importExcel');
 
 
     Route::get('area/index', 'AreaController@index');
