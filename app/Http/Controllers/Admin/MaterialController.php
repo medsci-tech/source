@@ -13,10 +13,7 @@ use App\Http\Model\SalesMaterialType;
 use App\Http\Model\MaterialLenove;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Validator;
 
 class MaterialController extends CommonController
 {
@@ -238,11 +235,13 @@ class MaterialController extends CommonController
             });
 //            dd($arr);
             $num = 0;
+            $total = 0;
             $resArr =[];
             foreach ($arr as $key=>$val){
                 if($key==0) continue;
+                //echo $key,$val[2];
                 $id = Doctor::where('doctor_mobile',$val[2])->pluck('_id');
-//                dd($id);
+                //dd($id);
                 $matrial = Material::where(['doctor_id'=>$id[0],'addtime'=>(string)strtotime($val[3])])->first();
 //                dd($matrial);
                 $matrial->pay_amount = intval($val[9]);
@@ -251,9 +250,10 @@ class MaterialController extends CommonController
                     $num++;
                     $resArr[] = $matrial->_id;
                 };
-                echo '失败总数：',$num;
-                dd( $resArr);
+                $total++;
             }
+            echo '总数：'.$total.'失败总数：',$num;
+            dd( $resArr);
         }
         return view('admin.importExcel');
     }
