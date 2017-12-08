@@ -270,9 +270,9 @@ class WechatController extends Controller
                         "name" => "空中课堂",
                         "url"  => "http://airclass.mime.org.cn/"
                     ],[
-                        "type" => "click",
-                        "name" => "M泵直播课",
-                        "key" => "V1001_LIVE"
+                        "type" => "view",
+                        "name" => "甲状腺私教课",
+                        "url" => "http://airclass.mime.org.cn/apply"
                     ],
                 ]
             ],
