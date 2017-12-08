@@ -6,12 +6,24 @@
     <meta name=”robots” content=”nofollow” />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
+    <meta name="_token" content="{{ csrf_token() }}"/>
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon.ico')}}"/>
-    <title>素材搜集平台</title>
+    <title>@yield('title','素材收集平台')</title>
     <link rel="stylesheet" href="{{asset('resources/views/home/static/css/pintuer.css')}}">
     <link rel="stylesheet" href="{{asset('resources/views/home/static/css/admin.css')}}">
-    <script src="{{asset('resources/views/home/static/js/jquery.js')}}"></script>
+    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/home/static/css/jquery-ui.css')}}" />
     <link rel="stylesheet" href="{{asset('resources/views/home/static/css/main.css')}}">
+    @section('css')
+    @show
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="{{asset('resources/views/home/static/js/pintuer.js')}}"></script>
+    @section('js')
+    @show
+    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery-ui-1.10.4.custom.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery.ui.datepicker-zh-CN.js')}}"></script>
+    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery-ui-timepicker-addon.js')}}"></script>
+    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery-ui-timepicker-zh-CN.js')}}"></script>
+
 </head>
 <body style="background-color:#f2f9fd;">
 <div class="header bg-main">
@@ -19,26 +31,32 @@
         <h1 class="frontLogo"></h1>
     </div>
     <div class="city-info-right clearfix">
-        <a href="javascript:;">{{$user->doctor_name}}</a>
-        <a href="javascript:;">{{$user->doctor_mobile}}</a>
+        <a href="javascript:;">{{session('user')->doctor_name}}</a>
+        <a href="javascript:;">{{session('user')->doctor_mobile}}</a>
         <a href="{{url('home/quit')}}" class=" br0">退出</a>
     </div>
 
 </div>
 <div class="leftnav">
     <div class="h50"></div>
-    <ul style="display:block">
-        <li><a href="{{url('home/userfile/index')}}" target="right">个人文件</a></li>
-        <li><a href="{{url('home/sharefile/index')}}" target="right">共享文件</a></li>
-        <li><a href="{{url('home/userinfo/index')}}" target="right">个人信息</a></li>
-        <li><a href="{{url('home/recommendinfo/index')}}" target="right">推荐人信息</a></li>
-        <li><a href="{{url('home/userinfo/modifypassword')}}" target="right">修改密码</a></li>
+    <ul>
+        <li @if(Request::is('home/userfile/*')) class="active" @endif><a href="{{url('home/userfile/index')}}">个人文件</a></li>
+        <li @if(Request::is('home/sharefile/*')) class="active" @endif><a href="{{url('home/sharefile/index')}}">共享文件</a></li>
+        <li @if(Request::is('home/userinfo/index')) class="active" @endif><a href="{{url('home/userinfo/index')}}">个人信息</a></li>
+        <li @if(Request::is('home/recommendinfo/*')) class="active" @endif><a href="{{url('home/recommendinfo/index')}}">推荐人信息</a></li>
+        <li @if(Request::is('home/userinfo/modifypassword')) class="active" @endif><a href="{{url('home/userinfo/modifypassword')}}">修改密码</a></li>
     </ul>
 </div>
 
 <div class="admin">
-    <iframe scrolling="auto" rameborder="0" src="{{url('home/userfile/index')}}" name="right" width="100%" height="100%"></iframe>
+    {{--<iframe scrolling="auto" rameborder="0" src="{{url('home/userfile/index')}}" name="right" width="100%" height="100%"></iframe>--}}
+    @section('content')
+    @show
 </div>
 
 </body>
 </html>
+@section('addDiv')
+@show
+@section('floorjs')
+@show

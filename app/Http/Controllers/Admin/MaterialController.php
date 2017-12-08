@@ -226,4 +226,36 @@ class MaterialController extends CommonController
         }
 
     }
+
+
+    public function importExcel(Request $request){
+        if($request->isMethod('post')){
+            //dd($request->file('excel'));
+            $file = $request->file('excel');
+            $arr = [];
+            \Excel::load($file->getRealPath(),function($read) use (&$arr){
+                $res = $read->getSheet(0);
+                $arr = $res->toArray();
+            });
+//            dd($arr);
+            $num = 0;
+            $resArr =[];
+            foreach ($arr as $key=>$val){
+                if($key==0) continue;
+                $id = Doctor::where('doctor_mobile',$val[2])->pluck('_id');
+//                dd($id);
+                $matrial = Material::where(['doctor_id'=>$id[0],'addtime'=>(string)strtotime($val[3])])->first();
+//                dd($matrial);
+                $matrial->pay_amount = intval($val[9]);
+                $matrial->pay_status = 1;
+                if(!$matrial->save()){
+                    $num++;
+                    $resArr[] = $matrial->_id;
+                };
+                echo '失败总数：',$num;
+                dd( $resArr);
+            }
+        }
+        return view('admin.importExcel');
+    }
 }

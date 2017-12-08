@@ -1,114 +1,106 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <meta name="renderer" content="webkit">
-    <meta name="_token" content="{{ csrf_token() }}"/>
-    <title>上传素材</title>
-    <link rel="stylesheet" href="{{asset('resources/views/home/static/css/pintuer.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/home/static/css/admin.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/home/static/css/jquery-ui.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/home/static/css/main.css')}}">
-    <script src="{{asset('resources/views/home/static/js/jquery.js')}}"></script>
-    <script src="{{asset('resources/views/home/static/js/pintuer.js')}}"></script>
-</head>
-<body>
+@extends('layouts.home')
 
-<div class="panel admin-panel">
+@section('title','上传素材')
+
+@section('css')
+    <link href="{{ asset('resources/views/home/static/css/bootstrap4.0.0.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('resources/views/home/static/css/fileinput.css') }}" media="all" rel="stylesheet" type="text/css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('resources/views/home/static/css/theme.css') }}" media="all" rel="stylesheet" type="text/css"/>
+
+@endsection
+
+@section('js')
+    <script src="{{asset('resources/views/home/static/js/pintuer.js')}}"></script>
+    <script src="{{ asset('resources/views/home/static/js/fileinput.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('resources/views/home/static/js/zh.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('resources/views/home/static/js/theme.js') }}" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" type="text/javascript"></script>
+@endsection
+
+@section('content')
+    <div class="panel admin-panel">
     <div class="panel-head"><strong>上传素材</strong></div>
     <div class="body-content">
-        @if($msg)
-        <p class="toolps" style="text-indent: 2em;color:#0ae">{{$msg}}</p>
+        @if(count($errors))
+        <p class="toolps" style="text-indent: 2em;color:red">{{$errors->first()}}</p>
         @endif
-        <form name="myform" method="post" class="form-x sucai" action="" enctype="multipart/form-data" >
-{{--            <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />--}}
-            <div class="form-group">
-                <div class="label">
-                    <label>素材类型：</label>
-                </div>
-                <div class="field">
-                    <select class="input" name="material_type_id" id="material_type_id">
-                        <option value="all">请选择</option>
+        <form name="myform" method="post" class="form-horizontal" action="" enctype="multipart/form-data" >
+            <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
+            <div class="form-group" style="float: none;width: 100%;">
+                <label for="material_type_id" class="col-md-4 control-label">素材类型：</label>
+                <div class="col-md-6">
+                    <select class="form-control" name="material_type_id" id="material_type_id">
+                        <option value="">请选择</option>
                         @foreach($materialType as $v)
-                        <option value="{{$v->_id}}">{{$v->material_type_name}}</option>
-                            @endforeach
+                        <option value="{{$v->_id}}" @if(old('material_type_id') == $v->_id) selected @endif>{{$v->material_type_name}}</option>
+                        @endforeach
                     </select>
-                    <div class="tips"></div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="label">
-                    <label>素材名称：</label>
-                </div>
-                <div class="field">
-                    <input type="text" class="input" name="material_name" value="" id="material_name"/>
-                    <div class="tips"></div>
+            <div class="form-group" style="float: none;width: 100%;">
+                <label for="material_name" class="col-md-4 control-label">素材名称：</label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" name="material_name" value="{{ old('material_name') }}" id="material_name">
                 </div>
             </div>
 
 
-            <div class="form-group">
-                <div class="label">
-                    <label>素材数量：</label>
+            <div class="form-group" style="float: none;width: 100%;">
+                <label for="attachments" class="col-md-4 control-label">素材数量：</label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" name="attachments" value="{{ old('attachments') }}" id="attachments">
                 </div>
-                <div class="field">
-                    {{--<div class="field">--}}
-                        <input type="text" class="input" name="attachments" value="" id="attachments" />
-                        <div class="tips"></div>
+            </div>
+            <div class="form-group" style="float: none;width: 100%;">
+            <label for="recommend_id" class="col-md-4 control-label">推荐人手机号：</label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" name="recommend_id" value="{{ old('recommend_id') }}" id="recommend_id" placeholder="请输入推荐人手机号">
                 </div>
-                    {{--<select class="input" name="attachments" id="attachments">--}}
-                        {{--<option value="all">请选择</option>--}}
-                        {{--<option value="1">1</option>--}}
-                        {{--<option value="2">2</option>--}}
-                        {{--<option value="3">3</option>--}}
-                        {{--<option value="4">4</option>--}}
-                        {{--<option value="5">5</option>--}}
-                        {{--<option value="6">6</option>--}}
-                        {{--<option value="7">7</option>--}}
-                        {{--<option value="8">8</option>--}}
+            </div>
 
-                    {{--</select>--}}
-                    {{--<div class="tips"></div>--}}
-                {{--</div>--}}
-            </div>
-            <div class="form-group mr30" style="height:45px;">
-                <div class="label">
-                    <label>推荐人：</label>
-                </div>
-                <div class="field">
-                    <select class="input" name="recommend_id" id="recommend_id">
-                        <option value="all">请选择</option>
-                        @foreach($doctorrecommend as $v)
-                        <option value="{{$v->recommend_id}}">{{$v->recommend_name}}</option>
-                            @endforeach
-                    </select>
-                    <div class="tips"></div>
+            <div class="form-group kv-main" style="width: auto;float: none;margin-left: 2%;">
+                <label class="col-md-4 control-label">文件上传：</label>
+                <div class="col-md-6 file-loading">
+                    <input id="kv-explorer" type="file" multiple name="files[]">
                 </div>
             </div>
-            <input type="hidden" name="uploadcode" id="uploadcode" value="{{$uuid}}"/>
-            <div class="form-group" style="width:36%;">
-            <a href="javascript:;" class="button bg-main upload l" id="openAlert">上传附件</a>
-                <span style="margin-left:10px;color:red;">如果有多个文件请使用打包的方式上传文件!</span>
-            </div>
-            {{--<a href="javascript:;" class="button bg-main upload l">上传附件<input class="" type="file" id="material" name="fileData"></a>--}}
-            {{--<a href="javascript:;" class="button bg-main" style="margin-left:10px;" id="openAlert">打开</a>--}}
-            <div class="form-group w100">
-                {{--<div class="field">--}}
-                    {{--<button class="button bg-main">提交</button>--}}
-                {{--</div>--}}
-            </div>
-            <a class="button bg-main" style="position: fixed;bottom:0px;left:50%;width:200px;height: 40px;line-height: 40px;border:none;margin-left: -100px;cursor:pointer;display:none;" id="openAlert1">关闭</a>
+            <div class="clear"></div>
+            <br>
+            <button type="submit" class="btn btn-primary">确定</button>
+            <button class="btn btn-default">取消</button>
+
         </form>
-            <iframe src="https://box.lenovo.com/uploadFrame/index.html?sessid=r3kv8sojik6uairfcbvqhqnce6&url=encodeURI(https://box.lenovo.com)&dir=/test&uid=512&language=zh&callbackurl=encodeURI(CALLBACKURL)&Command=CALLBACKFUNCTION" id="iframeshow" style="display:none;width: 710px;height: 368px;position: absolute;top: 55%;left: 50%;margin-top: -184px;margin-left:-350px;border:1px solid #3b93ff" ></iframe>
+
     </div>
 </div>
-</body>
-</html>
+@endsection
 
-<script type="text/javascript">
+@section('floorjs')
+
+    <script>
+        $(document).ready(function () {
+
+            $("#kv-explorer").fileinput({
+                theme: 'explorer-fa',
+                language: 'zh',
+                uploadUrl: '#',
+                showRemove:false,
+                showUpload: false,
+                uploadAsync:false,
+                overwriteInitial: true,
+                dropZoneEnabled: false
+            });
+            /*
+            $("#test-upload").on('fileloaded', function(event, file, previewId, index) {
+            alert('i = ' + index + ', id = ' + previewId + ', file = ' + file.name);
+            });
+            */
+        });
+    </script>
+    <script type="text/javascript">
 //    function check(form) {
 
 //        if(form.material_name.value=='') {
@@ -267,84 +259,4 @@
 //}
 </script>
 
-<script>
-//    window.onload = function() {
-//        alert('你好，欢迎光临!');//各浏览器均正常弹出
-//        return true;
-//    }
-
-//window.onbeforeunload=function (){
-//    alert("===onbeforeunload===");
-//    if(event.clientX>document.body.clientWidth && event.clientY < 0 || event.altKey){
-//        alert("你关闭了浏览器");
-//    }else{
-//        alert("你正在刷新页面");
-//    }
-//}
-
-//$(window).bind("beforeunload", function(){
-//    return "确定？类目下内容为空,离开后将会自动删除当前类目";
-
-{{--$(window).bind("beforeunload", function(){--}}
-    {{--return "确定？类目下内容为空,离开后将会自动删除当前类目";--}}
-{{--alert(1)--}}
-{{--$.ajax({--}}
-    {{--type: 'post',--}}
-    {{--url: '{{url('home/userfile/ajax')}}',--}}
-    {{--data: {'action': 'aaaaa'},--}}
-    {{--dataType: 'json',--}}
-    {{--headers: {--}}
-        {{--'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')--}}
-    {{--},--}}
-    {{--beforeSend: function(XMLHttpRequest) {--}}
-
-    {{--},--}}
-    {{--success: function(json) {--}}
-
-    {{--},--}}
-    {{--complete: function() {--}}
-
-    {{--},--}}
-    {{--error: function() {--}}
-        {{--alert("服务器繁忙！");--}}
-    {{--}--}}
-{{--});--}}
-{{--});--}}
-
-//        window.onbeforeunload = function(event) {
-//    alert(2);
-//    return confirm("您输入的内容尚未保存，确定离开此页面吗？");
-//    alert(3);
-//}
-//window.onbeforeunload = function()
-//{
-//    setTimeout(onunloadcancel, 10);
-//    alert(111);
-//    return "真的离开?";
-//}
-//
-//window.onunloadcancel = function()
-//{
-//    alert("取消离开");
-//}
-//
-//window.onunload = function()
-//{
-//    alert("离开!");
-//}
-//window.onunload = function()
-//{
-//    alert("离开1111!");
-//}
-//function checkLeave(){
-//    event.returnValue="确定离开当前页面吗？";
-//}
-//window.onbeforeunload = function()
-//{
-//    alert(1);
-//    return confirm("exit?");
-//}
-//window.onbeforeunload = function (e) {
-//    return (e || window.event).returnValue = '有信息未保存，确认离开？！';
-//}
-</script>
+@endsection

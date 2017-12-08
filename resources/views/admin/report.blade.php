@@ -1,27 +1,20 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <meta name="renderer" content="webkit">
-    <meta name="_token" content="{{ csrf_token() }}"/>
-    <title>报表管理</title>
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/pintuer.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/admin.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/admin/static/css/jquery-ui.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/admin/static/css/main.css')}}">
-    <style>#page_bar{text-align: center;}</style>
-    <script src="{{asset('resources/views/admin/static/js/jquery.js')}}"></script>
-    <script src="{{asset('resources/views/admin/static/js/pintuer.js')}}"></script>
-    <script type="text/javascript" src="{{asset('resources/views/admin/static/js/jquery-ui-1.10.4.custom.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('resources/views/admin/static/js/jquery.ui.datepicker-zh-CN.js')}}"></script>
-    <script type="text/javascript" src="{{asset('resources/views/admin/static/js/jquery-ui-timepicker-addon.js')}}"></script>
-    <script type="text/javascript" src="{{asset('resources/views/admin/static/js/jquery-ui-timepicker-zh-CN.js')}}"></script>
+@extends('layouts.admin')
 
-</head>
-<body>
-<div class="panel admin-panel">
+@section('title','报表管理')
+
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/admin/static/css/jquery-ui.css')}}" />
+@endsection
+
+@section('js')
+    <script src="{{asset('resources/views/admin/static/js/distpicker.data.js')}}"></script>
+    <script src="{{asset('resources/views/admin/static/js/distpicker.js')}}"></script>
+    <script src="{{asset('resources/views/admin/static/js/main.js')}}"></script>
+@endsection
+
+
+@section('content')
+    <div class="panel admin-panel">
     <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>报表管理</strong></div>
     <div class="body-content">
         <form method="get" class="form-x" action="">
@@ -262,24 +255,27 @@
                 </table>
             </div>
         </form>
-        <div class="panel admin-panel" id="page_bar">
+        <div class="panel admin-panel" id="page_bar" style="text-align: center;">
             <div class='pagelist' id='pagelist'></div>暂无数据
         </div>
     </div>
 </div>
-<script type="text/javascript">$( "input[name='act_start_time'],input[name='act_stop_time']" ).datetimepicker();</script>
-<script src="{{asset('resources/views/admin/static/js/distpicker.data.js')}}"></script>
-<script src="{{asset('resources/views/admin/static/js/distpicker.js')}}"></script>
-<script src="{{asset('resources/views/admin/static/js/main.js')}}"></script>
-<script>
-    $("#distpicker5").distpicker({
-        autoSelect: false
-    });
-</script>
-</body>
-</html>
+@stop
 
-<script type="text/javascript">
+
+@section('adminjs')
+    <script type="text/javascript">
+        $( "input[name='act_start_time'],input[name='act_stop_time']" ).datetimepicker();
+    </script>
+
+    <script>
+        $("#distpicker5").distpicker({
+            autoSelect: false
+        });
+    </script>
+
+
+    <script type="text/javascript">
     var page_cur = 1; //当前页
     var total_num, page_size, page_total_num; //总记录数,每页条数,总页数
     var status
@@ -427,3 +423,4 @@
         getData(1);
     });
 </script>
+@stop

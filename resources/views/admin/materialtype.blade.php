@@ -1,110 +1,106 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="renderer" content="webkit">
-    <meta name="_token" content="{{ csrf_token() }}"/>
-    <title>素材类型管理</title>
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/pintuer.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/admin.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/main.css')}}">
-    <script src="{{asset('resources/views/admin/static/js/jquery.js')}}"></script>
-    <script src="{{asset('resources/views/admin/static/js/pintuer.js')}}"></script>
-</head>
-<body>
-<div class="panel admin-panel">
-    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>素材类型管理</strong></div>
-    <div class="body-content">
-        <form method="post" class="form-x" action="">
-            <div class="form-group">
-                <div class="label">
-                    <label for="sitename">素材类型：</label>
-                </div>
-                <div class="field">
-                    <input type="text" class="input" name="stitle" value="" id="material_type_name"/>
-                    <div class="tips"></div>
-                </div>
-            </div>
-            <div class="form-group tool-btns">
-                <button class="button bg-main icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
-                <button class="button bg-main icon-search" type="submit" id="search" onclick ="return false;">查询</button>
-                <!--<a href="javascript:;" class="button bg-main icon-upload">上传<input class="" type="file"></input></a>-->
-                <button class="button bg-main icon-download" type="button" onclick="add()">添加</button>
-            </div>
-        </form>
-        <form method="post" action="">
-            <div class="panel admin-panel">
+@extends('layouts.admin')
 
-                <table class="table table-hover text-center" id="list">
-                    {{--<tr>--}}
-                        {{--<th>序号</th>--}}
-                        {{--<th>素材类型</th>--}}
-                        {{--<th>启用状态</th>--}}
-                        {{--<th>操作</th>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td>1</td>--}}
-                        {{--<td>视频</td>--}}
-                        {{--<td>启用</td>--}}
-                        {{--<td><div class="button-group">--}}
-                                {{--<a type="button" class="button border-main" href="#"><span class="icon-edit"></span>编辑</a>--}}
-                                {{--<a type="button" class="button border-red" href="#"><span class="icon-money"></span>禁用</a>--}}
-                            {{--</div>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
+@section('title','素材类型管理')
 
-                    <tr>
-                        <td colspan="14"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
-                    </tr>
-                </table>
-            </div>
-        </form>
-    </div>
-</div>
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/admin/static/css/jquery-ui.css')}}" />
+@endsection
 
-<!--大区管理 添加弹框开始-->
-<div style="display: none;width: 300px;margin-left:-150px;" class="MsgBox clearfix" id="editBox">
-    <div class="top">
-        <div class="title" class="MsgTitle">添加/编辑</div>
-    </div>
-    <div class="body l">
-        <form class="alert-form clearfix">
-            <div class="form-group">
-                <div class="label">
-                    <label>素材类型：</label>
+
+@section('content')
+
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>素材类型管理</strong></div>
+        <div class="body-content">
+            <form method="post" class="form-x" action="">
+                <div class="form-group">
+                    <div class="label">
+                        <label for="sitename">素材类型：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input" name="stitle" value="" id="material_type_name"/>
+                        <div class="tips"></div>
+                    </div>
                 </div>
-                <div class="field">
-                    <input type="text" class="input" name="edit_material_type_name" id="edit_material_type_name" value="">
-                    <div class="tips"></div>
+                <div class="form-group tool-btns">
+                    <button class="button bg-main icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
+                    <button class="button bg-main icon-search" type="submit" id="search" onclick ="return false;">查询</button>
+                    <!--<a href="javascript:;" class="button bg-main icon-upload">上传<input class="" type="file"></input></a>-->
+                    <button class="button bg-main icon-download" type="button" onclick="add()">添加</button>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="label">
-                    <label>状态：</label>
+            </form>
+            <form method="post" action="">
+                <div class="panel admin-panel">
+
+                    <table class="table table-hover text-center" id="list">
+                        {{--<tr>--}}
+                            {{--<th>序号</th>--}}
+                            {{--<th>素材类型</th>--}}
+                            {{--<th>启用状态</th>--}}
+                            {{--<th>操作</th>--}}
+                        {{--</tr>--}}
+                        {{--<tr>--}}
+                            {{--<td>1</td>--}}
+                            {{--<td>视频</td>--}}
+                            {{--<td>启用</td>--}}
+                            {{--<td><div class="button-group">--}}
+                                    {{--<a type="button" class="button border-main" href="#"><span class="icon-edit"></span>编辑</a>--}}
+                                    {{--<a type="button" class="button border-red" href="#"><span class="icon-money"></span>禁用</a>--}}
+                                {{--</div>--}}
+                            {{--</td>--}}
+                        {{--</tr>--}}
+
+                        <tr>
+                            <td colspan="14"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="field">
-                    <select class="input" id="editStatus">
-                        <option value="1">启用</option>
-                        <option value="0">禁用</option>
-                    </select>
-                    <div class="tips"></div>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="bottom l" class="MsgBottom" style="height: 45px;">
-        <div class="btn MsgBtns">
-            <div class="height"></div>
-            <input type="button" class="btn" value="确认"  id="sureEdit">　<input type="button" class="btn" value="取消" id="cancleEdit">
-            <input type="hidden" name="typeid"  id="typeid" value="" />
+            </form>
         </div>
     </div>
-</div>
-<!--大区管理 添加弹框结束-->
-</body>
-</html>
+
+    <!--大区管理 添加弹框开始-->
+    <div style="display: none;width: 300px;margin-left:-150px;" class="MsgBox clearfix" id="editBox">
+        <div class="top">
+            <div class="title" class="MsgTitle">添加/编辑</div>
+        </div>
+        <div class="body l">
+            <form class="alert-form clearfix">
+                <div class="form-group">
+                    <div class="label">
+                        <label>素材类型：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input" name="edit_material_type_name" id="edit_material_type_name" value="">
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>状态：</label>
+                    </div>
+                    <div class="field">
+                        <select class="input" id="editStatus">
+                            <option value="1">启用</option>
+                            <option value="0">禁用</option>
+                        </select>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+            <div class="btn MsgBtns">
+                <div class="height"></div>
+                <input type="button" class="btn" value="确认"  id="sureEdit">　<input type="button" class="btn" value="取消" id="cancleEdit">
+                <input type="hidden" name="typeid"  id="typeid" value="" />
+            </div>
+        </div>
+    </div>
+    <!--大区管理 添加弹框结束-->
+@stop
+
+@section('adminjs')
 <script type="text/javascript">
     var page_cur = 1; //当前页
     var total_num, page_size, page_total_num; //总记录数,每页条数,总页数
@@ -267,3 +263,4 @@
         $("#editBox").css('display','none');
     })
 </script>
+@stop

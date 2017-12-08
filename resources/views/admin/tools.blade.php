@@ -1,20 +1,14 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="renderer" content="webkit">
-    <meta name="_token" content="{{ csrf_token() }}"/>
-    <title>工具分享</title>
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/pintuer.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/admin.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/main.css')}}">
-    <script src="{{asset('resources/views/admin/static/js/jquery.js')}}"></script>
-    <script src="{{asset('resources/views/admin/static/js/pintuer.js')}}"></script>
-</head>
-<body>
-<div class="panel admin-panel">
+@extends('layouts.admin')
+
+@section('title','工具分享')
+
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/admin/static/css/jquery-ui.css')}}" />
+@endsection
+
+
+@section('content')
+    <div class="panel admin-panel">
     <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>工具分享</strong></div>
     <div class="body-content">
         <form method="post" class="form-x" action="">
@@ -66,8 +60,9 @@
         </form>
     </div>
 </div>
-<!--删除数据弹框开始-->
-<div style="width: 300px; display:none;" class="MsgBox clearfix" id="deleteBox">
+
+    <!--删除数据弹框开始-->
+    <div style="width: 300px; display:none;" class="MsgBox clearfix" id="deleteBox">
     <div class="top">
         <div class="title" class="MsgTitle"> 删除</div>
     </div>
@@ -82,11 +77,11 @@
         </div>
     </div>
 </div>
-<!--删除数据结束-->
-</body>
-</html>
+    <!--删除数据结束-->
+@stop
 
-<script type="text/javascript">
+@section('adminjs')
+    <script type="text/javascript">
     var page_cur = 1; //当前页
     var total_num, page_size, page_total_num; //总记录数,每页条数,总页数
     var status
@@ -228,3 +223,4 @@
         $("#deleteBox").css('display','none');
     })
 </script>
+@stop

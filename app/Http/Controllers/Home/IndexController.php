@@ -28,7 +28,7 @@ class IndexController extends CommonController
     public function index()
     {
         $user=session('user');
-        return view('layouts.home',compact('user'));
+        return view('home.userfile.index',compact('user'));
     }
 
 
@@ -61,7 +61,7 @@ class IndexController extends CommonController
                 return back()->with('msg','用户名或者密码错误,请重新输入！');
             }
             session(['user'=>$doctor]);
-            return redirect('home/index');
+            return redirect('home/userfile/index');
 
         }else {
             return view('home.index.login');

@@ -1,353 +1,348 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="renderer" content="webkit">
-    <meta name="_token" content="{{ csrf_token() }}"/>
-    <title>医生管理</title>
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/pintuer.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/admin.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/main.css')}}">
-    <script src="{{asset('resources/views/admin/static/js/jquery.js')}}"></script>
+@extends('layouts.admin')
 
-</head>
-<body>
-<div class="panel admin-panel">
-    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>医生管理</strong></div>
-    <div class="body-content">
-        <form method="post" class="form-x" action="">
-            <div class="form-group" id="distpicker5">
-                <select class="form-control l input" id="province10" name="province_id"></select>
-                <select class="form-control l input" id="city10" name="city_id"></select>
-                <select class="form-control l input" id="district10" name="region_id"></select>
-            </div>
-            <div class="form-group ml3 doctor-w200">
-                <div class="label">
-                    <label>医生姓名：</label>
-                </div>
-                <div class="field">
-                    <input type="text" class="input" name="stitle"  id="doctor_name" value=""/>
-                    <div class="tips"></div>
-                </div>
-            </div>
-            <div class="form-group doctor-w200">
-                <div class="label">
-                    <label>医生手机号：</label>
-                </div>
-                <div class="field">
-                    <input type="text" class="input" name="surl" id="doctor_mobile" value=""/>
-                </div>
-            </div>
-            <div class="form-group doctor-w200">
-                <div class="label">
-                    <label>身份证号码：</label>
-                </div>
-                <div class="field">
-                    <input type="text" class="input" name="surl" id="id_card" value=""/>
-                </div>
-            </div>
-            <div class="form-group w100">
-                <div class="field">
-                    <button class="button bg-main icon-plus" type="button" onclick ="add()">添加</button>
-                    {{--<button class="button bg-main icon-sign-out" type="button" onclick ="return false;">导出</button>--}}
-                    <button class="button bg-main icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
-                    <button class="button bg-main icon-search" type="button" id="search" onclick ="return false;">查询</button>
-                </div>
-            </div>
-        </form>
-        <form method="post" action="">
-            <div class="panel admin-panel">
-                <table class="table table-hover text-center" id="list">
-                    {{--<tr>--}}
-                        {{--<th width="50">ID</th>--}}
-                        {{--<th>医生姓名</th>--}}
-                        {{--<th>医生手机号</th>--}}
-                        {{--<th>省</th>--}}
-                        {{--<th>市</th>--}}
-                        {{--<th>县/区</th>--}}
-                        {{--<th>医院</th>--}}
-                        {{--<th>身份证号码</th>--}}
-                        {{--<th>开户行</th>--}}
-                        {{--<th>银行卡号</th>--}}
-                        {{--<th>操作</th>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td><input type="checkbox" name="id[]" value="1" />1</td>--}}
-                        {{--<td>神夜</td>--}}
-                        {{--<td>13420925611</td>--}}
-                        {{--<td>湖北省</td>--}}
-                        {{--<td>武汉市</td>--}}
-                        {{--<td>洪山区</td>--}}
-                        {{--<td>中南医院</td>--}}
-                        {{--<td>xxxxxxxxxxxx</td>--}}
-                        {{--<td>xxxxxxxxxxxxx</td>--}}
-                        {{--<td>xxxxxxxxxxxx</td>--}}
-                        {{--<td width="180"><div class="button-group">--}}
-                                {{--<a type="button" class="button border-main" href="#"><span class="icon-edit"></span>编辑</a>--}}
-                                {{--<a type="button" class="button border-red" href="#"><span class="icon-money"></span>禁用</a>--}}
-                                {{--<a type="button" class="button border-main" href="#"><span class="icon-user-md"></span>推荐人</a>--}}
-                            {{--</div></td>--}}
-                    {{--</tr>--}}
+@section('title','医生管理')
 
-                    <tr>
-                        <td colspan="14"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
-                    </tr>
-                </table>
-            </div>
-        </form>
-    </div>
-</div>
 
-<!--医生管理 添加 编辑弹框开始-->
-<div style="width: 600px; display: none;margin-left:-300px;" class="MsgBox clearfix" id="editBox1">
-    <div class="top">
-        <div class="title" class="MsgTitle">添加/编辑</div>
-    </div>
-    <div class="body l">
-        <form class="alert-form clearfix">
-            <div class="form-groups clearfix">
-                <div class="form-group">
+@section('js')
+    <script src="{{asset('resources/views/admin/static/js/distpicker.data.js')}}"></script>
+    <script src="{{asset('resources/views/admin/static/js/distpicker.js')}}"></script>
+    <script src="{{asset('resources/views/admin/static/js/main.js')}}"></script>
+@stop
+
+@section('content')
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>医生管理</strong></div>
+        <div class="body-content">
+            <form method="post" class="form-x" action="">
+                <div class="form-group" id="distpicker5">
+                    <select class="form-control l input" id="province10" name="province_id"></select>
+                    <select class="form-control l input" id="city10" name="city_id"></select>
+                    <select class="form-control l input" id="district10" name="region_id"></select>
+                </div>
+                <div class="form-group ml3 doctor-w200">
                     <div class="label">
                         <label>医生姓名：</label>
                     </div>
                     <div class="field">
-                        <input type="text" class="input" id="edit_doctor_name">
+                        <input type="text" class="input" name="stitle"  id="doctor_name" value=""/>
                         <div class="tips"></div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group doctor-w200">
                     <div class="label">
                         <label>医生手机号：</label>
                     </div>
                     <div class="field">
-                        <input type="text" class="input" id="edit_doctor_mobile">
-                        <div class="tips"></div>
+                        <input type="text" class="input" name="surl" id="doctor_mobile" value=""/>
                     </div>
                 </div>
-            </div>
-            <div class="form-groups clearfix">
-                <div class="form-group">
+                <div class="form-group doctor-w200">
                     <div class="label">
-                        <label>登陆密码：</label>
+                        <label>身份证号码：</label>
                     </div>
                     <div class="field">
-                        <input type="text" class="input" id="edit_password">
-                        <div class="tips"></div>
+                        <input type="text" class="input" name="surl" id="id_card" value=""/>
                     </div>
                 </div>
-            </div>
-            <div class="form-groups clearfix doctorArea">
-                <div class="label l">
-                    <label>地区：</label>
-                </div>
-                <div class="field l" id="distpickerAlert">
-                    <select class="form-control input l" name="provinceid" id="provinceid"></select>
-                    <select class="form-control input l" name="cityid"  id="cityid"></select>
-                    <select class="form-control input l" name="regionid"  id="regionid"></select>
-                </div>
-            </div>
-            <div class="form-groups clearfix">
-                <div class="form-group">
-                    <div class="label">
-                        <label>医院：</label>
-                    </div>
+                <div class="form-group w100">
                     <div class="field">
-                        <input type="text" class="input" id="edit_hospital_name">
-                        <div class="tips"></div>
+                        <button class="button bg-main icon-plus" type="button" onclick ="add()">添加</button>
+                        {{--<button class="button bg-main icon-sign-out" type="button" onclick ="return false;">导出</button>--}}
+                        <button class="button bg-main icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
+                        <button class="button bg-main icon-search" type="button" id="search" onclick ="return false;">查询</button>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="label">
-                        <label>身份证账号：</label>
-                    </div>
-                    <div class="field">
-                        <input type="text" class="input" id="edit_id_card">
-                        <div class="tips"></div>
-                    </div>
+            </form>
+            <form method="post" action="">
+                <div class="panel admin-panel">
+                    <table class="table table-hover text-center" id="list">
+                        {{--<tr>--}}
+                            {{--<th width="50">ID</th>--}}
+                            {{--<th>医生姓名</th>--}}
+                            {{--<th>医生手机号</th>--}}
+                            {{--<th>省</th>--}}
+                            {{--<th>市</th>--}}
+                            {{--<th>县/区</th>--}}
+                            {{--<th>医院</th>--}}
+                            {{--<th>身份证号码</th>--}}
+                            {{--<th>开户行</th>--}}
+                            {{--<th>银行卡号</th>--}}
+                            {{--<th>操作</th>--}}
+                        {{--</tr>--}}
+                        {{--<tr>--}}
+                            {{--<td><input type="checkbox" name="id[]" value="1" />1</td>--}}
+                            {{--<td>神夜</td>--}}
+                            {{--<td>13420925611</td>--}}
+                            {{--<td>湖北省</td>--}}
+                            {{--<td>武汉市</td>--}}
+                            {{--<td>洪山区</td>--}}
+                            {{--<td>中南医院</td>--}}
+                            {{--<td>xxxxxxxxxxxx</td>--}}
+                            {{--<td>xxxxxxxxxxxxx</td>--}}
+                            {{--<td>xxxxxxxxxxxx</td>--}}
+                            {{--<td width="180"><div class="button-group">--}}
+                                    {{--<a type="button" class="button border-main" href="#"><span class="icon-edit"></span>编辑</a>--}}
+                                    {{--<a type="button" class="button border-red" href="#"><span class="icon-money"></span>禁用</a>--}}
+                                    {{--<a type="button" class="button border-main" href="#"><span class="icon-user-md"></span>推荐人</a>--}}
+                                {{--</div></td>--}}
+                        {{--</tr>--}}
+
+                        <tr>
+                            <td colspan="14"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
+                        </tr>
+                    </table>
                 </div>
-            </div>
-            <div class="form-groups clearfix">
-                <div class="form-group">
-                    <div class="label">
-                        <label>开户行：</label>
-                    </div>
-                    <div class="field">
-                        <input type="text" class="input" id="edit_bank_name">
-                        <div class="tips"></div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="label">
-                        <label>银行卡号：</label>
-                    </div>
-                    <div class="field">
-                        <input type="text" class="input" id="edit_bank_card_no">
-                        <div class="tips"></div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="bottom l" class="MsgBottom" style="height: 45px;">
-        <div class="btn MsgBtns">
-            <div class="height"></div>
-            <input type="button" class="btn" value="确认" id="sureEdit1">　<input type="button" class="btn" id="cancleEdit1" value="取消">
-            <input type="hidden" name="doctorid"  id="doctorid" value="" />
+            </form>
         </div>
     </div>
-</div>
-<!--医生管理 添加结束-->
 
-<!--禁用数据弹框开始-->
-<div style="width: 300px; display:none;" class="MsgBox clearfix">
-    <div class="top">
-        <div class="title" class="MsgTitle">提示</div>
-    </div>
-    <div class="body l">
-        <p>是否禁用该条数据</p>
-    </div>
-    <div class="bottom l" class="MsgBottom" style="height: 45px;">
-        <div class="btn MsgBtns">
-            <div class="height"></div>
-            <input type="button" class="btn" value="确认">　<input type="button" class="btn" value="取消">
-
+    <!--医生管理 添加 编辑弹框开始-->
+    <div style="width: 600px; display: none;margin-left:-300px;" class="MsgBox clearfix" id="editBox1">
+        <div class="top">
+            <div class="title" class="MsgTitle">添加/编辑</div>
+        </div>
+        <div class="body l">
+            <form class="alert-form clearfix">
+                <div class="form-groups clearfix">
+                    <div class="form-group">
+                        <div class="label">
+                            <label>医生姓名：</label>
+                        </div>
+                        <div class="field">
+                            <input type="text" class="input" id="edit_doctor_name">
+                            <div class="tips"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label>医生手机号：</label>
+                        </div>
+                        <div class="field">
+                            <input type="text" class="input" id="edit_doctor_mobile">
+                            <div class="tips"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-groups clearfix">
+                    <div class="form-group">
+                        <div class="label">
+                            <label>登陆密码：</label>
+                        </div>
+                        <div class="field">
+                            <input type="text" class="input" id="edit_password">
+                            <div class="tips"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-groups clearfix doctorArea">
+                    <div class="label l">
+                        <label>地区：</label>
+                    </div>
+                    <div class="field l" id="distpickerAlert">
+                        <select class="form-control input l" name="provinceid" id="provinceid"></select>
+                        <select class="form-control input l" name="cityid"  id="cityid"></select>
+                        <select class="form-control input l" name="regionid"  id="regionid"></select>
+                    </div>
+                </div>
+                <div class="form-groups clearfix">
+                    <div class="form-group">
+                        <div class="label">
+                            <label>医院：</label>
+                        </div>
+                        <div class="field">
+                            <input type="text" class="input" id="edit_hospital_name">
+                            <div class="tips"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label>身份证账号：</label>
+                        </div>
+                        <div class="field">
+                            <input type="text" class="input" id="edit_id_card">
+                            <div class="tips"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-groups clearfix">
+                    <div class="form-group">
+                        <div class="label">
+                            <label>开户行：</label>
+                        </div>
+                        <div class="field">
+                            <input type="text" class="input" id="edit_bank_name">
+                            <div class="tips"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label>银行卡号：</label>
+                        </div>
+                        <div class="field">
+                            <input type="text" class="input" id="edit_bank_card_no">
+                            <div class="tips"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+            <div class="btn MsgBtns">
+                <div class="height"></div>
+                <input type="button" class="btn" value="确认" id="sureEdit1">　<input type="button" class="btn" id="cancleEdit1" value="取消">
+                <input type="hidden" name="doctorid"  id="doctorid" value="" />
+            </div>
         </div>
     </div>
-</div>
-<!--删除数据结束-->
+    <!--医生管理 添加结束-->
 
-<!--推荐人弹框开始-->
-<div style="display: none;width: 800px;margin-left:-400px;" class="MsgBox clearfix" id="recommendBox">
-    <div class="top">
-        <div class="title" class="MsgTitle">推荐人</div>
-    </div>
-    <div class="body l">
-        <form method="post" action="" class="alert-form">
-            <div class="panel admin-panel">
-                <table class="table table-hover text-center" id="recommendList">
-                    {{--<tr>--}}
-                        {{--<th>推荐人姓名</th>--}}
-                        {{--<th>推荐人手机号</th>--}}
-                        {{--<th>大区</th>--}}
-                        {{--<th>地区</th>--}}
-                        {{--<th>销售组</th>--}}
-                        {{--<th>绑定时间</th>--}}
-                        {{--<th width="120px">操作</th>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td>xxx</td>--}}
-                        {{--<td>xxx</td>--}}
-                        {{--<td>xxx</td>--}}
-                        {{--<td>xxx</td>--}}
-                        {{--<td>xxx</td>--}}
-                        {{--<td>xxx</td>--}}
-                        {{--<td>--}}
-                            {{--<div class="button-group">--}}
-                                {{--<a type="button" class="button border-main" href="#"><span class="icon-plus"></span>添加</a>--}}
-                                {{--<a class="button border-red" href="javascript:void(0)" ><span--}}
-                                            {{--class="icon-book"></span>删除</a>--}}
-                            {{--</div>--}}
-                            {{--<input type="hidden" name="doctor_recommend_id"  id="doctor_recommend_id" value="" />--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-                </table>
+    <!--禁用数据弹框开始-->
+    <div style="width: 300px; display:none;" class="MsgBox clearfix">
+        <div class="top">
+            <div class="title" class="MsgTitle">提示</div>
+        </div>
+        <div class="body l">
+            <p>是否禁用该条数据</p>
+        </div>
+        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+            <div class="btn MsgBtns">
+                <div class="height"></div>
+                <input type="button" class="btn" value="确认">　<input type="button" class="btn" value="取消">
+
             </div>
-        </form>
-    </div>
-    <div class="bottom l" class="MsgBottom" style="height: 45px;">
-        <div class="btn MsgBtns">
-            <div class="height"></div>
-            <input type="button" class="btn" value="关闭" onclick="close1()">
         </div>
     </div>
-</div>
-<!--推荐人弹框结束-->
+    <!--删除数据结束-->
 
-<!--销售区添加弹框开始-->
-<div style="display: none;width: 300px;margin-left:-150px;" class="MsgBox clearfix" id="editBox2">
-    <div class="top">
-        <div class="title" class="MsgTitle">添加</div>
-    </div>
-    <div class="body l">
-        <form class="alert-form clearfix">
-            <div class="form-group">
-                <div class="label">
-                    <label>大区：</label>
+    <!--推荐人弹框开始-->
+    <div style="display: none;width: 800px;margin-left:-400px;" class="MsgBox clearfix" id="recommendBox">
+        <div class="top">
+            <div class="title" class="MsgTitle">推荐人</div>
+        </div>
+        <div class="body l">
+            <form method="post" action="" class="alert-form">
+                <div class="panel admin-panel">
+                    <table class="table table-hover text-center" id="recommendList">
+                        {{--<tr>--}}
+                            {{--<th>推荐人姓名</th>--}}
+                            {{--<th>推荐人手机号</th>--}}
+                            {{--<th>大区</th>--}}
+                            {{--<th>地区</th>--}}
+                            {{--<th>销售组</th>--}}
+                            {{--<th>绑定时间</th>--}}
+                            {{--<th width="120px">操作</th>--}}
+                        {{--</tr>--}}
+                        {{--<tr>--}}
+                            {{--<td>xxx</td>--}}
+                            {{--<td>xxx</td>--}}
+                            {{--<td>xxx</td>--}}
+                            {{--<td>xxx</td>--}}
+                            {{--<td>xxx</td>--}}
+                            {{--<td>xxx</td>--}}
+                            {{--<td>--}}
+                                {{--<div class="button-group">--}}
+                                    {{--<a type="button" class="button border-main" href="#"><span class="icon-plus"></span>添加</a>--}}
+                                    {{--<a class="button border-red" href="javascript:void(0)" ><span--}}
+                                                {{--class="icon-book"></span>删除</a>--}}
+                                {{--</div>--}}
+                                {{--<input type="hidden" name="doctor_recommend_id"  id="doctor_recommend_id" value="" />--}}
+                            {{--</td>--}}
+                        {{--</tr>--}}
+                    </table>
                 </div>
-                <div class="field">
-                    <select class="input">
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                    </select>
-                    <div class="tips"></div>
-                </div>
+            </form>
+        </div>
+        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+            <div class="btn MsgBtns">
+                <div class="height"></div>
+                <input type="button" class="btn" value="关闭" onclick="close1()">
             </div>
-            <div class="form-group">
-                <div class="label">
-                    <label>地区：</label>
-                </div>
-                <div class="field">
-                    <select class="input">
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                    </select>
-                    <div class="tips"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="label">
-                    <label>销售组：</label>
-                </div>
-                <div class="field">
-                    <select class="input">
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                    </select>
-                    <div class="tips"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="label">
-                    <label>推荐人名称：</label>
-                </div>
-                <div class="field">
-                    <input type="text" class="input">
-                    <div class="tips"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="label">
-                    <label>推荐人手机号：</label>
-                </div>
-                <div class="field">
-                    <input type="text" class="input">
-                    <div class="tips"></div>
-                </div>
-            </div>
-
-        </form>
-    </div>
-    <div class="bottom l" class="MsgBottom" style="height: 45px;">
-        <div class="btn MsgBtns">
-            <div class="height"></div>
-            <input type="button" class="btn" value="确认" id="sureEdit2">　<input type="button"  id='cancleEdit2' class="btn" value="取消">
         </div>
     </div>
-</div>
-<!--销售区添加弹框结束-->
+    <!--推荐人弹框结束-->
 
+    <!--销售区添加弹框开始-->
+    <div style="display: none;width: 300px;margin-left:-150px;" class="MsgBox clearfix" id="editBox2">
+        <div class="top">
+            <div class="title" class="MsgTitle">添加</div>
+        </div>
+        <div class="body l">
+            <form class="alert-form clearfix">
+                <div class="form-group">
+                    <div class="label">
+                        <label>大区：</label>
+                    </div>
+                    <div class="field">
+                        <select class="input">
+                            <option value="1">1</option>
+                            <option value="1">1</option>
+                            <option value="1">1</option>
+                            <option value="1">1</option>
+                        </select>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>地区：</label>
+                    </div>
+                    <div class="field">
+                        <select class="input">
+                            <option value="1">1</option>
+                            <option value="1">1</option>
+                            <option value="1">1</option>
+                            <option value="1">1</option>
+                        </select>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>销售组：</label>
+                    </div>
+                    <div class="field">
+                        <select class="input">
+                            <option value="1">1</option>
+                            <option value="1">1</option>
+                            <option value="1">1</option>
+                            <option value="1">1</option>
+                        </select>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>推荐人名称：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input">
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>推荐人手机号：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input">
+                        <div class="tips"></div>
+                    </div>
+                </div>
 
-<script src="{{asset('resources/views/admin/static/js/distpicker.data.js')}}"></script>
-<script src="{{asset('resources/views/admin/static/js/distpicker.js')}}"></script>
-<script src="{{asset('resources/views/admin/static/js/main.js')}}"></script>
+            </form>
+        </div>
+        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+            <div class="btn MsgBtns">
+                <div class="height"></div>
+                <input type="button" class="btn" value="确认" id="sureEdit2">　<input type="button"  id='cancleEdit2' class="btn" value="取消">
+            </div>
+        </div>
+    </div>
+    <!--销售区添加弹框结束-->
+
+@stop
+
+@section('adminjs')
 <script>
     $("#distpicker5").distpicker({
         autoSelect: false
@@ -356,8 +351,7 @@
         autoSelect: false
     });
 </script>
-</body>
-</html>
+
 <script type="text/javascript">
     var page_cur = 1; //当前页
     var total_num, page_size, page_total_num; //总记录数,每页条数,总页数
@@ -659,3 +653,4 @@
     //添加修改推荐人信息
 
 </script>
+@stop

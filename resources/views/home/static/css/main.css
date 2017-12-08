@@ -162,13 +162,13 @@
 
 .frontLogo {
     width: 103px;
-    height: 33px;
+    height: 58px;
     background: url(../images/front_logo.png) no-repeat center center;
     margin-top: 8px;
 }
 
 .city-info-right {
-    height: 28px;
+    height: 48px;
     line-height: 28px;
     float: right;
     margin-top: 11px;
@@ -176,8 +176,8 @@
 
 .city-info-right a {
     width: 68px;
-    height: 12px;
-    line-height: 12px;
+    height: 30px;
+    line-height: 30px;
     font-size: 12px;
     border-right: 1px solid #384456;
     text-align: center;
@@ -191,13 +191,39 @@
     border-right: 1px solid #2f3847;
 }
 .leftnav {
-    top:50px;
+    width:180px;
+    height:100%;
+    position:fixed;
+    top:68px;
+    left:0px;
+    background-color: #31415d;
+   /* top:50px;*/
 }
 .h50{
+    background-color: #00002a;
     height:50px;
 }
+.leftnav ul { border-top:4px solid #b5cfd9; padding: 0 0 5px 0;opacity:1;}
+.leftnav ul li{ list-style-type:none; }
+.leftnav ul .active{ background-color: #008471;}
+.leftnav ul .active a{ color: #14f2f2; }
+.leftnav ul li a { display:inline-block; width:100%; color:#ffffff;font-size:16px; line-height:40px;  font-family:"Microsoft YaHei";text-align: center;}
+.leftnav ul li:hover{  background-color: #008471;  color: #0061c1;}
+.leftnav ul li:hover a{ color: #22cc77;}
+/*.leftnav .active{
+    background-color: #122c8e;
+    color:white;
+    font-weight: bold;
+}
+.leftnav a{
+    color:white;
+    font-family:"Microsoft YaHei";
+}
+.leftnav .active a{
+    color:#eff3f9;
+}*/
 .admin {
-    top:50px;
+    top:68px;
 }
 .panel-head strong {
     font-size:20px;
@@ -211,18 +237,7 @@
     text-align: center;
     cursor: pointer;
 }
-.leftnav ul {
-    padding:0 0 5px 0;
-}
-.leftnav ul li a {
-    padding-left:0;
-    text-indent: 4em;
-    line-height: 40px;
-}
-.leftnav ul li a:hover{
-    background-color: #fff;
-    color: #0061c1;
-}
+
 .mr20{
     margin-right:20px;}
 .input {

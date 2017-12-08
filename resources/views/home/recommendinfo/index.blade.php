@@ -1,25 +1,10 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <meta name="renderer" content="webkit">
-    <meta name="_token" content="{{ csrf_token() }}"/>
-    <title>推荐人信息</title>
-    <link rel="stylesheet" href="{{asset('resources/views/home/static/css/pintuer.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/home/static/css/admin.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/admin/static/css/jquery-ui.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/home/static/css/main.css')}}">
-    <script src="{{asset('resources/views/home/static/js/jquery.js')}}"></script>
-    <script src="{{asset('resources/views/home/static/js/pintuer.js')}}"></script>
-    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery-ui-1.10.4.custom.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery.ui.datepicker-zh-CN.js')}}"></script>
-    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery-ui-timepicker-addon.js')}}"></script>
-    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery-ui-timepicker-zh-CN.js')}}"></script>
 
-</head>
-<body>
+@extends('layouts.home')
+
+@section('title','推荐人信息')
+
+@section('content')
+
 <div class="panel admin-panel">
     <div class="panel-head"><strong>推荐人信息</strong></div>
     <div class="body-content">
@@ -59,10 +44,10 @@
     </div>
 </div>
 
-</body>
-</html>
+@endsection
 
-<script type="text/javascript">
+@section('floorjs')
+    <script type="text/javascript">
     {{--var page_cur = 1; //当前页--}}
     {{--var total_num, page_size, page_total_num; //总记录数,每页条数,总页数--}}
     {{--var status--}}
@@ -159,3 +144,4 @@
 //        getData(1);
 //    });
 </script>
+@endsection

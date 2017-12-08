@@ -1,86 +1,78 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <meta name="renderer" content="webkit">
-    <meta name="_token" content="{{ csrf_token() }}"/>
-    <title>共享文件</title>
-    <link rel="stylesheet" href="{{asset('resources/views/home/static/css/pintuer.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/home/static/css/admin.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/home/static/css/jquery-ui.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/home/static/css/main.css')}}">
-    <script src="{{asset('resources/views/home/static/js/jquery.js')}}"></script>
+@extends('layouts.home')
+
+@section('title','共享文件')
+
+
+@section('js')
     <script src="{{asset('resources/views/home/static/js/pintuer.js')}}"></script>
-    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery-ui-1.10.4.custom.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery.ui.datepicker-zh-CN.js')}}"></script>
-    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery-ui-timepicker-addon.js')}}"></script>
-    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery-ui-timepicker-zh-CN.js')}}"></script>
+@endsection
 
-</head>
-<body>
-<div class="panel admin-panel">
-    <div class="panel-head"><strong>共享文件</strong></div>
-    <div class="body-content">
-        <form method="post" class="form-x" action="">
 
-            <div class="form-group">
-                <div class="label">
-                    <label>工具名称：</label>
-                </div>
-                <div class="field">
-                    <input type="text" class="input" name="s_name" value="" id="file_name"/>
-                    <div class="tips"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="field ml10">
-                    <button class="button bg-main" type="button" id="search">查询</button>
-                </div>
-            </div>
+@section('content')
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong>共享文件</strong></div>
+        <div class="body-content">
+            <form method="post" class="form-x" action="">
 
-        </form>
-        <form method="post" action="" class="form-x mt15">
-            <div class="form-group w100">
-                {{--<div class="label">--}}
+                <div class="form-group">
+                    <div class="label">
+                        <label>工具名称：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input" name="s_name" value="" id="file_name"/>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="field ml10">
+                        <button class="button bg-main" type="button" id="search">查询</button>
+                    </div>
+                </div>
+
+            </form>
+            <form method="post" action="" class="form-x mt15">
+                <div class="form-group w100">
+                    {{--<div class="label">--}}
                     {{--<label>全部素材</label>--}}
-                {{--</div>--}}
-                {{--<div class="field ml10">--}}
+                    {{--</div>--}}
+                    {{--<div class="field ml10">--}}
                     {{--<button class="button bg-main" type="submit">下载</button>--}}
-                {{--</div>--}}
-            </div>
-            <div class="panel admin-panel">
-                <table class="table table-hover text-center" id="list">
-                    {{--<tr>--}}
+                    {{--</div>--}}
+                </div>
+                <div class="panel admin-panel">
+                    <table class="table table-hover text-center" id="list">
+                        {{--<tr>--}}
                         {{--<th width="120">ID</th>--}}
                         {{--<th>素材名称</th>--}}
                         {{--<th>大小</th>--}}
                         {{--<th>操作</th>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
+                        {{--</tr>--}}
+                        {{--<tr>--}}
                         {{--<td width="120"><input type="checkbox" name="id[]" value="1" />神夜</td>--}}
                         {{--<td>13420925611</td>--}}
                         {{--<td>xx</td>--}}
                         {{--<td><div class="button-group">--}}
-                                {{--<a type="button" class="button border-main" href="#"><span class="icon-download"></span></a>--}}
-                            {{--</div></td>--}}
-                    {{--</tr>--}}
+                        {{--<a type="button" class="button border-main" href="#"><span class="icon-download"></span></a>--}}
+                        {{--</div></td>--}}
+                        {{--</tr>--}}
 
-                    {{--<tr>--}}
+                        {{--<tr>--}}
                         {{--<td colspan="14"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>--}}
-                    {{--</tr>--}}
-                </table>
-            </div>
-        </form>
+                        {{--</tr>--}}
+                    </table>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-<script type="text/javascript">$( "input[name='act_start_time'],input[name='act_stop_time']" ).datetimepicker();</script>
-</body>
-</html>
+@endsection
 
 
-<script type="text/javascript">
+@section('floorjs')
+    <script type="text/javascript">
+        $( "input[name='act_start_time'],input[name='act_stop_time']" ).datetimepicker();
+    </script>
+
+    <script type="text/javascript">
     var page_cur = 1; //当前页
     var total_num, page_size, page_total_num; //总记录数,每页条数,总页数
     var status
@@ -175,3 +167,4 @@
         getData(1);
     });
 </script>
+@endsection

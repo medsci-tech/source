@@ -1,171 +1,164 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="renderer" content="webkit">
-    <meta name="_token" content="{{ csrf_token() }}"/>
-    <title>医院管理</title>
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/pintuer.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/admin.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/main.css')}}">
-    <script src="{{asset('resources/views/admin/static/js/jquery.js')}}"></script>
-</head>
-<body>
-<div class="panel admin-panel">
-    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>医院管理</strong></div>
-    <div class="body-content">
-        <form method="post" class="form-x" action="">
-            <div class="form-group" id="distpicker5">
-                <select class="form-control l input" id="province10" ></select>
-                <select class="form-control l input" id="city10" ></select>
-                <select class="form-control l input" id="district10" ></select>
-            </div>
-            <div class="form-group ml3 doctor-w200" >
-                <div class="label">
-                    <label>医院名称：</label>
-                </div>
-                <div class="field">
-                    <input type="text" class="input" name="stitle" value="" id="hospital_name"/>
-                    <div class="tips"></div>
-                </div>
-            </div>
-            <div class="form-group doctor-w200">
-                <select class="form-control l input" id="hospital_level_id">
-                    <option value="all">医院级别</option>
-                    <option value="1">二甲医院</option>
-                    <option value="2">三甲医院</option>
-                </select>
-            </div>
-            <div class="form-group w100">
-                <div class="field">
-                    <button class="button bg-main icon-plus" type="button" onclick="add()">添加</button>
-                    {{--<button class="button bg-main icon-sign-in" type="button">导入</button>--}}
-                    {{--<button class="button bg-main icon-sign-out" type="button">导出</button>--}}
-                    <button class="button bg-main icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
-                    <button class="button bg-main icon-search" type="button" id="search" onclick ="return false;">查询</button>
-                </div>
-            </div>
-        </form>
-        <form method="post" action="">
-            <div class="panel admin-panel">
-                <table class="table table-hover text-center" id="list">
-                    {{--<tr>--}}
-                        {{--<th width="50">ID</th>--}}
-                        {{--<th>省</th>--}}
-                        {{--<th>市</th>--}}
-                        {{--<th>县/区</th>--}}
-                        {{--<th>医院</th>--}}
-                        {{--<th>医院级别</th>--}}
-                        {{--<th>启用状态</th>--}}
-                        {{--<th>操作</th>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td><input type="checkbox" name="id[]" value="1" />1</td>--}}
-                        {{--<td>湖北省</td>--}}
-                        {{--<td>武汉市</td>--}}
-                        {{--<td>洪山区</td>--}}
-                        {{--<td>中南医院</td>--}}
-                        {{--<td>三级甲等</td>--}}
-                        {{--<td>启用</td>--}}
-                        {{--<td width="180"><div class="button-group">--}}
-                                {{--<a type="button" class="button border-main" href="#"><span class="icon-edit"></span>编辑</a>--}}
-                                {{--<a type="button" class="button border-red" href="#"><span class="icon-money"></span>禁用</a>--}}
+@extends('layouts.admin')
 
-                            {{--</div></td>--}}
-                    {{--</tr>--}}
+@section('title','医院管理')
 
-                    {{--<tr>--}}
-                        {{--<td colspan="14"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>--}}
-                    {{--</tr>--}}
-                </table>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!--销售区添加弹框开始-->
-<div style="display: none;width: 300px;margin-left:-150px;" class="MsgBox clearfix" id="editBox">
-    <div class="top">
-        <div class="title" class="MsgTitle">添加/编辑</div>
-    </div>
-    <div class="body l">
-        <form class="alert-form clearfix">
-            <div class="form-groups clearfix hospitalArea">
-                <div class="label l">
-                    <label>地区：</label>
+@section('js')
+    <script src="{{asset('resources/views/admin/static/js/distpicker.data.js')}}"></script>
+    <script src="{{asset('resources/views/admin/static/js/distpicker.js')}}"></script>
+    <script src="{{asset('resources/views/admin/static/js/main.js')}}"></script>
+@stop
+@section('content')
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>医院管理</strong></div>
+        <div class="body-content">
+            <form method="post" class="form-x" action="">
+                <div class="form-group" id="distpicker5">
+                    <select class="form-control l input" id="province10" ></select>
+                    <select class="form-control l input" id="city10" ></select>
+                    <select class="form-control l input" id="district10" ></select>
                 </div>
-                <div class="field r" id="distpickerAlert">
-                    <select class="form-control input l" name="provinceid" id="provinceid"></select>
-                    <select class="form-control input l" name="cityid"  id="cityid"></select>
-                    <select class="form-control input l" name="regionid"  id="regionid"></select>
+                <div class="form-group ml3 doctor-w200" >
+                    <div class="label">
+                        <label>医院名称：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input" name="stitle" value="" id="hospital_name"/>
+                        <div class="tips"></div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <div class="label">
-                    <label>医院：</label>
-                </div>
-                <div class="field">
-                    <input type="text" class="input" id="edit_hospital_name">
-                    <div class="tips"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="label">
-                    <label>医院级别：</label>
-                </div>
-                <div class="field">
-                    <select class="input" id="edit_hospital_level_id">
-
+                <div class="form-group doctor-w200">
+                    <select class="form-control l input" id="hospital_level_id">
                         <option value="all">医院级别</option>
                         <option value="1">二甲医院</option>
                         <option value="2">三甲医院</option>
                     </select>
-                    <div class="tips"></div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="label">
-                    <label>状态：</label>
+                <div class="form-group w100">
+                    <div class="field">
+                        <button class="button bg-main icon-plus" type="button" onclick="add()">添加</button>
+                        {{--<button class="button bg-main icon-sign-in" type="button">导入</button>--}}
+                        {{--<button class="button bg-main icon-sign-out" type="button">导出</button>--}}
+                        <button class="button bg-main icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
+                        <button class="button bg-main icon-search" type="button" id="search" onclick ="return false;">查询</button>
+                    </div>
                 </div>
-                <div class="field">
-                    <select class="input" id="editStatus">
-                        <option value="1">启用</option>
-                        <option value="0">禁用</option>
-                    </select>
-                    <div class="tips"></div>
-                </div>
-            </div>
+            </form>
+            <form method="post" action="">
+                <div class="panel admin-panel">
+                    <table class="table table-hover text-center" id="list">
+                        {{--<tr>--}}
+                            {{--<th width="50">ID</th>--}}
+                            {{--<th>省</th>--}}
+                            {{--<th>市</th>--}}
+                            {{--<th>县/区</th>--}}
+                            {{--<th>医院</th>--}}
+                            {{--<th>医院级别</th>--}}
+                            {{--<th>启用状态</th>--}}
+                            {{--<th>操作</th>--}}
+                        {{--</tr>--}}
+                        {{--<tr>--}}
+                            {{--<td><input type="checkbox" name="id[]" value="1" />1</td>--}}
+                            {{--<td>湖北省</td>--}}
+                            {{--<td>武汉市</td>--}}
+                            {{--<td>洪山区</td>--}}
+                            {{--<td>中南医院</td>--}}
+                            {{--<td>三级甲等</td>--}}
+                            {{--<td>启用</td>--}}
+                            {{--<td width="180"><div class="button-group">--}}
+                                    {{--<a type="button" class="button border-main" href="#"><span class="icon-edit"></span>编辑</a>--}}
+                                    {{--<a type="button" class="button border-red" href="#"><span class="icon-money"></span>禁用</a>--}}
 
-        </form>
-    </div>
-    <div class="bottom l" class="MsgBottom" style="height: 45px;">
-        <div class="btn MsgBtns">
-            <div class="height"></div>
-            <input type="button" class="btn" value="确认" id="sureEdit">　<input type="button" class="btn" value="取消" id="cancleEdit">
-            <input type="hidden" name="hospitalid"  id="hospitalid" value="" />
+                                {{--</div></td>--}}
+                        {{--</tr>--}}
+
+                        {{--<tr>--}}
+                            {{--<td colspan="14"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>--}}
+                        {{--</tr>--}}
+                    </table>
+                </div>
+            </form>
         </div>
     </div>
-</div>
-<!--销售区添加弹框结束-->
 
-<script src="{{asset('resources/views/admin/static/js/distpicker.data.js')}}"></script>
-<script src="{{asset('resources/views/admin/static/js/distpicker.js')}}"></script>
-<script src="{{asset('resources/views/admin/static/js/main.js')}}"></script>
-<script>
-    $("#distpicker5").distpicker({
-        autoSelect: false
-    });
-    $("#distpickerAlert").distpicker({
-        autoSelect: false
-    });
-</script>
+    <!--销售区添加弹框开始-->
+    <div style="display: none;width: 300px;margin-left:-150px;" class="MsgBox clearfix" id="editBox">
+        <div class="top">
+            <div class="title" class="MsgTitle">添加/编辑</div>
+        </div>
+        <div class="body l">
+            <form class="alert-form clearfix">
+                <div class="form-groups clearfix hospitalArea">
+                    <div class="label l">
+                        <label>地区：</label>
+                    </div>
+                    <div class="field r" id="distpickerAlert">
+                        <select class="form-control input l" name="provinceid" id="provinceid"></select>
+                        <select class="form-control input l" name="cityid"  id="cityid"></select>
+                        <select class="form-control input l" name="regionid"  id="regionid"></select>
+                    </div>
+                </div>
 
-</body>
-</html>
-<script type="text/javascript">
+                <div class="form-group">
+                    <div class="label">
+                        <label>医院：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input" id="edit_hospital_name">
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>医院级别：</label>
+                    </div>
+                    <div class="field">
+                        <select class="input" id="edit_hospital_level_id">
+
+                            <option value="all">医院级别</option>
+                            <option value="1">二甲医院</option>
+                            <option value="2">三甲医院</option>
+                        </select>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>状态：</label>
+                    </div>
+                    <div class="field">
+                        <select class="input" id="editStatus">
+                            <option value="1">启用</option>
+                            <option value="0">禁用</option>
+                        </select>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+            <div class="btn MsgBtns">
+                <div class="height"></div>
+                <input type="button" class="btn" value="确认" id="sureEdit">　<input type="button" class="btn" value="取消" id="cancleEdit">
+                <input type="hidden" name="hospitalid"  id="hospitalid" value="" />
+            </div>
+        </div>
+    </div>
+    <!--销售区添加弹框结束-->
+@stop
+
+
+@section('adminjs')
+    <script>
+        $("#distpicker5").distpicker({
+            autoSelect: false
+        });
+        $("#distpickerAlert").distpicker({
+            autoSelect: false
+        });
+    </script>
+
+    <script type="text/javascript">
     var page_cur = 1; //当前页
     var total_num, page_size, page_total_num; //总记录数,每页条数,总页数
     var status
@@ -371,3 +364,4 @@
         $("#editBox").css('display','none');
     })
 </script>
+@stop

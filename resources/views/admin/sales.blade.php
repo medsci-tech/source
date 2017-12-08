@@ -1,209 +1,196 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="renderer" content="webkit">
-    <meta name="_token" content="{{ csrf_token() }}"/>
-    <title>销售组管理</title>
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/pintuer.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/admin.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/main.css')}}">
-    <script src="{{asset('resources/views/admin/static/js/jquery.js')}}"></script>
+@extends('layouts.admin')
 
-</head>
-<body>
-<div class="panel admin-panel">
-    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>销售组管理</strong></div>
-    <div class="body-content">
-        <form method="post" class="form-x" action="">
+@section('title','销售组管理')
 
-            <div class="form-group ">
-                <select class="form-control l input" id="big_area_id" style="min-width:110px">
-                    <option value="all">选择大区</option>
-                    @foreach($bigarea as $v)
-                        <option value="{{$v->_id}}">{{$v->big_area_name}}</option>
-                    @endforeach
-                </select>
-            </div>
-
+@section('content')
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>销售组管理</strong></div>
+        <div class="body-content">
+            <form method="post" class="form-x" action="">
 
                 <div class="form-group ">
-                <select class="form-control l input" id="area_id">
-                    <option value="all">选择区域</option>
-                    @foreach($area as $v)
-                        <option value="{{$v->_id}}">{{$v->big_area_name}}</option>
-                    @endforeach
-                </select>
-                </div>
-
-                <div class="form-group">
-                <div class="label">
-                    <label>销售组：</label>
-                </div>
-                <div class="field">
-                    <input type="text" class="input" name="stitle" value="" id="sales_name"/>
-                    <div class="tips"></div>
-                </div>
-                </div>
-
-            </div>
-
-            <div class="form-group  tool-btns">
-                <button class="button bg-main icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
-                <button class="button bg-main icon-search" type="button" id="search" onclick ="return false;">查询</button>
-                <button class="button bg-main icon-plus" type="button" onclick="add()">添加</button>
-            </div>
-        </form>
-        <form method="post" action="">
-            <div class="panel admin-panel">
-                <table class="table table-hover text-center" id="list">
-                    {{--<tr>--}}
-                        {{--<th>序号</th>--}}
-                        {{--<th>大区</th>--}}
-                        {{--<th>地区</th>--}}
-                        {{--<th>销售组</th>--}}
-                        {{--<th>启用状态</th>--}}
-                        {{--<th>操作</th>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td>1</td>--}}
-                        {{--<td>华北大区</td>--}}
-                        {{--<td>湖北</td>--}}
-                        {{--<td>湖北1大区混合01组</td>--}}
-                        {{--<td>启用</td>--}}
-                        {{--<td width="180"><div class="button-group">--}}
-                                {{--<a type="button" class="button border-main" href="#"><span class="icon-edit"></span>编辑</a>--}}
-                                {{--<a type="button" class="button border-red" href="#"><span class="icon-money"></span>禁用</a>--}}
-                            {{--</div></td>--}}
-                    {{--</tr>--}}
-
-                    <tr>
-                        <td colspan="14"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
-                    </tr>
-                </table>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!--地区管理 添加弹框开始-->
-<div style="display: none;width: 300px;margin-left:-150px;" class="MsgBox clearfix" id="editBox">
-    <div class="top">
-        <div class="title" class="MsgTitle">添加/编辑</div>
-    </div>
-    <div class="body l">
-        <form class="alert-form clearfix">
-            <div class="form-group">
-                <div class="label">
-                    <label>大区：</label>
-                </div>
-                <div class="field">
-                    <select class="input" id="edit_big_area_id">
-                        <option value="all">请选择</option>
+                    <select class="form-control l input" id="big_area_id" style="min-width:110px">
+                        <option value="all">选择大区</option>
                         @foreach($bigarea as $v)
                             <option value="{{$v->_id}}">{{$v->big_area_name}}</option>
                         @endforeach
                     </select>
-                    <div class="tips"></div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="label">
-                    <label>地区：</label>
-                </div>
-                <div class="field">
-                    <select class="input" id="edit_area_id">
-                        <option value="all">请选择</option>
+
+
+                <div class="form-group ">
+                    <select class="form-control l input" id="area_id">
+                        <option value="all">选择区域</option>
                         @foreach($area as $v)
-                            <option value="{{$v->_id}}">{{$v->area_name}}</option>
+                            <option value="{{$v->_id}}">{{$v->big_area_name}}</option>
                         @endforeach
                     </select>
-                    <div class="tips"></div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="label">
-                    <label>销售组：</label>
+
+                <div class="form-group">
+                    <div class="label">
+                        <label>销售组：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input" name="stitle" value="" id="sales_name"/>
+                        <div class="tips"></div>
+                    </div>
                 </div>
-                <div class="field">
-                    <input type="text" class="input" id="edit_sales_name">
-                    <div class="tips"></div>
+
+                <div class="form-group  tool-btns">
+                    <button class="button bg-main icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
+                    <button class="button bg-main icon-search" type="button" id="search" onclick ="return false;">查询</button>
+                    <button class="button bg-main icon-plus" type="button" onclick="add()">添加</button>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="label">
-                    <label>状态：</label>
+            </form>
+            <form method="post" action="">
+                <div class="panel admin-panel">
+                    <table class="table table-hover text-center" id="list">
+                        {{--<tr>--}}
+                            {{--<th>序号</th>--}}
+                            {{--<th>大区</th>--}}
+                            {{--<th>地区</th>--}}
+                            {{--<th>销售组</th>--}}
+                            {{--<th>启用状态</th>--}}
+                            {{--<th>操作</th>--}}
+                        {{--</tr>--}}
+                        {{--<tr>--}}
+                            {{--<td>1</td>--}}
+                            {{--<td>华北大区</td>--}}
+                            {{--<td>湖北</td>--}}
+                            {{--<td>湖北1大区混合01组</td>--}}
+                            {{--<td>启用</td>--}}
+                            {{--<td width="180"><div class="button-group">--}}
+                                    {{--<a type="button" class="button border-main" href="#"><span class="icon-edit"></span>编辑</a>--}}
+                                    {{--<a type="button" class="button border-red" href="#"><span class="icon-money"></span>禁用</a>--}}
+                                {{--</div></td>--}}
+                        {{--</tr>--}}
+
+                        <tr>
+                            <td colspan="14"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="field">
-                    <select class="input" id="editStatus">
-                        <option value="1">启用</option>
-                        <option value="0">禁用</option>
-                    </select>
-                    <div class="tips"></div>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="bottom l" class="MsgBottom" style="height: 45px;">
-        <div class="btn MsgBtns">
-            <div class="height"></div>
-            <input type="button" class="btn" value="确认" id="sureEdit">　<input type="button" class="btn" value="取消" id="cancleEdit">
-            <input type="hidden" name="sales_id"  id="sales_id" value="" />
+            </form>
         </div>
     </div>
-</div>
-<!--地区管理 添加弹框结束-->
-<!--编辑价格弹框开始-->
-<div style="display: none;width: 300px;margin-left:-150px;" class="MsgBox clearfix" id="editPriceBox">
-    <div class="top">
-        <div class="title" class="MsgTitle">添加/编辑</div>
-    </div>
-    <div class="body l">
-        <form class="alert-form clearfix">
 
-            <div class="form-group">
-                <div class="label">
-                    <label id="editPriceSalesName">销售组：</label>
+    <!--地区管理 添加弹框开始-->
+    <div style="display: none;width: 300px;margin-left:-150px;" class="MsgBox clearfix" id="editBox">
+        <div class="top">
+            <div class="title" class="MsgTitle">添加/编辑</div>
+        </div>
+        <div class="body l">
+            <form class="alert-form clearfix">
+                <div class="form-group">
+                    <div class="label">
+                        <label>大区：</label>
+                    </div>
+                    <div class="field">
+                        <select class="input" id="edit_big_area_id">
+                            <option value="all">请选择</option>
+                            @foreach($bigarea as $v)
+                                <option value="{{$v->_id}}">{{$v->big_area_name}}</option>
+                            @endforeach
+                        </select>
+                        <div class="tips"></div>
+                    </div>
                 </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>地区：</label>
+                    </div>
+                    <div class="field">
+                        <select class="input" id="edit_area_id">
+                            <option value="all">请选择</option>
+                            @foreach($area as $v)
+                                <option value="{{$v->_id}}">{{$v->area_name}}</option>
+                            @endforeach
+                        </select>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>销售组：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input" id="edit_sales_name">
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>状态：</label>
+                    </div>
+                    <div class="field">
+                        <select class="input" id="editStatus">
+                            <option value="1">启用</option>
+                            <option value="0">禁用</option>
+                        </select>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+            <div class="btn MsgBtns">
+                <div class="height"></div>
+                <input type="button" class="btn" value="确认" id="sureEdit">　<input type="button" class="btn" value="取消" id="cancleEdit">
+                <input type="hidden" name="sales_id"  id="sales_id" value="" />
             </div>
-            <div class="form-group" >
-                <div class="label">
-                    <label>素材类型：</label>
-                </div>
-                <div class="field">
-                    <select class="input" id="editMaterialType">
-                        @foreach($materialType as $v)
-                            <option value="{{$v->_id}}">{{$v->material_type_name}}</option>
-                        @endforeach
-                    </select>
-                    <div class="tips"></div>
-                </div>
-            </div>
-            <div class="form-group" >
-                <div class="label">
-                    <label>素材价格：</label>
-                </div>
-                <div class="field">
-                    <input type="text" class="input" id="edit_price">
-                    <div class="tips"></div>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="bottom l" class="MsgBottom" style="height: 45px;">
-        <div class="btn MsgBtns">
-            <div class="height"></div>
-            <input type="button" class="btn" value="确认" id="sureEditPrice">　<input type="button" class="btn" value="取消" id="cancleEditPrice">
-            <input type="hidden" name="edit_price_sales_id"  id="edit_price_sales_id" value="" />
         </div>
     </div>
-</div>
-<!--编辑价格弹框结束-->
+    <!--地区管理 添加弹框结束-->
+    <!--编辑价格弹框开始-->
+    <div style="display: none;width: 300px;margin-left:-150px;" class="MsgBox clearfix" id="editPriceBox">
+        <div class="top">
+            <div class="title" class="MsgTitle">添加/编辑</div>
+        </div>
+        <div class="body l">
+            <form class="alert-form clearfix">
 
-</body>
-</html>
+                <div class="form-group">
+                    <div class="label">
+                        <label id="editPriceSalesName">销售组：</label>
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <div class="label">
+                        <label>素材类型：</label>
+                    </div>
+                    <div class="field">
+                        <select class="input" id="editMaterialType">
+                            @foreach($materialType as $v)
+                                <option value="{{$v->_id}}">{{$v->material_type_name}}</option>
+                            @endforeach
+                        </select>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <div class="label">
+                        <label>素材价格：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input" id="edit_price">
+                        <div class="tips"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+            <div class="btn MsgBtns">
+                <div class="height"></div>
+                <input type="button" class="btn" value="确认" id="sureEditPrice">　<input type="button" class="btn" value="取消" id="cancleEditPrice">
+                <input type="hidden" name="edit_price_sales_id"  id="edit_price_sales_id" value="" />
+            </div>
+        </div>
+    </div>
+    <!--编辑价格弹框结束-->
+@stop
+
+@section('adminjs')
 <script type="text/javascript">
     var page_cur = 1; //当前页
     var total_num, page_size, page_total_num; //总记录数,每页条数,总页数
@@ -445,3 +432,4 @@
         $("#editPriceBox").css('display','none');
     })
 </script>
+@stop

@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <meta name="renderer" content="webkit">
-    <meta name="_token" content="{{ csrf_token() }}"/>
-    <title>素材管理</title>
-    <link rel="stylesheet" href="{{asset('resources/views/home/static/css/pintuer.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/home/static/css/admin.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/home/static/css/jquery-ui.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/home/static/css/main.css')}}">
-    <script src="{{asset('resources/views/home/static/js/jquery.js')}}"></script>
-    <script src="{{asset('resources/views/home/static/js/pintuer.js')}}"></script>
-</head>
-<body>
+@extends('layouts.home')
+
+@section('title','素材管理')
+
+@section('content')
 <div class="panel admin-panel">
     <div class="panel-head"><strong>个人信息</strong></div>
     <div class="body-content">
@@ -55,10 +43,10 @@
 
     </div>
 </div>
-</body>
-</html>
+@endsection
 
-<script>
+@section('floorjs')
+    <script>
 
     function modifyPassword() {
         var oldPassword = $("#oldPassword").val();
@@ -128,3 +116,4 @@
     }
 
 </script>
+@endsection

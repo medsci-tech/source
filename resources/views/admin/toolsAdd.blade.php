@@ -1,19 +1,14 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <meta name="renderer" content="webkit">
-    <title></title>
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/pintuer.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/admin.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/main.css')}}">
-    <script src="{{asset('resources/views/admin/static/js/jquery.js')}}"></script>
-    <script src="{{asset('resources/views/admin/static/js/pintuer.js')}}"></script>
-</head>
-<body>
-<div class="panel admin-panel">
+@extends('layouts.admin')
+
+@section('title','工具分享')
+
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/admin/static/css/jquery-ui.css')}}" />
+@endsection
+
+
+@section('content')
+    <div class="panel admin-panel">
     <div class="panel-head"><strong><span class="icon-key"></span>上传文件</strong></div>
     <div class="body-content">
         <form name="myform" method="post" class="form-x" action="" enctype="multipart/form-data" onsubmit="return check(this)">
@@ -51,8 +46,8 @@
         </form>
     </div>
 </div>
-<!--删除数据弹框开始-->
-@if($msg)
+    <!--删除数据弹框开始-->
+    @if($msg)
 <div style="width: 300px;display:block;" class="MsgBox clearfix" id="sureBox">
     <div class="top">
         <div class="title" class="MsgTitle">提示</div>
@@ -68,11 +63,11 @@
     </div>
 </div>
 @endif
-<!--删除数据结束-->
-</body>
-</html>
+    <!--删除数据结束-->
+@stop
 
-<script>
+@section('adminjs')
+    <script>
     $("#sure").click(function(){
         $("#sureBox").css('display','none');
     })
@@ -95,3 +90,4 @@
         document.myform.submit();
     }
 </script>
+@stop

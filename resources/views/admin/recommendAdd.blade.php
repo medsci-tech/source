@@ -1,22 +1,14 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <meta name="renderer" content="webkit">
-    <meta name="_token" content="{{ csrf_token() }}"/>
-    <title>添加推荐人</title>
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/pintuer.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/admin.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/admin/static/css/jquery-ui.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/admin/static/css/main.css')}}">
-    <script src="{{asset('resources/views/admin/static/js/jquery.js')}}"></script>
-    <script src="{{asset('resources/views/admin/static/js/pintuer.js')}}"></script>
-</head>
-<body>
+@extends('layouts.admin')
 
-<div class="panel admin-panel">
+@section('title','工具分享')
+
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/admin/static/css/jquery-ui.css')}}" />
+@endsection
+
+
+@section('content')
+    <div class="panel admin-panel">
     <div class="panel-head"><strong>添加推荐人</strong></div>
     <div class="body-content">
         <p class="toolps" style="display: none;text-indent: 2em;">发布成功</p>
@@ -89,10 +81,10 @@
         </form>
     </div>
 </div>
-</body>
-</html>
-
-<script>
+@stop
+s
+@section('adminjs')
+    <script>
 
     function getRecommendInfo(){
         var recommend_mobile =$("#recommend_mobile").val();
@@ -200,3 +192,4 @@
     }
 
 </script>
+@stop

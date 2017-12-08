@@ -31,8 +31,9 @@
 //});
 
 Route::group(['middleware' => ['web']], function () {
-
-    Route::get('/', 'Home\IndexController@login');
+    Route::group(['middleware'=>'user.login'],function(){
+        Route::get('/', 'Home\UserFileController@index');
+    });
     Route::get('register', 'Home\IndexController@register');
     Route::get('agree', 'Home\IndexController@agree');
     Route::any('index/ajax', 'Home\IndexController@ajax');
@@ -79,13 +80,14 @@ Route::group(['middleware' => ['web','user.login'],'prefix'=>'home','namespace'=
 
 Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace'=>'Admin'], function () {
 
-    Route::get('index', 'IndexController@index');
+    Route::get('index', 'MaterialController@index');
     Route::get('quit', 'LoginController@quit');
 
     Route::get('material/index', 'MaterialController@index');
     Route::post('material/ajax', 'MaterialController@ajax');
     Route::get('material/downloadfile/{material_id}', 'MaterialController@downloadFile');
     Route::get('material/addMaterial', 'MaterialController@addMaterial');
+    Route::any('material/importExcel', 'MaterialController@importExcel');
 
 
     Route::get('area/index', 'AreaController@index');

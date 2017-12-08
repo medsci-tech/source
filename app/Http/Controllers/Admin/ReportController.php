@@ -128,8 +128,10 @@ class ReportController extends CommonController
 
 
     public function reportExcel(){
+        set_time_limit(0);
         $report_request = Cache::get('report_request');
 //        $material =Material::get();
+        ini_set('memory_limit', '526M');
         $material = $this->report->getReportExportList($report_request);
 //        dd($material);
         $totalPayAmount=0;

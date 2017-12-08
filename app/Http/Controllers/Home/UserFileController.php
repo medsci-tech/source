@@ -16,6 +16,7 @@ use App\Http\Model\Bigarea;
 use App\Http\Model\DoctorRecommend;
 use App\Http\Model\MaterialLenove;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 class UserFileController extends CommonController
 {
@@ -26,15 +27,33 @@ class UserFileController extends CommonController
     }
 
     public function index(){
-
         $materialType = MaterialType::get();
         return view('home.userfile.index',compact('materialType'));
 
     }
 
-    public  function  addMaterial(){
+    public function addMaterial(Request $request){
         $msg='';
-        if($input = Input::all()) {
+        if($request->isMethod('post')) {
+//            dd($request->all());
+            $this->validate($request,[
+                'material_type_id'=>'required',
+                'material_name'=>'required',
+                'attachments'=>'required|integer',
+                'recommend_id'=>'required|digits:11',
+                'files'=>'required',
+            ],[
+                'required'=>':attribute 不能为空',
+                'integer'=>':attribute 必须为正整数',
+                'digits'=>':attribute 长度必须为11位数字',
+            ],[
+                'material_type_id'=>'素材类型',
+                'material_name'=>'素材名称',
+                'attachments'=>'素材数量',
+                'recommend_id'=>'手机号',
+                'files'=>'上传的文件',
+            ]);
+            $input = $request->all();
             //素材类型
             $this->material->material_type_id = $input['material_type_id'];
             //素材名称
