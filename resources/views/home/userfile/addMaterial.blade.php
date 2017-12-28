@@ -69,8 +69,10 @@
             </div>
             <div class="clear"></div>
             <br>
-            <button type="submit" class="btn btn-primary">确定</button>
-            <button class="btn btn-default">取消</button>
+            <div style="padding-left:15px;">
+                <button type="submit" class="btn btn-primary">确定</button>
+                <button class="btn btn-default">取消</button>
+            </div>
 
         </form>
 

@@ -12,15 +12,15 @@
         <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>素材管理</strong></div>
         <div class="body-content">
             <form method="post" class="form-x" action="">
-                {{--<div class="form-group ml3">--}}
-                {{--<div class="label">--}}
-                {{--<label>医生姓名：</label>--}}
-                {{--</div>--}}
-                {{--<div class="field">--}}
-                {{--<input type="text" class="input" name="stitle" id="doctor_name" value=""/>--}}
-                {{--<div class="tips"></div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
+                <div class="form-group ml3">
+                <div class="label">
+                <label>医生姓名：</label>
+                </div>
+                <div class="field">
+                <input type="text" class="input" name="stitle" id="doctor_name" value=""/>
+                <div class="tips"></div>
+                </div>
+                </div>
                 {{--<div class="form-group">--}}
                 {{--<div class="label">--}}
                 {{--<label>医生手机号：</label>--}}
@@ -139,71 +139,42 @@
                     <!--</li>-->
                     <!--</ul>-->
                     <!--</div>-->
-                    <table class="table table-hover text-center" id="list">
-                        {{--<tr>--}}
-                        {{--<th width="50">ID</th>--}}
-                        {{--<th>医生姓名</th>--}}
-                        {{--<th>医生手机号</th>--}}
-                        {{--<th>上传时间</th>--}}
-                        {{--<th>素材名称</th>--}}
-                        {{--<th>素材类型</th>--}}
-                        {{--<th>附件个数</th>--}}
-                        {{--<th>推荐人姓名</th>--}}
-                        {{--<th>推荐人手机号</th>--}}
-                        {{--<th>审核状态</th>--}}
-                        {{--<th>审核通过个数</th>--}}
-                        {{--<th>支付状态</th>--}}
-                        {{--<th>备注</th>--}}
-                        {{--<th>操作</th>--}}
-                        {{--</tr>--}}
-
-                        {{--<tr>--}}
-                        {{--<td><input type="checkbox" name="id[]" value="1" />1</td>--}}
-                        {{--<td>神夜</td>--}}
-                        {{--<td>13420925611</td>--}}
-                        {{--<td>2016-04-12 12:30</td>--}}
-                        {{--<td>深圳市民治街道</td>--}}
-                        {{--<td>视频</td>--}}
-                        {{--<td>5</td>--}}
-                        {{--<td>xx</td>--}}
-                        {{--<td>xxx</td>--}}
-                        {{--<td>xxx</td>--}}
-                        {{--<td>通过</td>--}}
-                        {{--<td>已支付</td>--}}
-                        {{--<td>2016-07-01</td>--}}
-                        {{--<td><div class="button-group">--}}
-                        {{--<a type="button" class="button border-main" href="#"><span class="icon-download"></span>下载</a>--}}
-                        {{--<a class="button border-red" href="javascript:void(0)" onclick="return del(1)"><span class="icon-trash-o"></span> 审核</a>--}}
-                        {{--<a type="button" class="button border-main" href="#"><span class="icon-money"></span>支付</a>--}}
-                        {{--<a type="button" class="button border-main" href="#"><span class="icon-file"></span>附件</a>--}}
-                        {{--</div></td>--}}
-                        {{--</tr>--}}
-                        {{--<tr>--}}
-                        {{--<td><input type="checkbox" name="id[]" value="1" />1</td>--}}
-                        {{--<td>神夜</td>--}}
-                        {{--<td>13420925611</td>--}}
-                        {{--<td>2016-04-12 12:30</td>--}}
-                        {{--<td>深圳市民治街道</td>--}}
-                        {{--<td>视频</td>--}}
-                        {{--<td>5</td>--}}
-                        {{--<td>xx</td>--}}
-                        {{--<td>xxx</td>--}}
-                        {{--<td>xxx</td>--}}
-                        {{--<td>通过</td>--}}
-                        {{--<td>已支付</td>--}}
-                        {{--<td>2016-07-01</td>--}}
-                        {{--<td><div class="button-group">--}}
-                        {{--<a type="button" class="button border-main" href="#"><span class="icon-download"></span>下载</a>--}}
-                        {{--<a class="button border-red" href="javascript:void(0)" onclick="return del(1)"><span class="icon-trash-o"></span> 审核</a>--}}
-                        {{--<a type="button" class="button border-main" href="#"><span class="icon-money"></span>支付</a>--}}
-                        {{--<a type="button" class="button border-main" href="#"><span class="icon-file"></span>附件</a>--}}
-
-                        {{--</div></td>--}}
-                        {{--</tr>--}}
-                        {{--<tr>--}}
-                        {{--<td colspan="14"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>--}}
-                        {{--</tr>--}}
+                    <table class="table table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th width='50'><input type='checkbox' class='check_all' /></th>
+                                <th width='50'>ID</th>
+                                <th>医生姓名</th>
+                                <th>医生手机号</th>
+                                <th>上传时间</th>
+                                <th>大区</th>
+                                <th>地区</th>
+                                <th>销售组</th>
+                                <th style='width:10%;'>素材名称</th>
+                                <th>素材类型</th>
+                                <th>素材数量</th>
+                                <th>推荐人姓名</th>
+                                <th>推荐人手机号</th>
+                                <th>审核状态</th>
+                                <th>审核通过个数</th>
+                                <th>支付状态</th>
+                                <th>备注</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody  id="list"></tbody>
                     </table>
+                    <div id ='page-tag'>
+                        <div class="pull-left" style="width:320px;padding: 10px">
+                            <select name='options' class='options'>
+                                <option value=''>请选择操作类型</option>
+                                <option value='confirm_check'>全部通过</option>
+                                <option value='refuse_check'>全部不通过</option>
+                                <option value='pay_all'>全部支付</option>
+                            </select>
+                            <button class="opt_confirm" style="padding: 5px 12px;">确定</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
@@ -252,9 +223,7 @@
                         <div class="tips"></div>
                     </div>
                 </div>
-                <textarea name="comment" id="comment" class="infotextarea">
-
-            </textarea>
+                <textarea name="comment" id="comment" class="infotextarea"></textarea>
             </form>
         </div>
         <div class="bottom l" class="MsgBottom" style="height: 45px;">
@@ -376,7 +345,8 @@
     <script type="text/javascript">
         var page_cur = 1; //当前页
         var total_num, page_size, page_total_num; //总记录数,每页条数,总页数
-        var status
+        var status;
+
         function getData(page) { //获取当前页数据
             var doctor_name=$("#doctor_name").val();
             var doctor_mobile=$("#doctor_mobile").val();
@@ -406,7 +376,7 @@
                         page_size = json.page_size; //每页数量
                         page_cur = page; //当前页
                         page_total_num = json.page_total_num; //总页数businessScope unix_to_datetime(unix);   getLocalTime(parseInt(array.ctime,10)) SProductName out_logi_no
-                        var li = "<tr> <th width='50'>ID</th> <th>医生姓名</th> <th>医生手机号</th> <th>上传时间</th><th>大区</th><th>地区</th><th>销售组</th> <th style='width:10%;'>素材名称</th><th>素材类型</th><th>素材数量</th><th>推荐人姓名</th><th>推荐人手机号</th><th>审核状态</th><th>审核通过个数</th><th>支付状态</th><th>备注</th><th>操作</th></tr>";
+                        var li = '';
                         var list = json.list;
                         $.each(list, function(index, array) { //遍历返回json
                             var showbutton ='';
@@ -440,12 +410,10 @@
                             //                        <a type="button" class="button border-red" href="#"><span class="icon-trash-o"></span>删除</a>
 
                             {{--var downloadUrl ="{{url('admin/material/downloadfile/')}}"+"/"+array._id;--}}
-                                li +="<tr><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.doctor_name+"</td><td>"+array.doctor_mobile+"</td><td>"+array.created_at+"</td><td>"+array.big_area_name+"</td><td>"+array.area_name+"</td><td>"+array.sales_name+"</td><td style='width:10%;'>"+array.material_name+"</td><td>"+array.material_type_name+"</td><td>"+array.attachments+"</td><td>"+array.recommend_name+"</td><td>"+array.recommend_mobile+"</td><td>"+array.check_status_button+"</td><td>"+array.pass_amount+"</td><td>"+array.pay_status+"</td> <td>"+array.comment+"</td><td><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='uploadurl(this)' doctor_id='" + array.doctor_id + "' upload_code='" + array.upload_code + "'><span class='icon-download'></span>下载</a>";
+                                li +="<tr><td><input type='checkbox' class='check_one' value='"+array._id+"'/></td><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.doctor_name+"</td><td>"+array.doctor_mobile+"</td><td>"+array.created_at+"</td><td>"+array.big_area_name+"</td><td>"+array.area_name+"</td><td>"+array.sales_name+"</td><td style='width:10%;'>"+array.material_name+"</td><td>"+array.material_type_name+"</td><td>"+array.attachments+"</td><td>"+array.recommend_name+"</td><td>"+array.recommend_mobile+"</td><td>"+array.check_status_button+"</td><td>"+array.pass_amount+"</td><td>"+array.pay_status+"</td> <td>"+array.comment+"</td><td><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='uploadurl(this)' doctor_id='" + array.doctor_id + "' upload_code='" + array.upload_code + "'><span class='icon-download'></span>下载</a>";
                             li += showbutton +"</div></td></tr>";
                         });
 
-
-                        li +="<tr id ='page-tag'></tr>"
 //                    page_str=getPageBar();
 //                    alert(page_str);
 //                    li += page_str;
@@ -453,7 +421,7 @@
                         getPageBar();
                     } else {
                         $("#list").empty();
-                        $("#list").append("<tr><td colspan='14'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
+                        $("#list").append("<tr><td colspan='18'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
                         alert(json.msg);
                     }
                 },
@@ -472,7 +440,7 @@
                 page_cur = page_total_num; //当前页大于最大页数
             if (page_cur < 1)
                 page_cur = 1; //当前页小于1
-            page_str ="<td colspan='14'><div class='pagelist' id='pagelist'>";
+            page_str ="<div class='pagelist pull-left' id='pagelist'>";
             page_str += "<span>共" + page_total_num + "页</span><span>" + page_cur + "/" + page_total_num + "</span>";
 //        page_str ="<tr>";
             //若是第一页
@@ -487,8 +455,8 @@
             } else {
                 page_str += "<a href='javascript:void(0)' onclick='aclick(this);' data-page='" + (parseInt(page_cur) + 1) + "'>下一页</a><a href='javascript:void(0)' onclick='aclick(this);' data-page='" + page_total_num + "'>尾页</a>";
             }
-            page_str +="到第<input type='text' id='input_number' style='width:50px' onblur=aGo(this.value) />页</div></td>";
-            $("#page-tag").html(page_str);
+            page_str +="到第<input type='text' id='input_number' style='width:50px' onblur=aGo(this.value) />页</div>";
+            $("#page-tag").append(page_str);
         }
 
         $(function() {
@@ -497,6 +465,33 @@
                 var page = $(this).attr("data-page"); //获取当前页
                 getData(page)
             });
+            //复选框选中
+            $('.check_all').click(function(){
+                if($(this).prop('checked')){
+                    $('.check_one').prop('checked',true);
+                }else{
+                    $('.check_one').prop('checked',false);
+                };
+            })
+            $('.opt_confirm').click(function(e){
+                e.preventDefault();
+                var opt_val = $('.options').val();
+                if(!opt_val){
+                    alert('请选择操作类型');
+                    return false;
+                }
+                var arr = [];
+                $('.check_one').each(function(elem){
+                    if($(this).prop('checked')){
+                        arr.push($(this).val());
+                    }
+                })
+                console.log(arr);
+                if(arr.length === 0){
+                    alert('请选择需要操作的行');
+                    return false;
+                }
+            })
         });
 
         function aclick(obj){

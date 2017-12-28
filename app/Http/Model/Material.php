@@ -53,19 +53,17 @@ class Material extends Moloquent {
 
         
         $handle =SELF::orderBy('_id', 'desc');
-        if(isset($data['doctor_id']) && $data['doctor_id']) {
-            $handle->where('doctor_id', $data['doctor_id']);
+        if(isset($data['doctor_name']) && $data['doctor_name']) {
+            $ids = Doctor::where('doctor_name',$data['doctor_name'])->pluck('_id')->toArray();
+            //dd($ids);
+            $handle->whereIn('doctor_id', $ids);
         }
+
 
         if(isset($data['isshare']) && $data['isshare']) {
             $handle->where('isshare', $data['isshare']);
         }
-        if(isset($data['doctor_name']) && $data['doctor_name']) {
-            $handle->where('doctor_name', 'like', "%{$data['doctor_name']}%");
-        }
-        if(isset($data['doctor_mobile']) && $data['doctor_mobile']) {
-            $handle->where('doctor_mobile', $data['doctor_mobile']);
-        }
+
 //        material_name
         if(isset($data['material_name']) && $data['material_name']) {
             $handle->where('material_name', 'like', "%{$data['material_name']}%");

@@ -40,7 +40,7 @@
                     {{--</div>--}}
                 </div>
                 <div class="panel admin-panel">
-                    <table class="table table-hover text-center" id="list">
+                    <table class="table table-hover text-center table-striped" id="list">
                         {{--<tr>--}}
                         {{--<th width="120">ID</th>--}}
                         {{--<th>素材名称</th>--}}
@@ -60,6 +60,7 @@
                         {{--<td colspan="14"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>--}}
                         {{--</tr>--}}
                     </table>
+                    <div class='pagelist' id='pagelist'></div>
                 </div>
             </form>
         </div>
@@ -96,19 +97,19 @@
                     page_size = json.page_size; //每页数量
                     page_cur = page; //当前页
                     page_total_num = json.page_total_num; //总页数businessScope unix_to_datetime(unix);
-                    var li = "<tr><td>ID</td><th>工具名称</th><th>上传时间</th><th>文件大小</th><th>操作</th></tr>";
+                    var li = "<thead><tr><td>ID</td><th>工具名称</th><th>上传时间</th><th>文件大小</th><th>操作</th></tr></thead><tbody>";
                     var list = json.list;
                     $.each(list, function(index, array) { //遍历返回json
 
                         var downloadUrl ="{{url('home/sharefile/downloadfile/')}}/"+array._id;
                         li +="<tr><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.file_name+"</td> <td>"+array.created_at+"</td><td>"+array.file_weight+"</td><td><div class='button-group'><a type='button' class='button border-main' href='"+downloadUrl+"'><span class='icon-download'></span></a></div></td></tr>";
                     });
-                    li +="<tr id ='page-tag'></tr>"
+                    li +="<tbody>"
                     $("#list").append(li);
                     getPageBar();
                 } else {
                     $("#list").empty();
-                    $("#list").append("<tr><td colspan='14'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
+                    $("#list").append("<tr><td colspan='5'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
                     alert(json.msg);
                 }
             },
@@ -127,7 +128,7 @@
             page_cur = page_total_num; //当前页大于最大页数
         if (page_cur < 1)
             page_cur = 1; //当前页小于1
-        page_str ="<td colspan='14'><div class='pagelist' id='pagelist'>";
+        page_str ="";
         page_str += "<span>共" + page_total_num + "页</span><span>" + page_cur + "/" + page_total_num + "</span>";
 //        page_str ="<tr>";
         //若是第一页
@@ -142,8 +143,8 @@
         } else {
             page_str += "<a href='javascript:void(0)' onclick='aclick(this);' data-page='" + (parseInt(page_cur) + 1) + "'>下一页</a><a href='javascript:void(0)' onclick='aclick(this);' data-page='" + page_total_num + "'>尾页</a>";
         }
-        page_str +="</div></td>";
-        $("#page-tag").html(page_str);
+//        page_str +="</div></td>";
+        $("#pagelist").html(page_str);
     }
 
     $(function() {

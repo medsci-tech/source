@@ -22,9 +22,10 @@ ul,li{ list-style-type:none;}
 
 .leftnav ul { border-top:4px solid #b5cfd9; padding: 0 0 5px 0;opacity:1;}
 .leftnav ul li{ list-style-type:none; text-align: center;}
-.leftnav ul .active{ background-color: #008471;  color: #fff; }
+.leftnav ul .active{ background-color: #eeeeee;}
 .leftnav ul li a { padding-left:0;display:inline-block; width:100%; line-height: 40px; color:#ffffff;font-size:16px;  font-family:"Microsoft YaHei";}
-.leftnav ul li:hover{  background-color: #008471;  color: #0061c1;}
+.leftnav ul .active a{  color: black; }
+.leftnav ul li:hover{  background-color: #eeeeee;  color: #0061c1;}
 .leftnav ul li:hover a{ color: #22cc77;}
 
 /***主要内容***/

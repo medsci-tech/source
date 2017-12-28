@@ -73,8 +73,9 @@
                 <button class="button bg-main r mr20" type="button" id="reset">重置</button>
                 <button class="button bg-main r mr20" type="button" id="search">查询</button>
             </div>
+            <div class="clear"></div>
             <div class="panel admin-panel">
-                <table class="table table-hover text-center" id="list">
+                <table class="table table-hover text-center table-striped" id="list">
                     {{--<tr>--}}
                         {{--<th width="120">ID</th>--}}
                         {{--<th>素材名</th>--}}
@@ -113,6 +114,7 @@
                         {{--<td colspan="14"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>--}}
                     {{--</tr>--}}
                 </table>
+                <div class='pagelist' id='pagelist'></div>
             </div>
         </form>
     </div>
@@ -128,7 +130,6 @@
     <script type="text/javascript">
         var page_cur = 1; //当前页
         var total_num, page_size, page_total_num; //总记录数,每页条数,总页数
-        var status
         function getData(page) { //获取当前页数据
             var material_name=$("#material_name").val();
             var material_type_id=$("#material_type_id").val();
@@ -154,7 +155,7 @@
                         page_size = json.page_size; //每页数量
                         page_cur = page; //当前页
                         page_total_num = json.page_total_num; //总页数businessScope unix_to_datetime(unix);   getLocalTime(parseInt(array.ctime,10)) SProductName out_logi_no
-                        var li = "<tr><th width='120'>ID</th><th>素材名称</th><th>素材类型</th><th>素材数量</th><th>审核状态</th><th>金额</th><th>审核备注</th><th>支付状态</th><th>上传时间</th><th>操作</th></tr>";
+                        var li = "<thead><tr><th width='120'>ID</th><th>素材名称</th><th>素材类型</th><th>素材数量</th><th>审核状态</th><th>金额</th><th>审核备注</th><th>支付状态</th><th>上传时间</th><th>操作</th></tr></thead><tbody>";
                         var list = json.list;
                         $.each(list, function(index, array) { //遍历返回json
                             showbutton ='';
@@ -179,12 +180,12 @@
                             li += showbutton +"</div></td></tr>";
                         });
 
-                        li +="<tr id ='page-tag'></tr>"
+                        li +="</tbody>"
                         $("#list").append(li);
                         getPageBar();
                     } else {
                         $("#list").empty();
-                        $("#list").append("<tr><td colspan='14'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
+//                        $("#list").append("<tr><td colspan='14'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
                         alert(json.msg);
                     }
                 },
@@ -203,7 +204,7 @@
                 page_cur = page_total_num; //当前页大于最大页数
             if (page_cur < 1)
                 page_cur = 1; //当前页小于1
-            page_str ="<td colspan='14'><div class='pagelist' id='pagelist'>";
+            page_str ="";
             page_str += "<span>共" + page_total_num + "页</span><span>" + page_cur + "/" + page_total_num + "</span>";
 //        page_str ="<tr>";
             //若是第一页
@@ -218,8 +219,8 @@
             } else {
                 page_str += "<a href='javascript:void(0)' onclick='aclick(this);' data-page='" + (parseInt(page_cur) + 1) + "'>下一页</a><a href='javascript:void(0)' onclick='aclick(this);' data-page='" + page_total_num + "'>尾页</a>";
             }
-            page_str +="</div></td>";
-            $("#page-tag").html(page_str);
+//            page_str +="</div>";
+            $("#pagelist").html(page_str);
         }
 
         $(function() {

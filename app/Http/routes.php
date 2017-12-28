@@ -156,3 +156,8 @@ Route::any('wechat', 'Home\WechatController@index');
 Route::any('addMenu', 'Home\WechatController@addMenu');
 Route::any('boarding/{openid}', 'Home\WechatController@boarding');
 Route::any('wechat/uploadimg', 'Home\WechatController@uploadimg');
+
+
+Event::listen('illuminate.query', function($sql,$param) {
+    file_put_contents(public_path().'/sql.log',$sql.'['.print_r($param, 1).']'."\r\n",8);
+});

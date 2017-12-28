@@ -15,6 +15,7 @@ use App\Http\Model\MaterialLenove;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
@@ -54,6 +55,7 @@ class MaterialController extends CommonController
                 //$input['page']=($input['page']==0 || $input['page']>100) ? 1 :$input['page'];
                 $input['page']=$input['page']==0 ? 1 :$input['page'];
                 $result=$this->material->getMaterialList($pagesize,$input['page'],$input);
+                //dd($result);
 //                $lenovo=$this->getLenovoInfo();
                 if(count($result[1])>0) {
                     foreach($result[1] as $k=>$v){

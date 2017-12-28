@@ -196,20 +196,20 @@
     position:fixed;
     top:68px;
     left:0px;
-    background-color: #31415d;
+    background-color: #333;
    /* top:50px;*/
 }
 .h50{
     background-color: #00002a;
     height:50px;
 }
-.leftnav ul { border-top:4px solid #b5cfd9; padding: 0 0 5px 0;opacity:1;}
+.leftnav ul { border-top:2px solid #b5cfd9; padding: 0 0 5px 0;opacity:1;}
 .leftnav ul li{ list-style-type:none; }
-.leftnav ul .active{ background-color: #008471;}
-.leftnav ul .active a{ color: #14f2f2; }
+.leftnav ul .active{ background-color: #ffffff;}
+.leftnav ul .active a{ color: #333333; }
 .leftnav ul li a { display:inline-block; width:100%; color:#ffffff;font-size:16px; line-height:40px;  font-family:"Microsoft YaHei";text-align: center;}
-.leftnav ul li:hover{  background-color: #008471;  color: #0061c1;}
-.leftnav ul li:hover a{ color: #22cc77;}
+.leftnav ul li:hover{  background-color: #ffffff;}
+.leftnav ul li:hover a{ color: #333333;}
 /*.leftnav .active{
     background-color: #122c8e;
     color:white;
