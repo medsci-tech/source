@@ -108,27 +108,28 @@
 .loginBox {
     background-size: cover;
     height: 100%;
-    background: url(../images/bg.jpg) no-repeat center center;
+    background: url(../images/bg0.jpg) no-repeat center center;
 }
 
 .loginWrapper {
-    width: 678px;
-    height: 484px;
-    background: url(../images/loginBg2.png) no-repeat center center;
-    margin-top: 5%;
+    width: 600px;
+    height: 400px;
+    background: url(../images/login-box.png) no-repeat center center;
+    margin-top: 12%;
+    /*border-radius: 5px;*/
 }
 
 .in2 {
-    width: 632px;
-    height: 444px;
-    margin-left: 23px;
+    width: 600px;
+    height: 400px;
+    /*margin-left: 23px;*/
     overflow: hidden;
 }
 
 .logo2, .forgetlogo2 {
-    width: 478px;
+    width: 600px;
     height: 52px;
-    background: url(../images/logo2.png) no-repeat center center;
+    /*background: url(../images/logo2.png) no-repeat center center;*/
     margin: 36px auto 0 auto;
 }
 
@@ -142,22 +143,29 @@
     height:auto;
 }
 .dl {
-    width: 191px;
+    width: 37%;
     height: 32px;
-    background: url(../images/dl.png) no-repeat center center;
-    margin-left: 275px;
+    line-height:32px;
+    color:#eee;
+    text-align:center;
+    font-weight:bold;
+    /*background: url(../images/dl.png) no-repeat center center;*/
+    background-color:#96c752;
+    border-radius:5px;
+    margin-left: 36%;
     margin-top: 10px;
+    /*padding-left:15px;*/
     display: block;
 }
 
 .wjmm {
     font-size: 12px;
     color: #269801;
-    margin-left: 410px;
+    margin-left: 400px;
 }
 
 .wjmm2 {
-    margin-left: 348px;
+    margin-left: 340px;
 }
 
 .frontLogo {
@@ -290,7 +298,7 @@
     font-size: 16px;
 }
 .tips-center {
-    text-indent: 23em;
+    text-indent: 20em;
     line-height: 16px;
     font-size: 12px;
     color: #ff0000;
