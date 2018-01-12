@@ -3,6 +3,7 @@
 @section('title','素材类型管理')
 
 @section('css')
+    @parent
     <link rel="stylesheet" type="text/css" href="{{asset('resources/views/admin/static/css/jquery-ui.css')}}" />
 @endsection
 
@@ -77,6 +78,15 @@
                 </div>
                 <div class="form-group">
                     <div class="label">
+                        <label>默认价格：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input" name="edit_material_price" id="edit_material_price" value="">
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
                         <label>状态：</label>
                     </div>
                     <div class="field">
@@ -125,7 +135,7 @@
                     page_size = json.page_size; //每页数量
                     page_cur = page; //当前页
                     page_total_num = json.page_total_num; //总页数businessScope unix_to_datetime(unix);   getLocalTime(parseInt(array.ctime,10)) SProductName out_logi_no
-                    var li = "<tr><th>序号</th><th>素材类型</th><th>启用状态</th><th>操作</th></tr>";
+                    var li = "<tr><th>序号</th><th>素材类型</th><th>素材价格(￥)</th><th>启用状态</th><th>操作</th></tr>";
                     var list = json.list;
                     var status_button;
                     $.each(list, function(index, array) { //遍历返回json
@@ -136,7 +146,7 @@
                             array.status_button='禁用';
 //                            status_button ='启用';
                         }
-                        li +="<tr><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.material_type_name+"</td><td>"+array.status_button+"</td><td><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='edit(this)' data='"+array._id+"' status='"+array.status+"' material_type_name='"+array.material_type_name+"'><span class='icon-edit'></span>编辑</a></div></td></tr>";
+                        li +="<tr><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.material_type_name+"</td><<td>"+array.price+"</td><td>"+array.status_button+"</td><td><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='edit(this)' data='"+array._id+"' status='"+array.status+"' material_type_name='"+array.material_type_name+"' price='"+array.price+"'><span class='icon-edit'></span>编辑</a></div></td></tr>";
                     });
                     li +="<tr id ='page-tag'></tr>"
 //                    page_str=getPageBar();
@@ -207,6 +217,7 @@
     function edit(obj){
         $("#typeid").val($(obj).attr('data'));
         $("#edit_material_type_name").val($(obj).attr('material_type_name'));
+        $("#edit_material_price").val($(obj).attr('price'));
         $("#editStatus").val($(obj).attr('status'));
         $("#editBox").css('display','block');
     }
@@ -214,6 +225,7 @@
     function add(){
         $("#typeid").val('');
         $("#edit_material_type_name").val('');
+        $("#edit_material_price").val(300);
         $("#typeid").val('');
         $('#editStatus option:eq(0)').attr('selected','selected');
         $("#editBox").css('display','block');
@@ -222,6 +234,7 @@
     $("#sureEdit").click(function(){
         var id=$("#typeid").val();
         var material_type_name = $("#edit_material_type_name").val();
+        var price = $("#edit_material_price").val();
         var status = $("#editStatus").val();
         if(material_type_name ==''){
             alert('请输入素材类型名称!');
@@ -230,7 +243,7 @@
         $.ajax({
             type: 'post',
             url: '{{url('admin/materialtype/ajax')}}',
-            data: {'action': 'edit','id':id,'material_type_name':material_type_name,'status':status },
+            data: {'action': 'edit','id':id,'material_type_name':material_type_name,'price':price,'status':status },
             dataType: 'json',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')

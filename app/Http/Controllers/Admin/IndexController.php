@@ -58,18 +58,6 @@ class IndexController extends CommonController
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     //更改超级管理员密码
     public function pass()
     {

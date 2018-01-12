@@ -204,7 +204,7 @@
                     getPageBar();
                 } else {
                     $("#list").empty();
-                    $("#list").append("<tr><td colspan='14'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
+                    $("#list").append("<tr><td colspan='8'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
                     alert(json.msg);
                 }
             },
@@ -223,7 +223,7 @@
             page_cur = page_total_num; //当前页大于最大页数
         if (page_cur < 1)
             page_cur = 1; //当前页小于1
-        page_str ="<td colspan='14'><div class='pagelist' id='pagelist'>";
+        page_str ="<td colspan='8'><div class='pagelist' id='pagelist'>";
         page_str += "<span>共" + page_total_num + "页</span><span>" + page_cur + "/" + page_total_num + "</span>";
 //        page_str ="<tr>";
         //若是第一页

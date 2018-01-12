@@ -39,6 +39,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::any('index/ajax', 'Home\IndexController@ajax');
     Route::any('login', 'Home\IndexController@login');
     Route::get('forget', 'Home\IndexController@forget');
+    Route::get('protocol', 'Home\IndexController@protocol');
 
     Route::any('callbackmaterial', 'Home\IndexController@callBackMaterial');
     Route::any('callbacktools', 'Home\IndexController@callBackTools');
@@ -61,15 +62,21 @@ Route::group(['middleware' => ['web','user.login'],'prefix'=>'home','namespace'=
     Route::get('userfile/index', 'UserFileController@index');
     Route::any('userfile/ajax', 'UserFileController@ajax');
     Route::any('userfile/addmaterial', 'UserFileController@addMaterial');
+    Route::post('userfile/upload', 'UserFileController@uploadFiles');
     Route::get('userfile/downloadfile/{material_id}', 'UserFileController@downloadFile');
+    Route::get('userfile/downloadSource/{material_url}', 'UserFileController@downloadSource');
 
     Route::get('sharefile/index', 'ShareFileController@index');
     Route::any('sharefile/ajax', 'ShareFileController@ajax');
     Route::get('sharefile/downloadfile/{tools_id}', 'ShareFileController@downloadFile');
 
     Route::get('userinfo/index', 'UserInfoController@index');
+    Route::get('userinfo/edit', 'UserInfoController@edit');
     Route::get('userinfo/modifypassword', 'UserInfoController@modifyPassword');
     Route::any('userinfo/ajax', 'UserInfoController@ajax');
+
+    Route::any('userinfo/questions', 'UserInfoController@questions');
+    Route::any('userinfo/protocol', 'UserInfoController@uploadProtocol');
 
     Route::get('recommendinfo/index', 'RecommendInfoController@index');
     Route::get('recommendinfo/addrecommend', 'RecommendInfoController@addRecommend');
@@ -86,11 +93,15 @@ Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace
     Route::get('material/index', 'MaterialController@index');
     Route::post('material/ajax', 'MaterialController@ajax');
     Route::get('material/downloadfile/{material_id}', 'MaterialController@downloadFile');
+    Route::get('material/downloadSource/{material_url}', 'MaterialController@downloadSource');
     Route::get('material/addMaterial', 'MaterialController@addMaterial');
     Route::any('material/importExcel', 'MaterialController@importExcel');
 
 
-    Route::get('area/index', 'AreaController@index');
+    Route::get('company/index', 'CompanyController@index');
+    Route::post('company/save', 'CompanyController@saveinfo');
+
+	Route::get('area/index', 'AreaController@index');
     Route::post('area/ajax', 'AreaController@ajax');
 
 
@@ -128,6 +139,9 @@ Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace
 
     Route::any('report/reportexcel', 'ReportController@reportExcel');
 
+    Route::any('questions/index', 'QuestionsController@index');
+    Route::any('questions/saveinfo/{id?}', 'QuestionsController@saveinfo');
+
 
 
 //    Route::any('pass', 'IndexController@pass');
@@ -156,8 +170,3 @@ Route::any('wechat', 'Home\WechatController@index');
 Route::any('addMenu', 'Home\WechatController@addMenu');
 Route::any('boarding/{openid}', 'Home\WechatController@boarding');
 Route::any('wechat/uploadimg', 'Home\WechatController@uploadimg');
-
-
-Event::listen('illuminate.query', function($sql,$param) {
-    file_put_contents(public_path().'/sql.log',$sql.'['.print_r($param, 1).']'."\r\n",8);
-});

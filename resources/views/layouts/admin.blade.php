@@ -10,13 +10,15 @@
     <meta name="renderer" content="webkit">
     <meta name="_token" content="{{ csrf_token() }}"/>
     <title>@yield('title')</title>
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/pintuer.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/admin.css')}}">
-    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/main.css')}}">
-    @section('css')
 
+    <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/admin.css')}}">
+    @section('css')
+        <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/pintuer.css')}}">
+        <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/main.css')}}">
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
     @show
     <script src="{{asset('resources/views/admin/static/js/jquery.js')}}"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="{{asset('resources/views/admin/static/js/pintuer.js')}}"></script>
     <script type="text/javascript" src="{{asset('resources/views/admin/static/js/jquery-ui-1.10.4.custom.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('resources/views/admin/static/js/jquery.ui.datepicker-zh-CN.js')}}"></script>
@@ -48,11 +50,13 @@
             <li @if(Request::is('admin/tools/index')) class="active" @endif><a href="{{url('admin/tools/index')}}">工具分享</a></li>
             <li @if(Request::is('admin/doctor/index')) class="active" @endif><a href="{{url('admin/doctor/index')}}">医生管理</a></li>
             <li @if(Request::is('admin/recommend/index')) class="active" @endif><a href="{{url('admin/recommend/index')}}">推荐人管理</a></li>
+            <li @if(Request::is('admin/company/index')) class="active" @endif><a href="{{url('admin/company/index')}}">公司管理</a></li>
             <li @if(Request::is('admin/bigarea/index')) class="active" @endif><a href="{{url('admin/bigarea/index')}}">大区管理</a></li>
             <li @if(Request::is('admin/area/index')) class="active" @endif><a href="{{url('admin/area/index')}}">地区管理</a></li>
             <li @if(Request::is('admin/sales/index')) class="active" @endif><a href="{{url('admin/sales/index')}}">销售组管理</a></li>
             <li @if(Request::is('admin/hospital/index')) class="active" @endif><a href="{{url('admin/hospital/index')}}">医院管理</a></li>
             <li @if(Request::is('admin/materialtype/index')) class="active" @endif><a href="{{url('admin/materialtype/index')}}">素材类型管理</a></li>
+            <li @if(Request::is('admin/questions/*')) class="active" @endif><a href="{{url('admin/questions/index')}}">常见问题管理</a></li>
             <li @if(Request::is('admin/report/index')) class="active" @endif><a href="{{url('admin/report/index')}}">报表管理</a></li>
         @endif
     </ul>
@@ -61,19 +65,6 @@
     <!---->
     <!--</ul>  -->
 </div>
-<script type="text/javascript">
-    $(function(){
-        $(".leftnav h2").click(function(){
-            $(this).next().slideToggle(200);
-            $(this).toggleClass("on");
-        })
-        $(".leftnav ul li a").click(function(){
-            $("#a_leader_txt").text($(this).text());
-            $(".leftnav ul li a").removeClass("on");
-            $(this).addClass("on");
-        })
-    });
-</script>
 <ul class="bread">
     <li><a href="{{url('admin/material/index')}}" target="right" class="icon-home"> 首页</a></li>
     <li><a href="javascript:;" id="a_leader_txt">素材管理</a></li>
@@ -83,6 +74,10 @@
     @section('content')
     @show
 </div>
+<!-- 模态框（Modal） -->
+@include('layouts/common')
+{{--遮罩层--}}
+<div id="shelter" style="background-color: #765a5aa6;position: fixed;top: 0;left: 0;width: 100%;height:100%;z-index: 900;display: none"></div>
 </body>
 </html>
 @section('addDiv')

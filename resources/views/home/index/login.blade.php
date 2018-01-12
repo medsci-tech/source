@@ -14,28 +14,34 @@
     <div class="regisWrapper loginWrapper">
         <div class="in2">
             <div class="logo2"></div>
-            <form class="form-horizontal loginForm" method="post" action="{{url('login')}}">
+            <form class="loginForm" method="post" action="{{url('login')}}">
                 {{csrf_field()}}
-                @if(session('msg'))
-                    <div class="tips-center">{{session('msg')}}</div>
-                @endif
+
+                <div class="tips-center">@if(session('msg')) {{session('msg')}} @endif</div>
+
                 <div class="form-group">
-                    <label class="col-sm-5 control-label">手机号</label>
-                    <div class="col-sm-4">
+                    <label class="col-sm-3 control-label">手机号：</label>
+                    <div class="col-sm-5">
                         <input type="text" class="form-control" name="doctor_mobile">
-                        <div class="tips"></div>
+
                     </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">密码：</label>
+                    <div class="col-sm-5">
+                        <input type="password" class="form-control" name="password">
+
+                    </div>
+                    <div class="clear"></div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-5 control-label">密码</label>
-                    <div class="col-sm-4">
-                        <input type="password" class="form-control" name="password">
-                        <div class="tips"></div>
-                    </div>
-                </div>
-                <a href="{{url('forget')}}" class="wjmm">忘记密码?</a>
-                <a href="javascript:;" onclick="$('.loginForm').submit();" class="dl"></a>
+                    <a href="{{url('forget')}}" class="wjmm">忘记密码?</a>
+
+                <a href="javascript:;" onclick="$('.loginForm').submit();" class="dl">登入</a>
                 <a href="{{url('register')}}" class="wjmm wjmm2">还没有账号？立即注册</a>
+                </div>
             </form>
         </div>
 

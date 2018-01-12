@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Model\Doctor;
+use App\Http\Model\DoctorProtocol;
 use App\Http\Model\Recommend;
 use App\Http\Model\DoctorRecommend;
 use App\Http\Model\Bigarea;
@@ -12,6 +13,7 @@ use App\Http\Model\Material;
 use App\Http\Model\MaterialLenove;
 use Illuminate\Support\Facades\Input;
 use Log;
+use Qiniu\Auth;
 
 class IndexController extends CommonController
 {
@@ -23,7 +25,6 @@ class IndexController extends CommonController
         $this->material=new Material;
         $this->materiallenove=new MaterialLenove;
     }
-
 
     public function index()
     {
@@ -37,13 +38,26 @@ class IndexController extends CommonController
         return view('home.index.agree');
     }
 
+    public function protocol()
+    {
+        return response()->download('uploads/MedSource_protocol.doc');
+    }
+
     public  function register(){
 
 //        $bigarea = Bigarea::where('status','1')->get();
         $bigarea = Bigarea::get();
         $area = Area::get();
         $sales = Sales::get();
-        return view('home.index.register',compact('bigarea','area','sales'));
+
+		//用七牛云上传文件
+		$accessKey = env('QN_AccessKey');
+		$secretKey = env('QN_SecretKey');
+		$bucket = env('QN_Bucket');
+		$auth = new Auth($accessKey,$secretKey);
+		// 生成上传 Token
+		$token = $auth->uploadToken($bucket);
+        return view('home.index.register',compact('bigarea','area','sales','token'));
     }
 
 
@@ -80,60 +94,50 @@ class IndexController extends CommonController
     public function ajax(){
         $input = Input::all();
         switch($input['action']){
+			case 'checkPhoneExist':
+				$result = $this->doctor->where('doctor_mobile',$input['doctor_mobile'])->first();
+				if(isset($result->doctor_mobile)){
+					$returnInfo=array(
+						'status' => 0,
+						'msg' => '该手机号码已注册!',
+					);
+				}else{
+					$returnInfo=array(
+						'status' => 1,
+						'msg' => '该手机号码可用!',
+					);
+				}
+				return response()->json($returnInfo);
             case 'addDoctor':
-//              p($this->registerUserCenter($input));die;
-                $result = $this->doctor->where('doctor_mobile',$input['doctor_mobile'])->first();
-                if(isset($result->doctor_username)){
-                    $returnInfo=array(
-                        'status' => 0,
-                        'msg' => '该手机号码已注册!',
-                    );
-                    return response()->json($returnInfo);
-                }
-                $condition['recommend_mobile']=$input['recommend_mobile'];
-                $condition['recommend_name']=$input['recommend_name'];
-                $condition['big_area_id']=$input['big_area_id'];
-                $condition['area_id']=$input['area_id'];
-                $condition['sales_id']=$input['sales_id'];
-//                $condition['recommend_id_card']=$input['recommend_id_card'];
-                $result = $this->recommend->where($condition)->first();
-                if(isset($result->recommend_name)){
-                }else{
-                    $this->recommend->recommend_mobile=$input['recommend_mobile'];
-                    $this->recommend->recommend_name=$input['recommend_name'];
-                    $this->recommend->big_area_id=$input['big_area_id'];
-                    $this->recommend->area_id=$input['area_id'];
-                    $this->recommend->sales_id=$input['sales_id'];
-//                    $this->recommend->recommend_id_card=$input['recommend_id_card'];
-                    $this->recommend->save();
-                    $result = $this->recommend->where($condition)->first();
-                }
-                $this->doctor->recommend_id=$result->_id;
-                $this->doctor->doctor_name=$input['doctor_name'];
-                $this->doctor->doctor_mobile=$input['doctor_mobile'];
-                $this->doctor->password=$input['password'];
-                $this->doctor->id_card=$input['id_card'];
-                $this->doctor->province_name=$input['province_name'];
-                $this->doctor->city_name=$input['city_name'];
-                $this->doctor->region_name=$input['region_name'];
-                $this->doctor->province_id=$input['province_id'];
-                $this->doctor->city_id=$input['city_id'];
-                $this->doctor->region_id=$input['region_id'];
-                $this->doctor->hospital_name=$input['hospital_name'];
-                $this->doctor->bank_card_no=$input['bank_card_no'];
-                $this->doctor->bank_name=$input['bank_name'];
+//              dd($input);
+				$doctorInfo = $input['doc_data'];
+                $this->doctor->doctor_name   = $doctorInfo['doctor_name'];
+                $this->doctor->doctor_mobile = $doctorInfo['doctor_mobile'];
+                $this->doctor->password      = $doctorInfo['password'];
+                $this->doctor->id_card       = $doctorInfo['id_card'];
+                $this->doctor->province_name = $doctorInfo['province_name'];
+                $this->doctor->city_name     = $doctorInfo['city_name'];
+                $this->doctor->region_name   = $doctorInfo['region_name'];
+                $this->doctor->province_id   = $doctorInfo['province_id'];
+                $this->doctor->city_id       = $doctorInfo['city_id'];
+                $this->doctor->region_id     = $doctorInfo['region_id'];
+                $this->doctor->hospital_name = $doctorInfo['hospital_name'];
+                $this->doctor->bank_card_no  = $doctorInfo['bank_card_no'];
+                $this->doctor->bank_name     = $doctorInfo['bank_name'];
 
-                $this->doctor->recommend_mobile=$input['recommend_mobile'];
-                $this->doctor->recommend_name=$input['recommend_name'];
-                $this->doctor->big_area_id=$input['big_area_id'];
-                $this->doctor->area_id=$input['area_id'];
-                $this->doctor->sales_id=$input['sales_id'];
-//                $this->doctor->recommend_id_card=$input['recommend_id_card'];
                 if($this->doctor->save()){
-                    $docotr = $this->doctor->where('doctor_mobile',$input['doctor_mobile'])->first();
-                    $this->doctorrecommend->doctor_id =$docotr->_id;
-                    $this->doctorrecommend->recommend_id =$result->_id;
-                    $this->doctorrecommend->save();
+					$docotr = $this->doctor->where('doctor_mobile',$doctorInfo['doctor_mobile'])->first();
+					session(['user'=>$docotr]);
+                	//如果上传了协议，保存文件
+                	if(isset($doctorInfo['file'])){
+						DoctorProtocol::create([
+							'doctor_id'=>$docotr->_id,
+							'file_url'=>$doctorInfo['file'],
+							'file_name'=>$doctorInfo['filename'],
+							'check_status'=>'0' //审核状态 0.未审核 1.通过 2.驳回
+						]);
+					}
+
        //             $this->registerUserCenter($input);
                     $returnInfo=array(
                         'status' => 1,

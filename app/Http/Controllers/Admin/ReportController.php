@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Model\Company;
 use App\Http\Model\User;
 use App\Http\Model\MaterialType;
 use App\Http\Model\Material;
@@ -31,10 +32,11 @@ class ReportController extends CommonController
     public function index()
     {
         $materialType = materialType::where('status','1')->get();
+        $company= Company::where('status','1')->get();
         $bigarea = Bigarea::where('status','1')->get();
         $area = Area::where('status','1')->get();
         $sales = Sales::where('status','1')->get();
-        return view('admin.report',compact('materialType','bigarea','area','sales'));
+        return view('admin.report',compact('materialType','company','bigarea','area','sales'));
     }
 
 
@@ -44,7 +46,6 @@ class ReportController extends CommonController
         switch($input['action']){
             case 'getlist':
                 $pagesize=8;
-                $input = Input::all();
                 $input['page']=($input['page']==0 || $input['page']>100) ? 1 :$input['page'];
                 $result=$this->report->getReportList($pagesize,$input['page'],$input);
                 if(!empty($result[1])) {
@@ -79,16 +80,24 @@ class ReportController extends CommonController
                         if(isset($recommend->recommend_mobile) && $recommend->recommend_mobile){
                             $result[1][$k]->recommend_mobile =$recommend->recommend_mobile;
                         }
+                        $company = Company::where('_id',$recommend->company_id)->first();
                         $bigarea = Bigarea::where('_id',$recommend->big_area_id)->first();
                         $area = Area::where('_id',$recommend->area_id)->first();
                         $sales = Sales::where('_id',$recommend->sales_id)->first();
-                        if($bigarea['big_area_name']){
+                        if($company['full_name']){
+                            $result[1][$k]->company_name =$company['full_name'];
+                        }else{
+							$result[1][$k]->big_area_name ='';
+						}
+						if($bigarea['big_area_name']){
                             $result[1][$k]->big_area_name =$bigarea['big_area_name'];
-                        }
+                        }else{
+							$result[1][$k]->big_area_name ='';
+						}
                         if($area['area_name']){
                             $result[1][$k]->area_name =$area['area_name'];
                         }else{
-                            $result[1][$k]->area_name = '暂无';
+                            $result[1][$k]->area_name = '';
                         }
                         if($sales['sales_name']){
                             $result[1][$k]->sales_name =$sales['sales_name'];
@@ -128,7 +137,10 @@ class ReportController extends CommonController
 
 
     public function reportExcel(){
-        set_time_limit(0);
+
+	set_time_limit(0);
+	ini_set('memory_limit', '526M');
+
         $report_request = Cache::get('report_request');
 //        $material =Material::get();
         ini_set('memory_limit', '526M');
@@ -160,16 +172,24 @@ class ReportController extends CommonController
             if (isset($recommend->recommend_mobile) && $recommend->recommend_mobile) {
                 $material[$k]->recommend_mobile = $recommend->recommend_mobile;
             }
+            $company = Company::where('_id', $recommend->company_id)->first();
             $bigarea = Bigarea::where('_id', $recommend->big_area_id)->first();
             $area = Area::where('_id', $recommend->area_id)->first();
             $sales = Sales::where('_id', $recommend->sales_id)->first();
-            if ($bigarea['big_area_name']) {
+            if ($company['full_name']) {
+                $material[$k]->big_area_name = $company['full_name'];
+            }else{
+				$material[$k]->full_name = '';
+			}
+			if ($bigarea['big_area_name']) {
                 $material[$k]->big_area_name = $bigarea['big_area_name'];
-            }
+            }else{
+				$material[$k]->big_area_name = '';
+			}
             if ($area['area_name']) {
                 $material[$k]->area_name = $area['area_name'];
             } else {
-                $material[$k]->area_name = '暂无';
+                $material[$k]->area_name = '';
             }
             if ($sales['sales_name']) {
                 $material[$k]->sales_name = $sales['sales_name'];
@@ -196,6 +216,7 @@ class ReportController extends CommonController
             '素材名称',
             '素材类型',
             '素材数量',
+            '公司',
             '大区',
             '区域',
             '销售组',
@@ -225,6 +246,7 @@ class ReportController extends CommonController
             $arr[] =$v->material_name;
             $arr[] =$v->material_type_name;
             $arr[] =$v->attachments;
+            $arr[] =$v->company_name;
             $arr[] =$v->big_area_name;
             $arr[] =$v->area_name;
             $arr[] =$v->sales_name;

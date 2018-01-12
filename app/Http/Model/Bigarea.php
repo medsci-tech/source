@@ -8,11 +8,12 @@ class Bigarea extends Moloquent {
 
     protected $connection = 'mongodb';
     protected $table = 'bigarea';
+	protected $fillable = ['big_area_name','company_id','status'];
 
     public function getBigareaList($pagesize = 6, $page = 1,$data=array()){
         $handle =SELF::orderBy('_id', 'desc');
-        if($data['big_area_name']) {
-            $handle->where('big_area_name', 'like', "%{$data['big_area_name']}%");
+        if($data['company_id']) {
+            $handle->where('company_id',$data['company_id']);
         }
         $offset = 0;
         if ($page > 1)
@@ -20,6 +21,9 @@ class Bigarea extends Moloquent {
         $totalrows = $handle->count();
         $pagetotal = ceil($totalrows / $pagesize);
         $result=$handle->skip($offset)->take($pagesize)->get();
+        foreach ($result as &$v){
+        	$v->company = SELF::getCompany($v->company_id);
+		}
         return array($totalrows, $result, $pagetotal);
     }
 
@@ -38,4 +42,14 @@ class Bigarea extends Moloquent {
         return false;
 
     }
+
+    public function getCompany($id){
+    	$company = Company::where('_id',$id)->pluck('full_name');
+    	try{
+			return $company[0];
+		}catch (\Exception $e){
+			return '';
+		}
+
+	}
 }

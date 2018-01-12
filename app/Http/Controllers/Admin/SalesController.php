@@ -44,7 +44,8 @@ class SalesController extends CommonController
                         $bigarea = Bigarea::where('_id', $v->big_area_id)->first();
                         $area = Area::where('_id', $v->area_id)->first();
                         if (isset($bigarea->big_area_name) &&$bigarea->big_area_name) {
-                            $result[1][$k]->big_area_name = $bigarea->big_area_name;
+							$company =$bigarea->getCompany($bigarea->company_id);
+                            $result[1][$k]->big_area_name = $bigarea->big_area_name."({$company})";
                         }else {
                             $result[1][$k]->big_area_name = '暂无';
                         }

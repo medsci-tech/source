@@ -2,27 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Model\User;
-
-use App\Http\Model\Area;
-use App\Http\Model\Bigarea;
-use App\Http\Model\Doctor;
-use App\Http\Model\Hospital;
-use App\Http\Model\Recommend;
-use App\Http\Model\Material;
 use App\Http\Model\Material_type;
-use App\Http\Model\Report;
-use App\Http\Model\Sales;
-use App\Http\Model\Tools;
-
-
-use App\Http\Model\Mongodb;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-//use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\View;
 
 require_once 'resources/org/code/Code.class.php';
 

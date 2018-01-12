@@ -3,6 +3,7 @@
 @section('title','工具分享')
 
 @section('css')
+    @parent
     <link rel="stylesheet" type="text/css" href="{{asset('resources/views/admin/static/css/jquery-ui.css')}}" />
 @endsection
 
@@ -69,11 +70,12 @@
     <div class="body l">
         <p>是否删除该条数据</p>
     </div>
-    <div class="bottom l" class="MsgBottom" style="height: 45px;">
+    <div class="bottom l" class="MsgBottom" style="height: 60px;">
         <div class="btn MsgBtns">
             <div class="height"></div>
             <input type="button" class="btn" value="确认" id="sureDelete">　<input type="button" class="btn" value="取消" id="cancleDelete">
             <input type="hidden" name="toolsid"  id="toolsid" value="" />
+            <div class="height"></div>
         </div>
     </div>
 </div>
@@ -122,7 +124,7 @@
                 } else {
                     $("#list").empty();
                     $("#list").append("<tr><td colspan='14'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
-                    alert(json.msg);
+                    modelAlert(json.msg);
                 }
             },
             complete: function() {
@@ -131,7 +133,7 @@
             },
             error: function() {
 //                $('body').hideLoading();
-                alert("数据异常！");
+                modelAlert("数据异常！");
             }
         });
     }
@@ -202,17 +204,17 @@
             success: function(json) {
 
                 if (json.status == 1) {
-                    alert(json.msg);
+                    modelAlert(json.msg);
                     window.location.href="{{url("admin/tools/index")}}";
                 } else {
-                    alert(json.msg);
+                    modelAlert(json.msg);
                 }
             },
             complete: function() {
 
             },
             error: function() {
-                alert("数据异常！");
+                modelAlert("数据异常！");
             }
         });
 

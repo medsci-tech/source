@@ -1,8 +1,8 @@
 
 .registerBox {
     width: 100%;
-    height: auto;
-    background: url(../images/loginBg.jpg) no-repeat center center;
+    height: 100%;
+    background: url(../images/bg0.jpg) no-repeat center center;
     position: absolute;
     top: 0;
     left: 0;
@@ -10,18 +10,136 @@
     background-size: cover;
 }
 
-.regisWrapper {
-    width: 1044px;
-    height: 1092px;
-    background: url(../images/bg2.png) no-repeat center center;
-    margin: 40px auto 0 auto;
-    overflow: hidden;
+.registerBox .header{
+    margin: 0 auto;
+    width:245px;
+    height:74px;
+    line-height:74px;
+    color:white;
+    vertical-align: middle;
+
+}
+.registerBox header img{
+    /*margin-top:-20px;*/
+    vertical-align: middle;
 }
 
-.in {
-    width: 1000px;
-    margin-left: 22px;
+.content{
+    position:relative;
+    font-size:16px;
+    font-weight: normal;
+    width:900px;
+    min-height:570px;
+    background-color:#fff;
+    margin:40px auto;
+    padding:20px 0;
 }
+.step{
+    display:none;
+    width:700px;
+    margin: auto;
+}
+.step1{
+    display:block;
+}
+.step1 .guide{
+    width:598px;
+    height:59px;
+    margin:20px auto;
+    background: url(../images/guide.jpg) 0 0;
+}
+.step2 .guide{
+    width:598px;
+    height:59px;
+    margin:10px auto;
+    background: url(../images/guide.jpg) 0 -59px;
+}
+.step3 .guide{
+    width:598px;
+    height:59px;
+    margin:10px auto;
+    background: url(../images/guide.jpg) 0 -118px;
+}
+.step4 .guide{
+    width:598px;
+    height:59px;
+    margin:10px auto;
+    background: url(../images/guide.jpg) 0 -118px;
+}
+.step5 .guide{
+    width:598px;
+    height:59px;
+    margin:10px auto;
+    background: url(../images/guide.jpg) 0 -177px;
+}
+
+.step5-ok{
+    text-align: center;
+}
+.step3 .text-center .btn{
+    width:140px;
+    line-height: 30px;
+}
+
+.step4 .text-dl{
+    padding:70px 0;
+}
+
+.control{
+    width:500px;
+    margin:auto;
+    padding-top: 70px;
+}
+.content .form-group {
+    margin-bottom: 20px;
+    /*height: 45px;*/
+}
+.next{
+    position: absolute;
+    padding: 10px 0;
+    bottom:20px;
+}
+.next .btn{
+    width: 80%;
+    line-height: 30px;
+}
+.next a{
+    float: right;
+    margin-right:20%;
+}
+
+.control .control-tips{
+    line-height: 40px;
+}
+.file-show{
+    display: none;
+    width:150px;
+    margin:40px auto 0;
+}
+#file_name{
+    display: inline-block;
+    width:150px;
+    height: 30px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space:nowrap;
+}
+.progress-label {
+    position: absolute;
+    left: 50%;
+    top: 4px;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #fff;
+}
+#progressbar{
+    height:30px;
+    /*display:none;*/
+}
+/*.in {*/
+    /*width: 1000px;*/
+    /*margin-left: 22px;*/
+/*}*/
 
 .logo {
     width: 771px;
@@ -50,7 +168,7 @@
 /*.personInfoForm .form-group {*/
     /*height: 54px;*/
 /*}*/
-.form-group label {
+.body-content .form-group label {
     font-size: 14px;
     color: #313131;
 }
@@ -85,8 +203,9 @@
 }
 
 .ty {
+    padding-left: 15px;
     width: 200px;
-    margin-left: 450px;
+    /*margin-left: 450px;*/
 }
 
 .ty p {
@@ -108,32 +227,41 @@
 .loginBox {
     background-size: cover;
     height: 100%;
-    background: url(../images/bg.jpg) no-repeat center center;
+    background: url(../images/bg0.jpg) no-repeat center center;
 }
 
 .loginWrapper {
-    width: 678px;
-    height: 484px;
-    background: url(../images/loginBg2.png) no-repeat center center;
-    margin-top: 5%;
+    width: 600px;
+    height: 400px;
+    background: url(../images/login-box.png) no-repeat center center;
+    margin:12% auto;
+    font-size:16px;
 }
 
 .in2 {
-    width: 632px;
-    height: 444px;
-    margin-left: 23px;
+    width: 455px;
+    height: 400px;
+    margin: auto;
     overflow: hidden;
 }
 
 .logo2, .forgetlogo2 {
-    width: 478px;
-    height: 52px;
-    background: url(../images/logo2.png) no-repeat center center;
+    /*background: url(../images/logo2.png) no-repeat center center;*/
     margin: 36px auto 0 auto;
 }
 
 .loginForm {
-    margin-top: 50px;
+    width:360px;
+    margin:130px auto;
+}
+
+.loginForm .form-group{
+    width: 455px;
+    margin:20px auto;
+}
+
+.loginForm .control-label{
+    text-align: right;
 }
 .forgetForm {
     margin-top: 42px;
@@ -142,31 +270,49 @@
     height:auto;
 }
 .dl {
-    width: 191px;
+    width: 37%;
     height: 32px;
-    background: url(../images/dl.png) no-repeat center center;
-    margin-left: 275px;
+    line-height:32px;
+    color:#eee;
+    text-align:center;
+    font-weight:bold;
+    /*background: url(../images/dl.png) no-repeat center center;*/
+    background-color:#96c752;
+    border-radius:5px;
+    margin-left: 26%;
     margin-top: 10px;
+    /*padding-left:15px;*/
     display: block;
 }
 
 .wjmm {
     font-size: 12px;
     color: #269801;
-    margin-left: 410px;
+    margin-left: 230px;
 }
 
 .wjmm2 {
-    margin-left: 348px;
+    margin-left: 166px;
 }
 
 .frontLogo {
-    width: 103px;
-    height: 58px;
-    background: url(../images/front_logo.png) no-repeat center center;
-    margin-top: 8px;
+    width: 160px;
+    height:80px;
+    background: url(../images/logo_source.png) no-repeat;
+    margin: 10px;
+    margin-left:20px;
 }
-
+.head-med{
+    float: left;
+    padding: 30px 0 0 20px;
+}
+.head-med a.bg-main{
+    display: block;
+    width:120px;
+    height:50px;
+    line-height: 50px;
+    font-size:18px;
+}
 .city-info-right {
     height: 48px;
     line-height: 28px;
@@ -175,41 +321,43 @@
 }
 
 .city-info-right a {
-    width: 68px;
+    width: 70px;
     height: 30px;
     line-height: 30px;
     font-size: 12px;
-    border-right: 1px solid #384456;
+    /*border-right: 1px solid #384456;*/
     text-align: center;
     float: left;
-    color: #fff;
+    color: #666;
     padding: 0;
-    margin-top: 8px
+    margin-top: 30px
 }
 
 .city-info-right a.br0 {
-    border-right: 1px solid #2f3847;
+    color: #2f7bc7;
 }
 .leftnav {
     width:180px;
     height:100%;
     position:fixed;
-    top:68px;
+    top:90px;
     left:0px;
-    background-color: #333;
+    /*background-color: #333;*/
+    padding-top:20px;
    /* top:50px;*/
+    border-top:1px solid #b5cfd9;
 }
-.h50{
-    background-color: #00002a;
-    height:50px;
-}
-.leftnav ul { border-top:2px solid #b5cfd9; padding: 0 0 5px 0;opacity:1;}
-.leftnav ul li{ list-style-type:none; }
-.leftnav ul .active{ background-color: #ffffff;}
-.leftnav ul .active a{ color: #333333; }
-.leftnav ul li a { display:inline-block; width:100%; color:#ffffff;font-size:16px; line-height:40px;  font-family:"Microsoft YaHei";text-align: center;}
+/*.h50{*/
+    /*background-color: #00002a;*/
+    /*height:50px;*/
+/*}*/
+.leftnav ul { padding: 0 0 5px 0;opacity:1;}
+.leftnav ul li{ list-style-type:none;
+    font-weight:500; }
+.leftnav ul .active a{ color: #2f7bc7;font-weight:600; }
+.leftnav ul li a { display:inline-block; width:100%; color:#333;font-size:16px; line-height:40px;  font-family:"Microsoft YaHei";text-align: center;}
 .leftnav ul li:hover{  background-color: #ffffff;}
-.leftnav ul li:hover a{ color: #333333;}
+.leftnav ul li:hover a{ color: #2f7bc7;text-decoration: none;}
 /*.leftnav .active{
     background-color: #122c8e;
     color:white;
@@ -223,7 +371,7 @@
     color:#eff3f9;
 }*/
 .admin {
-    top:68px;
+    top:90px;
 }
 .panel-head strong {
     font-size:20px;
@@ -305,7 +453,7 @@
     font-size: 16px;
 }
 .tips-center {
-    text-indent: 23em;
+    text-indent: 20em;
     line-height: 16px;
     font-size: 12px;
     color: #ff0000;
@@ -357,6 +505,8 @@ input.btnfocus{ background-color:#EC6D51; font-family:微软雅黑;   border-rad
 .alert-form table {border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;}
 .alert-form table tr {border-left: 1px solid #ddd;}
 .alert-form table th,.alert-form table td {text-align: center; border-bottom: 2px solid #ddd;padding: 8px;border-right: 1px solid #ddd;}
+
+
 /*confirm样式*/
 @media (max-width: 767px) {
     .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {  float: left;  }

@@ -8,6 +8,7 @@ class Recommend extends Moloquent {
 
     protected $connection = 'mongodb';
     protected $table = 'recommend';
+	protected $fillable = ['recommend_mobile','recommend_name','big_area_id','area_id','sales_id'];
 
     public function getRecommendList($pagesize = 6, $page = 1,$data=array()){
         $handle =SELF::orderBy('_id', 'desc');

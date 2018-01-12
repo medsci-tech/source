@@ -4,7 +4,11 @@
 
 @section('content')
 <div class="panel admin-panel">
-    <div class="panel-head"><strong>个人文件</strong></div>
+    <div class="panel-head"><strong>个人文件</strong>
+        <div class="pull-right">
+            <button class="button bg-main btn-addMaterial">上传素材</button>
+            {{--<button class="button bg-main" type="button">下载</button>--}}
+        </div></div>
     <div class="body-content">
         <form method="post" class="form-x" action="">
             <div class="form-group ml3" style="width:30%;">
@@ -61,58 +65,19 @@
             </div>
 
         </form>
+
         <form method="post" action="" class="form-x mt15">
             <div class="form-group w100">
                 {{--<div class="label">--}}
                     {{--<label>全部素材</label>--}}
                 {{--</div>--}}
-                <div class="field ml10">
-                    <a href="{{url('home/userfile/addmaterial')}}"><button class="button bg-main" type="button">上传素材</button></a>
-                    {{--<button class="button bg-main" type="button">下载</button>--}}
-                </div>
                 <button class="button bg-main r mr20" type="button" id="reset">重置</button>
                 <button class="button bg-main r mr20" type="button" id="search">查询</button>
             </div>
             <div class="clear"></div>
             <div class="panel admin-panel">
                 <table class="table table-hover text-center table-striped" id="list">
-                    {{--<tr>--}}
-                        {{--<th width="120">ID</th>--}}
-                        {{--<th>素材名</th>--}}
-                        {{--<th>素材类型</th>--}}
-                        {{--<th>附件数量</th>--}}
-                        {{--<th>审核状态</th>--}}
-                        {{--<th>审核备注</th>--}}
-                        {{--<th>支付状态</th>--}}
-                        {{--<th>操作</th>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td width="120"><input type="checkbox" name="id[]" value="1" />神夜</td>--}}
-                        {{--<td>13420925611</td>--}}
-                        {{--<td>2016-04-12 12:30</td>--}}
-                        {{--<td>深圳市民治街道</td>--}}
-                        {{--<td>视频</td>--}}
-                        {{--<td>xx</td>--}}
-                        {{--<td>xx</td>--}}
-                        {{--<td><div class="button-group">--}}
-                                {{--<a type="button" class="button border-main" href="#"><span class="icon-download"></span></a>--}}
-                            {{--</div></td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td width="120"><input type="checkbox" name="id[]" value="1" />神夜</td>--}}
-                        {{--<td>13420925611</td>--}}
-                        {{--<td>2016-04-12 12:30</td>--}}
-                        {{--<td>深圳市民治街道</td>--}}
-                        {{--<td>视频</td>--}}
-                        {{--<td>xx</td>--}}
-                        {{--<td>xx</td>--}}
-                        {{--<td><div class="button-group">--}}
-                                {{--<a type="button" class="button border-main" href="#"><span class="icon-download"></span></a>--}}
-                            {{--</div></td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td colspan="14"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>--}}
-                    {{--</tr>--}}
+
                 </table>
                 <div class='pagelist' id='pagelist'></div>
             </div>
@@ -176,7 +141,7 @@
                             }
                             {{--var downloadUrl ="{{url('home/userfile/downloadfile/')}}"+"/"+array._id;--}}
                             //                        <input type='checkbox' name='id[]' value='1' />1
-                            li +="<tr><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.material_name+"</td><td >"+array.material_type_name+"</td><td>"+array.attachments+"</td><td>"+array.check_status+"</td><td>"+array.pay_amount+"</td><td>"+array.comment+"</td> <td>"+array.pay_status+"</td> <td>"+array.created_at+"</td><td><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='uploadurl(this)' doctor_id='" + array.doctor_id + "' upload_code='" + array.upload_code + "'><span class='icon-download'>下载</span></a>";
+                            li +="<tr><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.material_name+"</td><td >"+array.material_type_name+"</td><td>"+array.attachments+"</td><td>"+array.check_status+"</td><td>"+array.pay_amount+"</td><td>"+array.comment+"</td> <td>"+array.pay_status+"</td> <td>"+array.created_at+"</td><td><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='uploadurl(this)' doctor_id='" + array.doctor_id + "' source_location='" + array.location + "' upload_code='" + array.upload_code + "'><span class='icon-download'>下载</span></a>";
                             li += showbutton +"</div></td></tr>";
                         });
 
@@ -269,14 +234,14 @@
                     if (json.status == 1) {
                         window.location.href="{{url("home/userfile/index")}}";
                     } else {
-                        alert(json.msg);
+                        modelAlert(json.msg);
                     }
                 },
                 complete: function() {
 
                 },
                 error: function() {
-                    alert("数据异常！");
+                    modelAlert("数据异常！");
                 }
             });
 
@@ -304,13 +269,13 @@
                         var list = json.list;
                         $.each(list, function(index, array) { //遍历返回json
 
-                            li +="<tr><td style='max-width:150px;'>"+array.filename+"</td><td><div class='button-group'><a type='button' class='button border-main' href='"+array.lenovoUrl+"'><span class='icon-download'></span>下载</a></div></td></tr>";
+                            li +="<tr><td style='max-width:150px;'>"+array.filename+"</td><td><div class='button-group'><a type='button' class='button border-main' href='"+array.url+"'><span class='icon-download'></span>下载</a></div></td></tr>";
 
                         });
                         $("#uploadurllist").append(li);
                         $("#uploadBox").css('display','block');
                     } else {
-                        alert(json.msg);
+                        modelAlert(json.msg);
                     }
                 },
                 complete: function() {
@@ -319,7 +284,7 @@
                 },
                 error: function() {
 //                $('body').hideLoading();
-                    alert("数据异常！");
+                    modelAlert("数据异常！");
                 }
             });
 

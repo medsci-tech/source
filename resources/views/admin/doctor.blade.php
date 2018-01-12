@@ -186,11 +186,12 @@
                 </div>
             </form>
         </div>
-        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+        <div class="bottom l" class="MsgBottom" style="height: 60px;">
             <div class="btn MsgBtns">
                 <div class="height"></div>
                 <input type="button" class="btn" value="确认" id="sureEdit1">　<input type="button" class="btn" id="cancleEdit1" value="取消">
                 <input type="hidden" name="doctorid"  id="doctorid" value="" />
+                <div class="height"></div>
             </div>
         </div>
     </div>
@@ -204,11 +205,11 @@
         <div class="body l">
             <p>是否禁用该条数据</p>
         </div>
-        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+        <div class="bottom l" class="MsgBottom" style="height: 60px;">
             <div class="btn MsgBtns">
                 <div class="height"></div>
                 <input type="button" class="btn" value="确认">　<input type="button" class="btn" value="取消">
-
+                <div class="height"></div>
             </div>
         </div>
     </div>
@@ -252,10 +253,11 @@
                 </div>
             </form>
         </div>
-        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+        <div class="bottom l" class="MsgBottom" style="height: 60px;">
             <div class="btn MsgBtns">
                 <div class="height"></div>
                 <input type="button" class="btn" value="关闭" onclick="close1()">
+                <div class="height"></div>
             </div>
         </div>
     </div>
@@ -331,10 +333,11 @@
 
             </form>
         </div>
-        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+        <div class="bottom l" class="MsgBottom" style="height: 60px;">
             <div class="btn MsgBtns">
                 <div class="height"></div>
                 <input type="button" class="btn" value="确认" id="sureEdit2">　<input type="button"  id='cancleEdit2' class="btn" value="取消">
+                <div class="height"></div>
             </div>
         </div>
     </div>
@@ -394,7 +397,7 @@
                 } else {
                     $("#list").empty();
                     $("#list").append("<tr><td colspan='14'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
-                    alert(json.msg);
+                    modelAlert(json.msg);
                 }
             },
             complete: function() {
@@ -403,7 +406,7 @@
             },
             error: function() {
 //                $('body').hideLoading();
-                alert("数据异常！");
+                modelAlert("数据异常！");
             }
         });
     }
@@ -482,14 +485,14 @@
                     $("#recommendList").append(li);
                     $('#recommendBox').css('display','block');
                 } else {
-                    alert(json.msg);
+                    modelAlert(json.msg);
                 }
             },
             complete: function() {
 
             },
             error: function() {
-                alert("数据异常！");
+                modelAlert("数据异常！");
             }
         });
     }
@@ -515,17 +518,17 @@
                 success: function(json) {
                     if (json.status == 1) {
                         delObj.parent().parent().parent().remove();
-                        alert(json.msg);
+                        modelAlert(json.msg);
 
                     } else {
-                        alert(json.msg);
+                        modelAlert(json.msg);
                     }
                 },
                 complete: function() {
 
                 },
                 error: function() {
-                    alert("数据异常！");
+                    modelAlert("数据异常！");
                 }
             });
         }
@@ -603,15 +606,15 @@
         var city_name=$("#cityid").val();
         var region_name=$("#regionid").val();
         if(doctor_name ==''){
-            alert('请输入医生名称!');
+            modelAlert('请输入医生名称!');
             return false;
         }
         if(doctor_mobile ==''){
-            alert('请输入医生电话!');
+            modelAlert('请输入医生电话!');
             return false;
         }
         if(password ==''){
-            alert('请输入密码!');
+            modelAlert('请输入密码!');
             return false;
         }
         $.ajax({
@@ -628,17 +631,17 @@
             success: function(json) {
                 if (json.status == 1) {
 //                    $("#editBox1").css('display','none');
-                    alert(json.msg);
+                    modelAlert(json.msg);
                     window.location.href="{{url("admin/doctor/index")}}";
                 } else {
-                    alert(json.msg);
+                    modelAlert(json.msg);
                 }
             },
             complete: function() {
 
             },
             error: function() {
-                alert("数据异常！");
+                modelAlert("数据异常！");
             }
         });
 

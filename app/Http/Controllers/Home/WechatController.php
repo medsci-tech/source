@@ -37,7 +37,10 @@ class WechatController extends Controller
             // 当 $message->MsgType 为 event 时为事件
 
             //关注事件和关键词‘登机牌’回复
-            if (($message->MsgType == 'event' && $message->Event == 'subscribe') || ($message->MsgType == 'text' && in_array($message->Content,['暗号','机票','飞机票','痛风之旅','登机牌']))){
+            if (($message->MsgType == 'event' && $message->Event == 'subscribe')){
+                return new Text(['content'=>'迈德医学V，专注于内分泌代谢领域，为广大医者提供有温度、有态度、实用性强的学术资讯、常见问题的专家访谈、指南解读、病例解析、患教科普。重点涵盖糖尿病、甲状腺、痛风、骨质疏松等疾病。服务医者，协助医生提高临床诊疗技能是我们的宗旨。']);
+            }
+            if(($message->MsgType == 'text' && in_array($message->Content,['暗号','机票','飞机票','痛风之旅','登机牌']))){
                 $key = $message->FromUserName.':'.$message->CreateTime;
                 if(\Redis::exists($key)){
                     return '';

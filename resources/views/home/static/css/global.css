@@ -10,7 +10,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	font-family: "\5FAE\8F6F\96C5\9ED1", "Microsoft Yahei", sans-serif; 
 	}
 html { font-size: 20px; }
-body { line-height: 1; font-family: "\5FAE\8F6F\96C5\9ED1", "Microsoft Yahei", sans-serif; }
+body { line-height: 2; font-family: "\5FAE\8F6F\96C5\9ED1", "Microsoft Yahei", sans-serif; }
 ol, ul { list-style: none; }
 blockquote, q { quotes: none; }
 blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }

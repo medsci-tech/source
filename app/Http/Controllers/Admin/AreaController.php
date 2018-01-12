@@ -37,7 +37,8 @@ class AreaController extends CommonController
                     foreach($result[1] as $k=>$v){
                         $bigarea = BigArea::where('_id',$v->big_area_id)->first();
                         if(isset($bigarea->big_area_name) && $bigarea->big_area_name){
-                            $result[1][$k]->big_area_name =$bigarea->big_area_name;
+							$company =$bigarea->getCompany($bigarea->company_id);
+							$result[1][$k]->big_area_name =$bigarea->big_area_name."({$company})";
                         }
                     }
                     $returnInfo=array(

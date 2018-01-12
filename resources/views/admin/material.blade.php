@@ -3,6 +3,7 @@
 @section('title','素材管理')
 
 @section('css')
+    @parent
     <link rel="stylesheet" type="text/css" href="{{asset('resources/views/admin/static/css/jquery-ui.css')}}" />
 @endsection
 
@@ -157,6 +158,7 @@
                                 <th>推荐人手机号</th>
                                 <th>审核状态</th>
                                 <th>审核通过个数</th>
+                                <th>金额</th>
                                 <th>支付状态</th>
                                 <th>备注</th>
                                 <th>操作</th>
@@ -166,14 +168,17 @@
                     </table>
                     <div id ='page-tag'>
                         <div class="pull-left" style="width:320px;padding: 10px">
-                            <select name='options' class='options'>
-                                <option value=''>请选择操作类型</option>
-                                <option value='confirm_check'>全部通过</option>
-                                <option value='refuse_check'>全部不通过</option>
-                                <option value='pay_all'>全部支付</option>
-                            </select>
-                            <button class="opt_confirm" style="padding: 5px 12px;">确定</button>
+                            <form action="">
+                                <select id='options' class='options'>
+                                    <option value=''>请选择操作类型</option>
+                                    <option value='confirm_check'>通过</option>
+                                    {{--<option value='refuse_check'>不通过</option>--}}
+                                    <option value='pay_all'>支付</option>
+                                </select>
+                                <button class="opt_confirm" style="padding: 5px 12px;" id="option-all">确定</button>
+                            </form>
                         </div>
+                        <div id="page-right"></div>
                     </div>
                 </div>
             </form>
@@ -184,6 +189,7 @@
 
 @section('addDiv')
     <!--审核弹框开始-->
+
     <div style="width: 300px; display: none;" class="MsgBox clearfix" id="checkbox">
         <div class="top">
             <div class="title" class="MsgTitle">审核</div>
@@ -226,12 +232,13 @@
                 <textarea name="comment" id="comment" class="infotextarea"></textarea>
             </form>
         </div>
-        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+        <div class="bottom l" class="MsgBottom" style="height: 60px;">
             <div class="btn MsgBtns">
                 <div class="height"></div>
                 <input type="button" class="btn" value="确认" id="checkboxSure">　<input type="button" id="checkboxCancle" class="btn" value="取消">
                 <input type="hidden" name="check_pay_amount"  id="check_pay_amount" value="" />
                 <input type="hidden" name="max_pass_amount"  id="max_pass_amount" value="" />
+                <div class="height"></div>
             </div>
         </div>
     </div>
@@ -272,11 +279,12 @@
                 </div>
             </form>
         </div>
-        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+        <div class="bottom l" class="MsgBottom" style="height: 60px;">
             <div class="btn MsgBtns">
                 <div class="height"></div>
                 <input type="button" class="btn" value="关闭" onclick="uploadurlclose()">
                 <input type="hidden" name="checkid"  id="checkid" value="" />
+                <div class="height"></div>
             </div>
         </div>
     </div>
@@ -291,7 +299,7 @@
             <p>您确认支付/取消支付该素材吗?</p>
             <form class="alert-form clearfix">
                 <div class="form-group">
-                    <div class="label" style="width:25%;margin-left:15%">
+                    <div class="label" style="width:25%;margin-left:15%;font-size:14px;">
                         <label>支付价格：</label>
                     </div>
                     <div class="field">
@@ -322,12 +330,13 @@
         {{--<div class="tips"></div>--}}
         {{--</div>--}}
         {{--</div>--}}
-        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+        <div class="bottom l" class="MsgBottom" style="height: 60px;">
             <div class="btn MsgBtns">
                 <div class="height"></div>
                 <input type="button" class="btn" value="确认" id="paySure">　<input type="button" class="btn" value="取消" id="payCancle">
                 <input type="hidden" name="payid"  id="payid" value="" />
                 <input type="hidden" name="paystatus"  id="paystatus" value="" />
+                <div class="height"></div>
             </div>
         </div>
     </div>
@@ -345,7 +354,6 @@
     <script type="text/javascript">
         var page_cur = 1; //当前页
         var total_num, page_size, page_total_num; //总记录数,每页条数,总页数
-        var status;
 
         function getData(page) { //获取当前页数据
             var doctor_name=$("#doctor_name").val();
@@ -379,10 +387,10 @@
                         var li = '';
                         var list = json.list;
                         $.each(list, function(index, array) { //遍历返回json
-                            var showbutton ='';
+                            var showbutton ="<a class='button border-red' href='javascript:void(0)' onclick='checkPass(this)' data='"+array._id+"'  attachments ='"+array.attachments+"'><span class='icon-wrench'></span> 审核</a>";
                             if(array.check_status ==0){
                                 array.check_status_button='未审核';
-                                showbutton +="<a class='button border-red' href='javascript:void(0)' onclick='checkPass(this)' data='"+array._id+"'  attachments ='"+array.attachments+"'><span class='icon-wrench'></span> 审核</a>";
+
                                 @if($username =='admin')
                                     showbutton +="<a type='button' class='button border-red' href='javascript:void(0)' onclick='delete1(this)' data='"+array._id+"'><span class='icon-trash-o'></span>删除</a>";
                                 @endif
@@ -410,7 +418,7 @@
                             //                        <a type="button" class="button border-red" href="#"><span class="icon-trash-o"></span>删除</a>
 
                             {{--var downloadUrl ="{{url('admin/material/downloadfile/')}}"+"/"+array._id;--}}
-                                li +="<tr><td><input type='checkbox' class='check_one' value='"+array._id+"'/></td><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.doctor_name+"</td><td>"+array.doctor_mobile+"</td><td>"+array.created_at+"</td><td>"+array.big_area_name+"</td><td>"+array.area_name+"</td><td>"+array.sales_name+"</td><td style='width:10%;'>"+array.material_name+"</td><td>"+array.material_type_name+"</td><td>"+array.attachments+"</td><td>"+array.recommend_name+"</td><td>"+array.recommend_mobile+"</td><td>"+array.check_status_button+"</td><td>"+array.pass_amount+"</td><td>"+array.pay_status+"</td> <td>"+array.comment+"</td><td><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='uploadurl(this)' doctor_id='" + array.doctor_id + "' upload_code='" + array.upload_code + "'><span class='icon-download'></span>下载</a>";
+                            li +="<tr><td><input type='checkbox' class='check_one' value='"+array._id+"'/></td><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.doctor_name+"</td><td>"+array.doctor_mobile+"</td><td>"+array.created_at+"</td><td>"+array.big_area_name+"</td><td>"+array.area_name+"</td><td>"+array.sales_name+"</td><td style='width:10%;'>"+array.material_name+"</td><td>"+array.material_type_name+"</td><td>"+array.attachments+"</td><td>"+array.recommend_name+"</td><td>"+array.recommend_mobile+"</td><td>"+array.check_status_button+"</td><td>"+array.pass_amount+"</td><td>"+array.pay_amount+"</td><td>"+array.pay_status+"</td> <td>"+array.comment+"</td><td><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='uploadurl(this)' doctor_id='" + array.doctor_id + "' upload_code='" + array.upload_code + "'><span class='icon-download'></span>下载</a>";
                             li += showbutton +"</div></td></tr>";
                         });
 
@@ -421,8 +429,8 @@
                         getPageBar();
                     } else {
                         $("#list").empty();
-                        $("#list").append("<tr><td colspan='18'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
-                        alert(json.msg);
+                        $("#list").append("<tr><td colspan='19'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
+                        modelAlert(json.msg);
                     }
                 },
                 complete: function() {
@@ -431,7 +439,7 @@
                 },
                 error: function() {
 //                $('body').hideLoading();
-                    alert("数据异常！");
+                    modelAlert("数据异常！");
                 }
             });
         }
@@ -456,7 +464,7 @@
                 page_str += "<a href='javascript:void(0)' onclick='aclick(this);' data-page='" + (parseInt(page_cur) + 1) + "'>下一页</a><a href='javascript:void(0)' onclick='aclick(this);' data-page='" + page_total_num + "'>尾页</a>";
             }
             page_str +="到第<input type='text' id='input_number' style='width:50px' onblur=aGo(this.value) />页</div>";
-            $("#page-tag").append(page_str);
+            $("#page-right").html(page_str);
         }
 
         $(function() {
@@ -475,9 +483,9 @@
             })
             $('.opt_confirm').click(function(e){
                 e.preventDefault();
-                var opt_val = $('.options').val();
+                var opt_val = $('.options').val();//confirm_check,pay_all
                 if(!opt_val){
-                    alert('请选择操作类型');
+                    modelAlert('请选择操作类型');
                     return false;
                 }
                 var arr = [];
@@ -488,9 +496,29 @@
                 })
                 console.log(arr);
                 if(arr.length === 0){
-                    alert('请选择需要操作的行');
+                    modelAlert('请选择需要操作的行');
                     return false;
                 }
+                $.ajax({
+                    type:'post',
+                    url:'/admin/material/ajax',
+                    data:{action:'option_all',option:opt_val,option_data:arr},
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    success: function(json) {
+                        if (json.status == 1) {
+                            modelAlert(json.msg);
+                            window.location.reload();
+                            //window.location.href="{{url("admin/material/index")}}";
+                        } else {
+                            modelAlert(json.msg);
+                        }
+                    },
+                    error: function() {
+                        modelAlert("数据异常！");
+                    }
+                })
             })
         });
 
@@ -499,8 +527,8 @@
             getData(page);
         }
         function aGo(page){
-
-            getData(page);
+            if(page>0)
+                getData(page);
         }
         $('#search').click(function() {
             getData(1);
@@ -525,6 +553,7 @@
         function checkPass(obj){
             $("#checkid").val($(obj).attr('data'));
             $("#max_pass_amount").val($(obj).attr('attachments'));
+            $('#shelter').fadeIn();
             $("#checkbox").css('display','block');
         }
 
@@ -542,34 +571,34 @@
                     'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                 },
                 beforeSend: function(XMLHttpRequest) {
-//                $('body').showLoading();
+
                 },
                 success: function(json) {
 
                     if (json.status == 1) {
+                        $('#shelter').fadeOut();
                         $("#checkbox").css('display','none');
-                        alert(json.msg);
+                        modelAlert(json.msg);
                         window.location.reload();
                         //window.location.href="{{url("admin/material/index")}}";
                     } else {
-                        alert(json.msg);
+                        modelAlert(json.msg);
                     }
                 },
                 complete: function() {
 
                 },
                 error: function() {
-                    alert("数据异常！");
+                    modelAlert("数据异常！");
                 }
             });
 
         })
 
         $("#checkboxCancle").click(function(){
+            $('#shelter').fadeOut();
             $("#checkbox").css('display','none');
         })
-
-
 
 
 
@@ -581,6 +610,7 @@
                 $("#pay_amount").val('0');
                 $("#pay_amount").attr('readonly','readonly');
             }
+            $('#shelter').fadeIn();
             $("#paybox").css('display','block');
         }
 
@@ -589,7 +619,7 @@
             var pay_status=$("#paystatus").val();
             var pay_amount=$("#pay_amount").val();
             if(!pay_amount){
-                alert('请输入支付价格!');
+                modelAlert('请输入支付价格!');
                 return false;
             }
             $.ajax({
@@ -606,18 +636,19 @@
                 success: function(json) {
 
                     if (json.status == 1) {
+                        $('#shelter').fadeOut();
                         $("#paybox").css('display','none');
-                        alert(json.msg);
+                        modelAlert(json.msg);
                         window.location.href="{{url("admin/material/index")}}";
                     } else {
-                        alert(json.msg);
+                        modelAlert(json.msg);
                     }
                 },
                 complete: function() {
 
                 },
                 error: function() {
-                    alert("数据异常！");
+                    modelAlert("数据异常！");
                 }
             });
 
@@ -625,6 +656,7 @@
 
 
         $("#payCancle").click(function(){
+            $('#shelter').fadeOut();
             $("#paybox").css('display','none');
         })
 
@@ -651,14 +683,14 @@
                         window.location.reload();
                         //window.location.href="{{url("admin/material/index")}}";
                     } else {
-                        alert(json.msg);
+                        modelAlert(json.msg);
                     }
                 },
                 complete: function() {
 
                 },
                 error: function() {
-                    alert("数据异常！");
+                    modelAlert("数据异常！");
                 }
             });
 
@@ -697,13 +729,14 @@
                         var list = json.list;
                         $.each(list, function(index, array) { //遍历返回json
 
-                            li +="<tr><td style='max-width:150px;'>"+array.filename+"</td><td><div class='button-group'><a type='button' class='button border-main' href='"+array.lenovoUrl+"'><span class='icon-download'></span>下载</a></div></td></tr>";
+                            li +="<tr><td style='max-width:150px;'>"+array.filename+"</td><td><div class='button-group'><a type='button' class='button border-main' target='_blank' href='"+array.url+"'><span class='icon-download'></span>下载</a></div></td></tr>";
 
                         });
                         $("#uploadurllist").append(li);
+                        $('#shelter').fadeIn();
                         $("#uploadBox").css('display','block');
                     } else {
-                        alert(json.msg);
+                        modelAlert(json.msg);
                     }
                 },
                 complete: function() {
@@ -712,7 +745,7 @@
                 },
                 error: function() {
 //                $('body').hideLoading();
-                    alert("数据异常！");
+                    modelAlert("数据异常！");
                 }
             });
 
@@ -720,6 +753,7 @@
 
 
         function uploadurlclose(){
+            $('#shelter').fadeOut();
             $("#uploadBox").css('display','none');
 
         }

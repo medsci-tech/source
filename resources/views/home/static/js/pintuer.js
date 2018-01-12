@@ -499,5 +499,31 @@ $(function(){
 		});
 
 	});
+    $('.btn-addMaterial').click(function () {
+        $.ajax({
+            type: 'post',
+            url: '/home/userfile/ajax',
+            data: {'action': 'checkProtocol'},
+        dataType: 'json',
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        },
+        beforeSend: function(XMLHttpRequest) {
+//                $('body').showLoading();
+        },
+        success: function(json) {
+			if(json.status ==1){
+				location.href = '/home/userfile/addmaterial'
+			} else{
+                modelCom(json.msg,json.url);
+			}
+        },
+        complete: function() {
 
+        },
+        error: function() {
+            modelAlert("数据异常！");
+        }
+    });
+    })
 })

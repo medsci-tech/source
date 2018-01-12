@@ -12,7 +12,7 @@
                     <select class="form-control l input" id="big_area_id" style="min-width:110px">
                         <option value="all">选择大区</option>
                         @foreach($bigarea as $v)
-                            <option value="{{$v->_id}}">{{$v->big_area_name}}</option>
+                            <option value="{{$v->_id}}">{{$v->big_area_name}}({{ $v->getCompany($v->company_id) }})</option>
                         @endforeach
                     </select>
                 </div>
@@ -22,7 +22,7 @@
                     <select class="form-control l input" id="area_id">
                         <option value="all">选择区域</option>
                         @foreach($area as $v)
-                            <option value="{{$v->_id}}">{{$v->big_area_name}}</option>
+                            <option value="{{$v->_id}}">{{$v->area_name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -90,7 +90,7 @@
                         <select class="input" id="edit_big_area_id">
                             <option value="all">请选择</option>
                             @foreach($bigarea as $v)
-                                <option value="{{$v->_id}}">{{$v->big_area_name}}</option>
+                                <option value="{{$v->_id}}">{{$v->big_area_name}}({{ $v->getCompany($v->company_id) }})</option>
                             @endforeach
                         </select>
                         <div class="tips"></div>
@@ -234,8 +234,8 @@
                     getPageBar();
                 } else {
                     $("#list").empty();
-                    $("#list").append("<tr><td colspan='14'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
-                    alert(json.msg);
+                    $("#list").append("<tr><td colspan='6'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
+                    modelAlert(json.msg);
                 }
             },
             complete: function() {
@@ -244,7 +244,7 @@
             },
             error: function() {
 //                $('body').hideLoading();
-                alert("数据异常！");
+                modelAlert("数据异常！");
             }
         });
     }
@@ -253,7 +253,7 @@
             page_cur = page_total_num; //当前页大于最大页数
         if (page_cur < 1)
             page_cur = 1; //当前页小于1
-        page_str ="<td colspan='14'><div class='pagelist' id='pagelist'>";
+        page_str ="<td colspan='6'><div class='pagelist' id='pagelist'>";
         page_str += "<span>共" + page_total_num + "页</span><span>" + page_cur + "/" + page_total_num + "</span>";
 //        page_str ="<tr>";
         //若是第一页
@@ -327,15 +327,15 @@
         var status = $("#editStatus").val();
         var sales_id =$("#sales_id").val();
         if(big_area_id ==''){
-            alert('请选择大区!');
+            modelAlert('请选择大区!');
             return false;
         }
         if(area_id ==''){
-            alert('请选择区域!');
+            modelAlert('请选择区域!');
             return false;
         }
         if(sales_name ==''){
-            alert('请输入销售组名称!');
+            modelAlert('请输入销售组名称!');
             return false;
         }
         $.ajax({
@@ -358,17 +358,17 @@
             },
             success: function (json) {
                 if (json.status == 1) {
-                    alert(json.msg)
+                    modelAlert(json.msg)
                     window.location.href="{{url("admin/sales/index")}}";
                 } else {
-                    alert(json.msg)
+                    modelAlert(json.msg)
                 }
             },
             complete: function () {
 
             },
             error: function () {
-                alert("数据异常！");
+                modelAlert("数据异常！");
             }
         });
 
@@ -390,7 +390,7 @@
         var material_type_id = $("#editMaterialType").val();
         var price = $("#edit_price").val();
         if(price ==''){
-            alert('请输入价格!');
+            modelAlert('请输入价格!');
             return false;
         }
         $.ajax({
@@ -411,18 +411,18 @@
             },
             success: function (json) {
                 if (json.status == 1) {
-                    alert(json.msg)
+                    modelAlert(json.msg)
                     $("#editPriceBox").css('display','none');
                     {{--window.location.href="{{url("admin/sales/index")}}";--}}
                 } else {
-                    alert(json.msg)
+                    modelAlert(json.msg)
                 }
             },
             complete: function () {
 
             },
             error: function () {
-                alert("数据异常！");
+                modelAlert("数据异常！");
             }
         });
 

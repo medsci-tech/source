@@ -14,7 +14,7 @@ ul,li{ list-style-type:none;}
 .logo img{ float:left; margin-right:10px;}
 .loginbox { background:url(../images/tmbg-white.png); border:0px;}
 /********头部******/
-.header{height:68px; overflow:hidden; background-color:#2f3847;}
+.header{/* height:80px;overflow:hidden;*/ background-color:#fff;}
 .head-l{ float:left; margin-top:17px; margin-left:15px; }
 .head-l .button{ padding:8px 15px;}
 .head-l .bg-blue:hover{ background-color:#03b6fd;}
@@ -24,6 +24,7 @@ ul,li{ list-style-type:none;}
 .admin{background:#fff;position:fixed;border-left:solid 1px #b5cfd9;right:0;bottom:0;top:110px;left:180px; padding:15px; padding-right:0px; padding-bottom:0px; overflow:auto; border-top:1px solid #b5cfd9; padding-right:15px;}
 .content{width:100%;}
 .body-content{padding:20px 0; overflow:hidden;}
+
 .content .title{ border-bottom:1px solid #dfdfdf; line-height:35px; font-size:14px; font-weight:bold; color:#09c}
 .form-x .form-group .label{ width:10%;float: left;}
 .form-x .form-button { margin-left:10%;}
@@ -35,11 +36,11 @@ ul,li{ list-style-type:none;}
 .bread{ margin-left:190px; margin-top:4px;}
 .bread li{ float:left;}
 .label label{ font-weight:normal; color:#333;}
-.form-group{ margin-bottom:12px;}
+.body-content .form-group{ margin-bottom:2px;}
 .button{ padding:2px 3px;}
-.form-group .field .file{ background:#FFF; border:0px;}
-.form-group .field input[type=radio]{ vertical-align:middle; line-height:35px; margin-right:5px;}
-.form-group .radio { line-height:35px;}
+.body-content .form-group .field .file{ background:#FFF; border:0px;}
+.body-content .form-group .field input[type=radio]{ vertical-align:middle; line-height:35px; margin-right:5px;}
+.body-content .form-group .radio { line-height:35px;}
 .table th{ text-align:center;}
 .table td { vertical-align:middle;}
 .tip img{width:100px; height:100px;}
@@ -72,17 +73,23 @@ textarea[name=content]{width:100%; height:500px; border:1px solid #ddd; border-r
 .ui-timepicker-div dl dd { margin: 0 10px 10px 45%; padding: 0;}
 .ui-timepicker-div td { font-size: 90%; }
 .doc-dd .input { background-color: #fff; display: inline-block}
-.form-group {width: 19%;  float: left;/*margin-left:2%;*/padding-bottom:16px;min-width: 170px;}
+.body-content .form-group {width: 19%;  float: left;/*margin-left:2%;*/padding-bottom:16px;min-width: 170px;}
 .form-group.ml3 {margin-left:3%;}
 .form-x .form-group .label {width: auto;  }
 .panel{
     border: 0;
 }
+.file-input{float:left;padding-left: 15px;}
 @media (min-width: 760px) {.form-x .form-group .field {
     float: left;
     width:70%;
 }
 }
+
+    #kvFileinputModal .modal-dialog {
+        left: 0;
+    }
+
 .form-x .w100 {width: 100%;}
 .input{padding: 2px;}
 .form-x .form-group .label{padding: 0 0 0 3px;}
@@ -92,5 +99,73 @@ textarea[name=content]{width:100%; height:500px; border:1px solid #ddd; border-r
 }
 /*时间插件样式结束*/
 
+.protocol .protocol-guide{
+    margin:20px auto;
+    width:451px;
+    height:64px;
+}
+.protocol{
+    display: none;
+}
+.protocol1{
+    display: block;
+}
+/*.protocol1 .protocol-guide{*/
+    /*background: url(../images/guide2.jpg) 0 0;*/
+/*}*/
+.protocol-content{
+    width:451px;
+    margin:auto;
+    padding:20px 0;
+    position: relative;
+    min-height:350px;
+}
+#upload{
+    padding:6px 24px;
+}
+.protocol .protocol-next{
+    width: 100%;
+    height:40px;
+    position: absolute;
+    bottom: 20px;
+    text-align: center;
+}
+.protocol .protocol-next .btn-next{
+    width: 230px;
+    line-height: 40px;
+    font-size:20px;
+}
+/*.protocol2 .protocol-guide{*/
+    /*background: url(../images/guide2.jpg) 0 -64px;*/
+/*}*/
+.protocol-ok{
+    width: 190px;
+    margin: auto;
+    text-align: center;
+}
+.protocol-address{
+    padding:20px 10px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin-bottom: 80px;
+}
+.protocol-address-title{
+    font-weight: bold;
+}
+.protocol-address-info{
+    padding:10px;
+}
+
+.body-content .row div{
+    line-height:45px;
+}
+.body-content .content-info{
+    border: 2px solid #eee;
+    border-radius: 5px;
+    background-color: #4f0c6012;
+    padding:20px;
+    width:66%;
+    margin: auto;
+}
 
 

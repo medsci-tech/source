@@ -7,11 +7,10 @@
     <title>导入excel批量更新数据</title>
 </head>
 <body>
-<form action="" method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
-    <input type="file" name="excel" >
-    <button type="submit">提交</button>
+    <input type="file" name="excel">
+    <input type="submit" value="提交">
 </form>
-
 </body>
 </html>

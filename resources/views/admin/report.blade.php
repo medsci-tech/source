@@ -3,6 +3,7 @@
 @section('title','报表管理')
 
 @section('css')
+    @parent
     <link rel="stylesheet" type="text/css" href="{{asset('resources/views/admin/static/css/jquery-ui.css')}}" />
 @endsection
 
@@ -164,6 +165,12 @@
             </div>
                 <div class="form-group w33" style="width:40%">
 
+                    <select class="form-control l input"  id="company_id"  style="min-width:110px">
+                        <option value="all">公司</option>
+                        @foreach($company as $v)
+                            <option value="{{$v->_id}}">{{$v->full_name}}</option>
+                        @endforeach
+                    </select>
                     <select class="form-control l input"  id="big_area_id"  style="min-width:110px">
                         <option value="all">大区</option>
                         @foreach($bigarea as $v)
@@ -289,6 +296,7 @@
         var doctor_mobile=$("#doctor_mobile").val();
         var doctor_id_card=$("#doctor_id_card").val();
 
+        var company_id=$("#company_id").val();
         var big_area_id=$("#big_area_id").val();
         var area_id=$("#area_id").val();
         var sales_id=$("#sales_id").val();
@@ -304,7 +312,7 @@
         $.ajax({
                 type: 'post',
                 url: '{{url('admin/report/ajax')}}',
-            data: {'page': page, 'action': 'getlist','material_name':material_name,'material_type_id':material_type_id,'check_status':check_status,'pay_status':pay_status,'doctor_name':doctor_name,'doctor_mobile':doctor_mobile,'id_card':doctor_id_card,'big_area_id':big_area_id,'area_id':area_id,'sales_id':sales_id,'recommend_name':recommend_name,'recommend_mobile':recommend_mobile,'searchType':searchType,'begin_time':begin_time,'end_time':end_time},
+            data: {'page': page, 'action': 'getlist','material_name':material_name,'material_type_id':material_type_id,'check_status':check_status,'pay_status':pay_status,'doctor_name':doctor_name,'doctor_mobile':doctor_mobile,'id_card':doctor_id_card,'company_id':company_id,'big_area_id':big_area_id,'area_id':area_id,'sales_id':sales_id,'recommend_name':recommend_name,'recommend_mobile':recommend_mobile,'searchType':searchType,'begin_time':begin_time,'end_time':end_time},
         dataType: 'json',
             headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -323,7 +331,7 @@
                 page_total_num = json.page_total_num; //总页数businessScope unix_to_datetime(unix);   getLocalTime(parseInt(array.ctime,10)) SProductName out_logi_no pay_amount
                 var li = "<tr> <th width='50'>ID</th> <th>医生姓名</th> <th>医生手机号</th> " +
                         "<th>医生省市区</th><th>医生医院</th><th>医生身份证号</th><th>医生开户行</th><th>医生银行卡号</th>" +
-                        "<th>上传时间</th> <th>素材名称</th><th>素材类型</th><th>素材数量</th><th>大区</th><th>区域</th><th>销售组</th><th>推荐人姓名</th><th>推荐人手机号</th><th>审核状态</th><th>支付金额</th><th>审核通过个数</th><th>支付状态</th><th>备注</th></tr>";
+                        "<th>上传时间</th> <th>素材名称</th><th>素材类型</th><th>素材数量</th><th>公司</th><th>大区</th><th>区域</th><th>销售组</th><th>推荐人姓名</th><th>推荐人手机号</th><th>审核状态</th><th>支付金额</th><th>审核通过个数</th><th>支付状态</th><th>备注</th></tr>";
                 var list = json.list;
                 $.each(list, function(index, array) { //遍历返回json
                     if(array.check_status ==0){
@@ -342,10 +350,10 @@
                     li +="<tr>";
                     li +="<td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.doctor_name+"</td><td>"+array.doctor_mobile+"</td>" +
                             "<td>"+array.doctor_province+array.doctor_city+array.doctor_region+"</td><td>"+array.doctor_hospital+"</td><td>"+array.doctor_id_card+"</td><td>"+array.doctor_bank_name+"</td><td>"+array.doctor_bank_card_no+"</td>" +
-                            "<td>"+array.created_at+"</td><td>"+array.material_name+"</td><td>"+array.material_type_name+"</td><td>"+array.attachments+"</td><td>"+array.big_area_name+"</td><td>"+array.area_name+"</td><td>"+array.sales_name+"</td><td>"+array.recommend_name+"</td><td>"+array.recommend_mobile+"</td><td>"+array.check_status+"</td><td>"+array.pay_amount+"</td><td>"+array.pass_amount+"</td><td>"+array.pay_status+"</td><td>"+array.comment+"</td>";
+                            "<td>"+array.created_at+"</td><td>"+array.material_name+"</td><td>"+array.material_type_name+"</td><td>"+array.attachments+"</td><td>"+array.company_name+"</td><td>"+array.big_area_name+"</td><td>"+array.area_name+"</td><td>"+array.sales_name+"</td><td>"+array.recommend_name+"</td><td>"+array.recommend_mobile+"</td><td>"+array.check_status+"</td><td>"+array.pay_amount+"</td><td>"+array.pass_amount+"</td><td>"+array.pay_status+"</td><td>"+array.comment+"</td>";
                     li +="</tr>";
                 });
-                li +="<tr><td colspan='6'>已支付金额</td><td colspan='6'>"+json.hasPayAmount+"</td><td colspan='5'>预支付金额</td><td colspan='5'>"+json.waitPayAmount+"</td></tr>";
+                li +="<tr><td colspan='6'>已支付金额</td><td colspan='6'>"+json.hasPayAmount+"</td><td colspan='6'>预支付金额</td><td colspan='5'>"+json.waitPayAmount+"</td></tr>";
 //                li +="<tr id ='page-tag'></tr>";
 
                 $("#list").append(li);

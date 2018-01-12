@@ -51,6 +51,7 @@ class MaterialTypeController extends CommonController
                 break;
             case 'edit':
                 $this->materialtype->material_type_name =$input['material_type_name'];
+                $this->materialtype->price =$input['price'];
                 $this->materialtype->status =$input['status'];
                 if($input['id'] ==''){
                     if($this->materialtype->save()){
@@ -66,6 +67,7 @@ class MaterialTypeController extends CommonController
                     }
                 }else{
                     $data['material_type_name'] =$input['material_type_name'];
+                    $data['price'] =$input['price'];
                     $data['status'] =$input['status'];
                     if($this->materialtype->where('_id',$input['id'])->update($data)){
                         $returnInfo=array(

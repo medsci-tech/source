@@ -11,7 +11,7 @@
                     <select class="form-control l input" id="big_area_id" style="width:30%">
                         <option value="all">选择大区</option>
                         @foreach($bigArea as $v)
-                        <option value="{{$v->_id}}">{{$v->big_area_name}}</option>
+                        <option value="{{$v->_id}}">{{$v->big_area_name}}({{ $v->getCompany($v->company_id) }})</option>
                         @endforeach
                     </select>
                     <div class="label ml10">
@@ -73,7 +73,7 @@
                     <div class="field">
                         <select class="input" id="bigAreaId">
                             @foreach($bigArea as $v)
-                            <option value="{{$v->_id}}">{{$v->big_area_name}}</option>
+                            <option value="{{$v->_id}}">{{$v->big_area_name}}({{ $v->getCompany($v->company_id) }})</option>
                             @endforeach
                         </select>
                         <div class="tips"></div>

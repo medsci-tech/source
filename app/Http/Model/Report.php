@@ -67,6 +67,9 @@ class Report extends Moloquent {
 
             case 'recommend':
                 $handle =Recommend::orderBy('_id', 'desc');
+                if($data['company_id'] && $data['company_id'] !='all') {
+                    $handle->where('company_id', $data['company_id']);
+                }
                 if($data['big_area_id'] && $data['big_area_id'] !='all') {
                     $handle->where('big_area_id', $data['big_area_id']);
                 }

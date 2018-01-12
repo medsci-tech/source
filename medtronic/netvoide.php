@@ -6,7 +6,7 @@
 	$wu = $_POST['username'];
 	
 	
-	$url = "http://ylzb.gensee.com/webcast/site/entry/join-96828e487f5e46aca95d7ffdee12b078?nickName=";
+	$url = "http://ylzb.gensee.com/webcast/site/entry/join-09c04967590e4c81b780060e5565d690?nickName=";
 
     if( $_POST['vdcodetel']==$_SESSION['value']&&$_SESSION['value']<>'')
 	{

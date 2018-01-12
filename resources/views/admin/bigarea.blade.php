@@ -10,10 +10,15 @@
             <form method="post" class="form-x" action="">
                 <div class="form-group ml3 doctor-w200">
                     <div class="label">
-                        <label>大区：</label>
+                        <label>公司：</label>
                     </div>
                     <div class="field">
-                        <input type="text" class="input" name="stitle" value="" id="big_area_name"/>
+                        <select class="input" name="company_id" id="company_id">
+                            <option value="">请选择所属公司...</option>
+                            @foreach($company as $v)
+                            <option value="{{ $v->_id }}">{{ $v->full_name }}</option>
+                            @endforeach
+                        </select>
                         <div class="tips"></div>
                     </div>
                 </div>
@@ -70,6 +75,19 @@
                 </div>
                 <div class="form-group">
                     <div class="label">
+                        <label>公司：</label>
+                    </div>
+                    <div class="field">
+                        <select class="input" name="company_id" id="editcompanyId">
+                            @foreach($company as $v)
+                                <option value="{{ $v->_id }}">{{ $v->full_name }}</option>
+                            @endforeach
+                        </select>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
                         <label>状态：</label>
                     </div>
                     <div class="field">
@@ -98,13 +116,12 @@
     <script type="text/javascript">
     var page_cur = 1; //当前页
     var total_num, page_size, page_total_num; //总记录数,每页条数,总页数
-    var status
     function getData(page) { //获取当前页数据
-        var big_area_name=$("#big_area_name").val();
+        var company_id=$("#company_id").val();
         $.ajax({
             type: 'post',
             url: '{{url('admin/bigarea/ajax')}}',
-            data: {'page': page, 'action': 'getlist', 'big_area_name': big_area_name},
+            data: {'page': page, 'action': 'getlist', 'company_id': company_id},
             dataType: 'json',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -119,7 +136,7 @@
                     page_size = json.page_size; //每页数量
                     page_cur = page; //当前页
                     page_total_num = json.page_total_num; //总页数businessScope unix_to_datetime(unix);   getLocalTime(parseInt(array.ctime,10)) SProductName out_logi_no
-                    var li = "<tr><th>序号</th><th>大区</th><th>启用状态</th><th>操作</th></tr>";
+                    var li = "<tr><th>序号</th><th>大区</th><th>公司</th><th>启用状态</th><th>操作</th></tr>";
                     var list = json.list;
                     var status_button;
                     $.each(list, function(index, array) { //遍历返回json
@@ -130,15 +147,15 @@
                             array.status_button='禁用';
 //                            status_button ='启用';
                         }
-                        li +="   <tr><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.big_area_name+"</td><td>"+array.status_button+"</td><td width='180'><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='edit(this)' data='"+array._id+"' areaName='"+array.big_area_name+"' status='"+array.status+"'><span class='icon-edit'></span>编辑</a></div></td></tr>";
+                        li +="   <tr><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.big_area_name+"</td><td>"+array.company+"</td><td>"+array.status_button+"</td><td width='180'><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='edit(this)' data='"+array._id+"' areaName='"+array.big_area_name+"' companyId='"+array.company_id+"' status='"+array.status+"'><span class='icon-edit'></span>编辑</a></div></td></tr>";
                     });
                     li +="<tr id ='page-tag'></tr>"
                     $("#list").append(li);
                     getPageBar();
                 } else {
                     $("#list").empty();
-                    $("#list").append("<tr><td colspan='14'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
-                    alert(json.msg);
+                    $("#list").append("<tr><td colspan='5'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
+                    modelAlert(json.msg);
                 }
             },
             complete: function() {
@@ -147,7 +164,7 @@
             },
             error: function() {
 //                $('body').hideLoading();
-                alert("数据异常！");
+                modelAlert("数据异常！");
             }
         });
     }
@@ -156,7 +173,7 @@
             page_cur = page_total_num; //当前页大于最大页数
         if (page_cur < 1)
             page_cur = 1; //当前页小于1
-        page_str ="<td colspan='14'><div class='pagelist' id='pagelist'>";
+        page_str ="<td colspan='5'><div class='pagelist' id='pagelist'>";
         page_str += "<span>共" + page_total_num + "页</span><span>" + page_cur + "/" + page_total_num + "</span>";
 //        page_str ="<tr>";
         //若是第一页
@@ -192,7 +209,7 @@
     });
 
     $('#reset').click(function() {
-        $("#big_area_name").val('');
+        $("#company_id").val('');
         getData(1);
     });
 
@@ -201,6 +218,7 @@
     function edit(obj){
         $("#bigAreaid").val($(obj).attr('data'));
         $("#editAreaName").val($(obj).attr('areaName'));
+        $("#editcompanyId").val($(obj).attr('companyId'));
         $("#editStatus").val($(obj).attr('status'));
         $("#editBox").css('display','block');
     }
@@ -216,15 +234,16 @@
     $("#sureEdit").click(function(){
         var id=$("#bigAreaid").val();
         var big_area_name=$("#editAreaName").val();
+        var companyId=$("#editcompanyId").val();
         var status=$("#editStatus").val();
-        if(big_area_name ==''){
-            alert('请输入大区名称!');
+        if(!big_area_name || !companyId){
+            modelAlert('请填写完整信息!');
             return false;
         }
         $.ajax({
             type: 'post',
             url: '{{url('admin/bigarea/ajax')}}',
-            data: {'action': 'edit','id':id,'big_area_name':big_area_name,'status':status },
+            data: {'action': 'edit','id':id,'big_area_name':big_area_name,'company_id':companyId,'status':status },
             dataType: 'json',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -236,17 +255,16 @@
 
                 if (json.status == 1) {
                     $("#editBox").css('display','none');
-                    alert(json.msg);
                     window.location.href="{{url("admin/bigarea/index")}}";
                 } else {
-                    alert(json.msg);
+                    modelAlert(json.msg);
                 }
             },
             complete: function() {
 
             },
             error: function() {
-                alert("数据异常！");
+                modelAlert("数据异常！");
             }
         });
 

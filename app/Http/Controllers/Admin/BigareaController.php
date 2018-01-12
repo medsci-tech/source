@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Model\Bigarea;
+use App\Http\Model\Company;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Crypt;
@@ -19,8 +20,8 @@ class BigareaController extends CommonController
 
     public function index()
     {
-        
-        return view('admin.bigarea');
+        $company = Company::where('status','1')->get();
+        return view('admin.bigarea',compact('company'));
     }
 
     public function ajax(){
@@ -28,7 +29,6 @@ class BigareaController extends CommonController
         switch($input['action']){
             case 'getlist':
                 $pagesize=8;
-                $input = Input::all();
                 $input['page']=($input['page']==0 || $input['page']>100) ? 1 :$input['page'];
                 $result=$this->bigarea->getBigareaList($pagesize,$input['page'],$input);
                 if(count($result[1])>0) {
@@ -49,8 +49,8 @@ class BigareaController extends CommonController
                 return response()->json($returnInfo);
                 break;
             case 'edit':
-                $input = Input::all();
                 $this->bigarea->big_area_name =$input['big_area_name'];
+                $this->bigarea->company_id =$input['company_id'];
                 $this->bigarea->status =$input['status'];
                 if($input['id'] ==''){
                     if($this->bigarea->save()){
@@ -66,6 +66,7 @@ class BigareaController extends CommonController
                     }
                 }else{
                     $data['big_area_name'] =$input['big_area_name'];
+					$data['company_id'] =$input['company_id'];
                     $data['status'] =$input['status'];
                     if($this->bigarea->where('_id',$input['id'])->update($data)){
                         $returnInfo=array(
