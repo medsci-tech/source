@@ -99,11 +99,12 @@
                 </div>
             </form>
         </div>
-        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+        <div class="bottom l" class="MsgBottom" style="height: 60px;">
             <div class="btn MsgBtns">
                 <div class="height"></div>
                 <input type="button" class="btn" value="确认"  id="sureEdit">　<input type="button" class="btn" value="取消" id="cancleEdit">
                 <input type="hidden" name="typeid"  id="typeid" value="" />
+                <div class="height"></div>
             </div>
         </div>
     </div>
@@ -157,14 +158,14 @@
                 } else {
                     $("#list").empty();
                     $("#list").append("<tr><td colspan='14'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
-                    alert(json.msg);
+                    modelAlert(json.msg);
                 }
             },
             complete: function() {
 
             },
             error: function() {
-                alert("数据异常！");
+                modelAlert("数据异常！");
             }
         });
     }
@@ -219,7 +220,7 @@
         $("#edit_material_type_name").val($(obj).attr('material_type_name'));
         $("#edit_material_price").val($(obj).attr('price'));
         $("#editStatus").val($(obj).attr('status'));
-        $("#editBox").css('display','block');
+        $("#editBox").fadeIn();
     }
 
     function add(){
@@ -228,7 +229,7 @@
         $("#edit_material_price").val(300);
         $("#typeid").val('');
         $('#editStatus option:eq(0)').attr('selected','selected');
-        $("#editBox").css('display','block');
+        $("#editBox").fadeIn();
     }
 
     $("#sureEdit").click(function(){
@@ -237,7 +238,7 @@
         var price = $("#edit_material_price").val();
         var status = $("#editStatus").val();
         if(material_type_name ==''){
-            alert('请输入素材类型名称!');
+            modelAlert('请输入素材类型名称!');
             return false;
         }
         $.ajax({
@@ -254,18 +255,18 @@
             success: function(json) {
 
                 if (json.status == 1) {
-                    $("#editBox").css('display','none');
-                    alert(json.msg);
-                    window.location.href="{{url("admin/materialtype/index")}}";
+                    $("#editBox").fadeOut();
+//                    modelAlert(json.msg);
+                    window.location.href="{{url('admin/materialtype/index')}}";
                 } else {
-                    alert(json.msg);
+                    modelAlert(json.msg);
                 }
             },
             complete: function() {
 
             },
             error: function() {
-                alert("数据异常！");
+                modelAlert("数据异常！");
             }
         });
 
@@ -273,7 +274,7 @@
 
 
     $("#cancleEdit").click(function(){
-        $("#editBox").css('display','none');
+        $("#editBox").fadeOut();
     })
 </script>
 @stop

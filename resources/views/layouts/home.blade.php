@@ -32,7 +32,7 @@
     <div class="margin-big-left l">
         <h1 class="frontLogo"></h1>
     </div>
-    <div class="head-med"><button class="btn btn-primary btn-addMaterial">上传文件</button></div>
+    <div class="head-med"><button class="btn btn-primary btn-addMaterial">上传素材</button></div>
     <div class="city-info-right clearfix">
         <a href="javascript:;">{{session('user')->doctor_name}}</a>
         <a href="javascript:;">{{session('user')->doctor_mobile}}</a>

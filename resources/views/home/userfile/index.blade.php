@@ -6,7 +6,7 @@
 <div class="panel admin-panel">
     <div class="panel-head"><strong>个人文件</strong>
         <div class="pull-right">
-            <button class="btn btn-danger btn-addMaterial">上传素材</button>
+            <button class="btn btn-primary btn-addMaterial">上传素材</button>
             {{--<button class="button bg-main" type="button">下载</button>--}}
         </div></div>
     <div class="body-content">

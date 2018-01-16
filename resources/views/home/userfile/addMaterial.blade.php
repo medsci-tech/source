@@ -56,14 +56,13 @@
                 </div>
             </div>
 
-
-            <div class="form-group">
+            {{--<div class="form-group">
                 <label for="attachments" class="col-md-1 control-label">素材数量：</label>
                 <div class="col-md-2">
                     <input type="number" class="form-control" name="attachments" value="{{ old('attachments') }}" id="attachments">
                 </div>
-            </div>
-
+            </div>--}}
+            <input type="hidden" name="attachments" id="attachments">
 
             <div class="form-group kv-main">
                 <label class="col-md-1 control-label">文件上传：</label>
@@ -117,6 +116,7 @@
                 e.preventDefault();
                 var model = $('#ModalAlert');
                 var label = $('#ModalAlert .modal-body');
+                var length = $('.kv-preview-thumb').length;
                 if($('#recommend_id').val()==''){
                     modelAlert('请选择推荐人');
                     return false;
@@ -130,14 +130,13 @@
                     modelAlert('请输入素材名称');
                     return false;
                 }
-                if($('[name="attachments"]').val()<1){
-                    modelAlert('请输入素材数量');
-                    return false;
-                }
-                if(!$('#kv-explorer').val()){
+                if(!length){
                     modelAlert('请选择要上传的文件');
                     return false;
                 }
+
+                $('#attachments').val(length);
+
                 //上传文件
                 $("#kv-explorer").fileinput("upload");
 //                var formData = new FormData(this);

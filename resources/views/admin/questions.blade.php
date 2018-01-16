@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="panel admin-panel">
-        <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>常见问题</strong><a class="btn btn-success" style="float: right;" href="{{ url('admin/questions/saveinfo') }}">添加</a>
+        <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>常见问题</strong><a class="btn btn-primary" style="float: right;" href="{{ url('admin/questions/saveinfo') }}">添加</a>
         </div>
         <div class="clear"></div>
     <div class="body-content">

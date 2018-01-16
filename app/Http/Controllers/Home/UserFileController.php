@@ -96,6 +96,8 @@ class UserFileController extends CommonController
 
 					//添加销售人员信息
 					$recommend = Recommend::create(['recommend_mobile'=>$rec_phone,'recommend_name'=>$vol->name,'company_id'=>$company->_id,'big_area_id'=>$bigarea->_id,'area_id'=>'','sales_id'=>'']);
+					//添加推荐关系
+					DoctorRecommend::firstOrCreate(['recommend_id'=>$recommend->_id,'doctor_id'=>$this->doctor_id]);
 				}catch (\Exception $e){
 					return response()->json(['code'=>400,'msg'=>'添加推荐人失败']);
 				}

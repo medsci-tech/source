@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Model\Area;
 use App\Http\Model\Doctor;
 use App\Http\Model\DoctorProtocol;
 use App\Http\Model\Recommend;
@@ -154,13 +155,23 @@ class DoctorController extends CommonController
 
                     $recommend=Recommend::where('_id',$v->recommend_id)->first();
                     $bigarea = BigArea::where('_id',$recommend->big_area_id)->first();
-                    if(isset($bigarea->big_area_name) && $bigarea->big_area_name){
+                    if($bigarea){
                         $doctorRecommend[$k]->big_area_name =$bigarea->big_area_name;
-                    }
+                    }else{
+						$doctorRecommend[$k]->big_area_name = '';
+					}
+					$area = Area::where('_id',$recommend->area_id)->first();
+					if($area){
+						$doctorRecommend[$k]->area_name =$area->area_name;
+                    }else{
+						$doctorRecommend[$k]->area_name = '';
+					}
                     $sales = Sales::where('_id',$recommend->sales_id)->first();
-                    if(isset($sales->sales_name) && $sales->sales_name){
-                        $doctorRecommend[$k]->sales_name =$sales->sales_name;
-                    }
+                    if($sales){
+                        $doctorRecommend[$k]->sales_name =$sales['sales_name'];
+                    }else{
+						$doctorRecommend[$k]->sales_name = '';
+					}
                     $doctorRecommend[$k]->recommend_name =$recommend->recommend_name;
                     $doctorRecommend[$k]->recommend_mobile =$recommend->recommend_mobile;
 
