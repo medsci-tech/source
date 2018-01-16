@@ -5,28 +5,28 @@ input,select,textarea{color:#333;}
 form .form-group:last-child{padding-bottom:0;}
 .passcode{position:absolute;right:0;bottom:0;height:32px;margin:1px;border-left:solid 1px #ddd;text-align:center;line-height:32px;border-radius:0 4px 4px 0;}
 ul,li{ list-style-type:none;}
-.h50 {height: 50px;background-color: #00002a;}
+/*.h50 {height: 50px;background-color: #00002a;}*/
 .lefter{position:relative;float:left;width:180px;margin-right:-180px;background:#e6f2fb;text-align:center;}
 .righter{float:right;width:100%;padding-top:15px;background:#e6f2fb;}
 .mainer{margin-left:180px;}
 .field-icon-right .icon{ bottom:0px; top:auto}
 .logo{ float:left; color:#FFF;line-height:80px;}
-.logo img{ float:left; margin-right:10px;margin-top:15px;}
+.logo img{ float:left; margin-right:10px;/*margin-top:15px;*/}
 .loginbox { background:url(../images/tmbg-white.png); border:0px;}
 /********头部******/
-.header{height:68px; overflow:hidden;background-color: #2f3847;}
+.header{height:68px; overflow:hidden;/*background-color: #2f3847;*/}
 .head-l{ float:right; margin-top:18px; }
 .head-l .button{ padding:8px 15px;}
 .head-l .bg-blue:hover{ background-color:#03b6fd;}
-.leftnav{width:180px; height:100%; position:fixed; top:68px; left:0px;background-color: #2f3847;}
+.leftnav{width:180px; height:100%; position:fixed; top:68px; left:0px;}
 
-.leftnav ul { border-top:4px solid #b5cfd9; padding: 0 0 5px 0;opacity:1;}
+.leftnav ul { border-top:1px solid #b5cfd9; padding: 0 0 5px 0;opacity:1;}
 .leftnav ul li{ list-style-type:none; text-align: center;}
 .leftnav ul .active{ background-color: #eeeeee;}
-.leftnav ul li a { padding-left:0;display:inline-block; width:100%; line-height: 40px; color:#ffffff;font-size:16px;  font-family:"Microsoft YaHei";}
-.leftnav ul .active a{  color: black; }
+.leftnav ul li a { padding-left:0;display:inline-block; width:100%; line-height: 40px; color:#333;font-size:16px;  font-family:"Microsoft YaHei";}
+.leftnav ul .active a{  color: #0694cd; font-weight:bold;}
 .leftnav ul li:hover{  background-color: #eeeeee;  color: #0061c1;}
-.leftnav ul li:hover a{ color: #22cc77;}
+.leftnav ul li:hover a{ color:#00aaee;text-decoration: none;}
 
 /***主要内容***/
 .admin{background:#fff;position:fixed;border-left:solid 1px #b5cfd9;right:0;bottom:0;top:68px;left:180px; padding:15px; padding-right:0px; padding-bottom:0px; overflow:auto; border-top:1px solid #b5cfd9; padding-right:15px;}

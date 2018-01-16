@@ -6,12 +6,12 @@
 <div class="panel admin-panel">
     <div class="panel-head"><strong>个人文件</strong>
         <div class="pull-right">
-            <button class="button bg-main btn-addMaterial">上传素材</button>
+            <button class="btn btn-danger btn-addMaterial">上传素材</button>
             {{--<button class="button bg-main" type="button">下载</button>--}}
         </div></div>
     <div class="body-content">
         <form method="post" class="form-x" action="">
-            <div class="form-group ml3" style="width:30%;">
+            <div class="form-group ml3" style="width:30%;margin-left: 20px;">
                 <div class="label">
                     <label>上传时间：</label>
                 </div>
@@ -71,8 +71,8 @@
                 {{--<div class="label">--}}
                     {{--<label>全部素材</label>--}}
                 {{--</div>--}}
-                <button class="button bg-main r mr20" type="button" id="reset">重置</button>
-                <button class="button bg-main r mr20" type="button" id="search">查询</button>
+                <button class="button bg-main l mr20" type="button" id="reset" style="margin-left: 20px;">重置</button>
+                <button class="button bg-main l mr20" type="button" id="search" style="margin-left: 20px;">查询</button>
             </div>
             <div class="clear"></div>
             <div class="panel admin-panel">
@@ -151,7 +151,7 @@
                     } else {
                         $("#list").empty();
 //                        $("#list").append("<tr><td colspan='14'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
-                        alert(json.msg);
+                        modelAlert(json.msg);
                     }
                 },
                 complete: function() {
@@ -160,7 +160,7 @@
                 },
                 error: function() {
 //                $('body').hideLoading();
-                    alert("数据异常！");
+                    modelAlert("数据异常！");
                 }
             });
         }
@@ -307,39 +307,15 @@
             <form method="post" action="" class="alert-form">
                 <div class="panel admin-panel">
                     <table class="table table-hover text-center" id="uploadurllist">
-                        {{--<tr>--}}
-                        {{--<th>文件名</th>--}}
-                        {{--<th>格式</th>--}}
-                        {{--<th>操作</th>--}}
-                        {{--</tr>--}}
-                        {{--<tr>--}}
-                        {{--<td>xxx</td>--}}
-                        {{--<td>xxx</td>--}}
-                        {{--<td>--}}
-                        {{--<div class="button-group">--}}
-
-                        {{--<a type="button" class="button border-main" href="#"><span class="icon-download"></span>下载</a>--}}
-                        {{--</div>--}}
-                        {{--</td>--}}
-                        {{--</tr>--}}
-                        {{--<tr>--}}
-                        {{--<td>xxx</td>--}}
-                        {{--<td>xxx</td>--}}
-                        {{--<td>--}}
-                        {{--<div class="button-group">--}}
-
-                        {{--<a type="button" class="button border-main" href="#"><span class="icon-download"></span>下载</a>--}}
-                        {{--</div>--}}
-                        {{--</td>--}}
-                        {{--</tr>--}}
                     </table>
                 </div>
             </form>
         </div>
-        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+        <div class="bottom l" class="MsgBottom" style="height: 60px;">
             <div class="btn MsgBtns">
                 <div class="height"></div>
-                <input type="button" class="btn" value="关闭" onclick="uploadurlclose()">
+                <button class="btn btn-primary" onclick="uploadurlclose()">关闭</button>
+                <div class="height"></div>
             </div>
         </div>
     </div>

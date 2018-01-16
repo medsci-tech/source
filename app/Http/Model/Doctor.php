@@ -10,7 +10,9 @@ class Doctor extends Moloquent {
     protected $connection = 'mongodb';
     protected $table = 'doctor';
 
-
+	public function getProtocol(){
+		return $this->hasOne('App\Http\Model\DoctorProtocol');
+	}
     //添加修改
     public function updateDoctor($obj){
 

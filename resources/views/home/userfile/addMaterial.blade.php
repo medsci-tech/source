@@ -4,7 +4,7 @@
 
 @section('css')
 
-    <link href="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/css/bootstrap-select.min.css" rel="stylesheet">
+    {{--<link href="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/css/bootstrap-select.min.css" rel="stylesheet">--}}
     <link href="{{ asset('resources/views/home/static/css/fileinput.css') }}" media="all" rel="stylesheet" type="text/css"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('resources/views/home/static/css/theme.css') }}" media="all" rel="stylesheet" type="text/css"/>
@@ -17,7 +17,7 @@
     <script src="{{ asset('resources/views/home/static/js/zh.js')}}" type="text/javascript"></script>
     <script src="{{ asset('resources/views/home/static/js/theme.js') }}" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
-    <script src="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.min.js"></script>
+    {{--<script src="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.min.js"></script>--}}
 @endsection
 
 @section('content')

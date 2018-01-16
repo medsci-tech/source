@@ -20,7 +20,7 @@ class BigareaController extends CommonController
 
     public function index()
     {
-        $company = Company::where('status','1')->get();
+        $company = Company::get();
         return view('admin.bigarea',compact('company'));
     }
 

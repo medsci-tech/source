@@ -22,14 +22,7 @@
                 <div class="tips"></div>
                 </div>
                 </div>
-                {{--<div class="form-group">--}}
-                {{--<div class="label">--}}
-                {{--<label>医生手机号：</label>--}}
-                {{--</div>--}}
-                {{--<div class="field">--}}
-                {{--<input type="text" class="input" name="surl" id="doctor_mobile"  value=""/>--}}
-                {{--</div>--}}
-                {{--</div>--}}
+
                 <div class="form-group">
                     <div class="label">
                         <label>素材名称：</label>
@@ -38,15 +31,7 @@
                         <input type="text" class="input" name="surl" id="material_name"  value=""/>
                     </div>
                 </div>
-                {{--<div class="form-group">--}}
-                {{--<div class="label">--}}
-                {{--<label>素材名称：</label>--}}
-                {{--</div>--}}
-                {{--<div class="field">--}}
-                {{--<input type="text" class="input" name="sentitle"  id="doctor_name"  value=""/>--}}
-                {{--<div class="tips"></div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
+
                 <div class="form-group">
                     <div class="label">
                         <label>素材类型：</label>
@@ -72,24 +57,7 @@
                         </div>
                     </div>
                 </div>
-                {{--<div class="form-group">--}}
-                {{--<div class="label">--}}
-                {{--<label>推荐人姓名：</label>--}}
-                {{--</div>--}}
-                {{--<div class="field">--}}
-                {{--<input type="text" class="input" name="s_name" id="recommend_name" value=""/>--}}
-                {{--<div class="tips"></div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="form-group">--}}
-                {{--<div class="label">--}}
-                {{--<label>推荐人手机号：</label>--}}
-                {{--</div>--}}
-                {{--<div class="field">--}}
-                {{--<input type="text" class="input" name="s_name" id="recommend_mobile" value=""/>--}}
-                {{--<div class="tips"></div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
+
                 <div class="form-group">
                     <div class="label">
                         <label>审核状态：</label>
@@ -130,16 +98,7 @@
                 </div>
             </form>
             <form method="post" action="">
-                <div class="panel admin-panel">
-                    <!--<div class="panel-head"><strong class="icon-reorder"> 留言管理</strong></div>-->
-                    <!--<div class="padding border-bottom">-->
-                    <!--<ul class="search">-->
-                    <!--<li>-->
-                    <!--<button type="button"  class="button border-green" id="checkall"><span class="icon-check"></span> 全选</button>-->
-                    <!--<button type="submit" class="button border-red"><span class="icon-trash-o"></span> 批量删除</button>-->
-                    <!--</li>-->
-                    <!--</ul>-->
-                    <!--</div>-->
+                <div class="">
                     <table class="table table-hover text-center">
                         <thead>
                             <tr>
@@ -184,12 +143,11 @@
             </form>
         </div>
     </div>
-@endsection
 
+@endsection
 
 @section('addDiv')
     <!--审核弹框开始-->
-
     <div style="width: 300px; display: none;" class="MsgBox clearfix" id="checkbox">
         <div class="top">
             <div class="title" class="MsgTitle">审核</div>
@@ -213,23 +171,11 @@
                         <label>通过素材数：</label>
                     </div>
                     <div class="field">
-                        <input type="text" name="pass_amount_box"  id="pass_amount_box" valeu="">
-                        {{--<select class="input" id="pass_amount_box">--}}
-                        {{--<option value="1">1</option>--}}
-                        {{--<option value="2">2</option>--}}
-                        {{--<option value="3">3</option>--}}
-                        {{--<option value="4">4</option>--}}
-                        {{--<option value="5">5</option>--}}
-                        {{--<option value="6">6</option>--}}
-                        {{--<option value="7">7</option>--}}
-                        {{--<option value="8">8</option>--}}
-                        {{--<option value="9">9</option>--}}
-                        {{--<option value="10">10</option>--}}
-                        {{--</select>--}}
+                        <input type="number" name="pass_amount_box" class="input" id="pass_amount_box" valeu="">
                         <div class="tips"></div>
                     </div>
                 </div>
-                <textarea name="comment" id="comment" class="infotextarea"></textarea>
+                <textarea name="comment" id="comment" class="infotextarea" placeholder="请填写不通过原因"></textarea>
             </form>
         </div>
         <div class="bottom l" class="MsgBottom" style="height: 60px;">
@@ -253,28 +199,7 @@
             <form method="post" action="" class="alert-form">
                 <div class="panel admin-panel">
                     <table class="table table-hover text-center" id="uploadurllist">
-                        {{--<tr>--}}
-                        {{--<th>文件名</th>--}}
-                        {{--<th>下载地址</th>--}}
-                        {{--</tr>--}}
-                        {{--<tr>--}}
-                        {{--<td>xxx</td>--}}
-                        {{--<td>--}}
-                        {{--<div class="button-group">--}}
-                        {{--<a type="button" class="button border-main" href="#"><span class="icon-download"></span>下载</a>--}}
 
-                        {{--</div>--}}
-                        {{--</td>--}}
-                        {{--</tr>--}}
-                        {{--<tr>--}}
-                        {{--<td>xxx</td>--}}
-                        {{--<td>--}}
-                        {{--<div class="button-group">--}}
-                        {{--<a type="button" class="button border-main" href="#"><span class="icon-download"></span>下载</a>--}}
-
-                        {{--</div>--}}
-                        {{--</td>--}}
-                        {{--</tr>--}}
                     </table>
                 </div>
             </form>
@@ -310,26 +235,7 @@
             </form>
             {{--支付价格:<input type="text" class="input" id="editAreaName" style="width:50%;">--}}
         </div>
-        {{--<div class="body l">--}}
-        {{--<div class="form-group">--}}
-        {{--<div class="label">--}}
-        {{--<label>地区：</label>--}}
-        {{--</div>--}}
-        {{--<div class="field">--}}
-        {{--<input type="text" class="input" id="editAreaName">--}}
-        {{--<div class="tips"></div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="form-group">--}}
-        {{--<div class="label">--}}
-        {{--<label>地区：</label>--}}
-        {{--</div>--}}
-        {{--<div class="field">--}}
-        {{--<input type="text" class="input" id="editAreaName">--}}
-        {{--<div class="tips"></div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
+
         <div class="bottom l" class="MsgBottom" style="height: 60px;">
             <div class="btn MsgBtns">
                 <div class="height"></div>
@@ -418,7 +324,7 @@
                             //                        <a type="button" class="button border-red" href="#"><span class="icon-trash-o"></span>删除</a>
 
                             {{--var downloadUrl ="{{url('admin/material/downloadfile/')}}"+"/"+array._id;--}}
-                            li +="<tr><td><input type='checkbox' class='check_one' value='"+array._id+"'/></td><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.doctor_name+"</td><td>"+array.doctor_mobile+"</td><td>"+array.created_at+"</td><td>"+array.big_area_name+"</td><td>"+array.area_name+"</td><td>"+array.sales_name+"</td><td style='width:10%;'>"+array.material_name+"</td><td>"+array.material_type_name+"</td><td>"+array.attachments+"</td><td>"+array.recommend_name+"</td><td>"+array.recommend_mobile+"</td><td>"+array.check_status_button+"</td><td>"+array.pass_amount+"</td><td>"+array.pay_amount+"</td><td>"+array.pay_status+"</td> <td>"+array.comment+"</td><td><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='uploadurl(this)' doctor_id='" + array.doctor_id + "' upload_code='" + array.upload_code + "'><span class='icon-download'></span>下载</a>";
+                            li +="<tr><td><input type='checkbox' class='check_one' value='"+array._id+"'/></td><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.doctor_name+"</td><td>"+array.doctor_mobile+"</td><td>"+array.created_at+"</td><td>"+array.big_area_name+"</td><td>"+array.area_name+"</td><td>"+array.sales_name+"</td><td style='width:10%;'>"+array.material_name+"</td><td>"+array.material_type_name+"</td><td>"+array.attachments+"</td><td>"+array.recommend_name+"</td><td>"+array.recommend_mobile+"</td><td>"+array.check_status_button+"</td><td>"+array.pass_amount+"</td><td>"+array.pay_amount+"</td><td>"+array.pay_status+"</td> <td>"+array.comment+"</td><td><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='uploadurl(this)' doctor_id='" + array.doctor_id + "' upload_code='" + array.upload_code + "'><span class='icon-download'></span>查看</a>";
                             li += showbutton +"</div></td></tr>";
                         });
 
@@ -508,7 +414,7 @@
                     },
                     success: function(json) {
                         if (json.status == 1) {
-                            modelAlert(json.msg);
+//                            modelAlert(json.msg);
                             window.location.reload();
                             //window.location.href="{{url("admin/material/index")}}";
                         } else {
@@ -561,7 +467,20 @@
             var check_status =$("#check_status_box").val();
             var pass_amount =$("#pass_amount_box").val();
             var comment =$("#comment").val();
+            var max_amount = $("#max_pass_amount").val();
             var id=$("#checkid").val();
+            if(check_status==1 && pass_amount==''){
+                modelAlert('请输入通过素材的数量');
+                return false;
+            }
+             if(pass_amount>max_amount || pass_amount<1){
+                modelAlert('请输入有效素材数');
+                return false;
+            }
+            if(check_status==2 && comment==''){
+                modelAlert('请填写不通过的原因');
+                return false;
+            }
             $.ajax({
                 type: 'post',
                 url: '{{url('admin/material/ajax')}}',
@@ -638,7 +557,7 @@
                     if (json.status == 1) {
                         $('#shelter').fadeOut();
                         $("#paybox").css('display','none');
-                        modelAlert(json.msg);
+//                        modelAlert(json.msg);
                         window.location.href="{{url("admin/material/index")}}";
                     } else {
                         modelAlert(json.msg);
@@ -696,17 +615,6 @@
 
         }
 
-
-        $("#pass_amount_box").change(function(){
-            var select_pass_amount=$("#pass_amount_box").val();
-            var max_pass_amount=$("#max_pass_amount").val();
-            if(select_pass_amount >max_pass_amount){
-                alert('审核通过的素材数量不能大于上传的素材数量!');
-                $("#pass_amount_box").val(1);
-            }
-
-        });
-
         function uploadurl(obj){
 //        $("#uploadBox").css('display','block');
             var doctor_id=$(obj).attr('doctor_id');
@@ -729,7 +637,7 @@
                         var list = json.list;
                         $.each(list, function(index, array) { //遍历返回json
 
-                            li +="<tr><td style='max-width:150px;'>"+array.filename+"</td><td><div class='button-group'><a type='button' class='button border-main' target='_blank' href='"+array.url+"'><span class='icon-download'></span>下载</a></div></td></tr>";
+                            li +="<tr><td style='max-width:150px;'>"+array.filename+"</td><td><div class='button-group'><a type='button' class='button border-main' target='_blank' href='"+array.url+"'><span class='icon-download'></span>查看</a></div></td></tr>";
 
                         });
                         $("#uploadurllist").append(li);

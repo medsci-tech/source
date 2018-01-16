@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Model\Doctor;
+use App\Http\Model\DoctorProtocol;
 use App\Http\Model\Recommend;
 use App\Http\Model\DoctorRecommend;
 use App\Http\Model\Bigarea;
@@ -46,9 +47,21 @@ class DoctorController extends CommonController
                 $input['page']=($input['page']==0 || $input['page']>100) ? 1 :$input['page'];
                 $result=$this->doctor->getDoctorList($pagesize,$input['page'],$input);
                 if(count($result[1])>0) {
+                	$list = $result[1];
+                	foreach ($list as &$v){
+                		if($v->getProtocol){
+							$v['protocol_status'] = $v->getProtocol->check_status;
+							$v['protocol_url'] = env('QN_Url').$v->getProtocol->file_url;
+							$v['protocol_id'] = $v->getProtocol->_id;
+						}else{
+							$v['protocol_status'] = '-1';
+							$v['protocol_url'] = '';
+							$v['protocol_id'] = '';
+						}
+					}
                     $returnInfo=array(
                         'total_num' => $result[0],
-                        'list' => $result[1],
+                        'list' => $list,
                         'page_size' => $pagesize,
                         'page_total_num' => $result[2],
                         'status' => 1,
@@ -237,6 +250,25 @@ class DoctorController extends CommonController
                 }
                 return response()->json($returnInfo);
                 break;
+			case 'checkProtocol':
+				$protocol = DoctorProtocol::find($input['pid']);
+				if(!$protocol){
+					$returnInfo=array(
+						'status' => 0,
+						'msg' => '非法操作',
+					);
+					return response()->json($returnInfo);
+				}
+				$protocol->check_status = $input['status'];
+				if($input['status'] == 2){
+					$protocol->comment = $input['comment'];
+				}
+				$protocol->save();
+				$returnInfo=array(
+					'status' => 1,
+					'msg' => '审核成功',
+				);
+				return response()->json($returnInfo);
         }
 
     }

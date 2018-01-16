@@ -28,12 +28,13 @@ class UserInfoController extends CommonController
     {
 
         $doctor = Doctor::where('doctor_mobile',session('user')->doctor_mobile)->first();
-        $doctorProtocol = DoctorProtocol::where('doctor_id',$doctor->_id)->first();
+        $doctorProtocol = DoctorProtocol::where('doctor_id',$doctor->_id)->first();//dd($doctorProtocol);
         if($doctorProtocol){
 			$doctor->have_protocol = 1;
 		}else{
 			$doctor->have_protocol = 0;
 		}
+//		dd($doctor);
         return view('home.userinfo.index',compact('doctor','doctorProtocol'));
     }
 
@@ -103,14 +104,15 @@ class UserInfoController extends CommonController
 			case 'addProtocol':
 				$doctorInfo = $input['doc_data'];
 				$protocol = DoctorProtocol::where('doctor_id',$this->doctor->_id)->first();
-				if($protocol){
+				if($protocol){//重新上传，更新数据
 					$protocol->file_url = $doctorInfo['file'];
 					$protocol->file_name = $doctorInfo['file_name'];
 					$protocol->check_status = '0';
 					$res = $protocol->save();
 				}else{
 					$res = DoctorProtocol::create([
-						'doctor_id'=>$this->doctor->_id,
+
+						'doctor_id'=>$this->doctor_id,
 						'file_url'=>$doctorInfo['file'],
 						'file_name'=>$doctorInfo['filename'],
 						'check_status'=>'0' //审核状态 0.未审核 1.通过 2.驳回

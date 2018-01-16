@@ -54,38 +54,8 @@
                 </div>
             </form>
             <form method="post" action="">
-                <div class="panel admin-panel">
+                <div class="">
                     <table class="table table-hover text-center" id="list">
-                        {{--<tr>--}}
-                            {{--<th width="50">ID</th>--}}
-                            {{--<th>医生姓名</th>--}}
-                            {{--<th>医生手机号</th>--}}
-                            {{--<th>省</th>--}}
-                            {{--<th>市</th>--}}
-                            {{--<th>县/区</th>--}}
-                            {{--<th>医院</th>--}}
-                            {{--<th>身份证号码</th>--}}
-                            {{--<th>开户行</th>--}}
-                            {{--<th>银行卡号</th>--}}
-                            {{--<th>操作</th>--}}
-                        {{--</tr>--}}
-                        {{--<tr>--}}
-                            {{--<td><input type="checkbox" name="id[]" value="1" />1</td>--}}
-                            {{--<td>神夜</td>--}}
-                            {{--<td>13420925611</td>--}}
-                            {{--<td>湖北省</td>--}}
-                            {{--<td>武汉市</td>--}}
-                            {{--<td>洪山区</td>--}}
-                            {{--<td>中南医院</td>--}}
-                            {{--<td>xxxxxxxxxxxx</td>--}}
-                            {{--<td>xxxxxxxxxxxxx</td>--}}
-                            {{--<td>xxxxxxxxxxxx</td>--}}
-                            {{--<td width="180"><div class="button-group">--}}
-                                    {{--<a type="button" class="button border-main" href="#"><span class="icon-edit"></span>编辑</a>--}}
-                                    {{--<a type="button" class="button border-red" href="#"><span class="icon-money"></span>禁用</a>--}}
-                                    {{--<a type="button" class="button border-main" href="#"><span class="icon-user-md"></span>推荐人</a>--}}
-                                {{--</div></td>--}}
-                        {{--</tr>--}}
 
                         <tr>
                             <td colspan="14"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
@@ -197,6 +167,48 @@
     </div>
     <!--医生管理 添加结束-->
 
+    <!--审核弹框开始-->
+    <div style="width: 300px; display: none;" class="MsgBox clearfix" id="checkbox">
+        <div class="top">
+            <div class="title" class="MsgTitle">审核</div>
+        </div>
+        <div class="body l">
+            <form class="alert-form clearfix">
+                <div class="form-group">
+                    <div class="label">
+                        <label>协议内容：</label>
+                    </div>
+                    <div class="field">
+                        <a id="content_box" target="_blank" class="btn btn-primary" href="">查看</a>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group mt12">
+                    <div class="label">
+                        <label>审核：</label>
+                    </div>
+                    <div class="field">
+                        <select class="input" id="check_status_box">
+                            <option value="1">通过</option>
+                            <option value="2">不通过</option>
+                        </select>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <textarea name="comment" id="comment" class="infotextarea" placeholder="请填写不通过原因"></textarea>
+            </form>
+        </div>
+        <div class="bottom l" class="MsgBottom" style="height: 60px;">
+            <div class="btn MsgBtns">
+                <div class="height"></div>
+                <input type="button" class="btn" value="确认" id="checkboxSure">　<input type="button" id="checkboxCancle" class="btn" value="取消">
+                <input type="hidden"  id="check_pid" value="" />
+                <div class="height"></div>
+            </div>
+        </div>
+    </div>
+    <!--审核弹框结束-->
+
     <!--禁用数据弹框开始-->
     <div style="width: 300px; display:none;" class="MsgBox clearfix">
         <div class="top">
@@ -224,31 +236,7 @@
             <form method="post" action="" class="alert-form">
                 <div class="panel admin-panel">
                     <table class="table table-hover text-center" id="recommendList">
-                        {{--<tr>--}}
-                            {{--<th>推荐人姓名</th>--}}
-                            {{--<th>推荐人手机号</th>--}}
-                            {{--<th>大区</th>--}}
-                            {{--<th>地区</th>--}}
-                            {{--<th>销售组</th>--}}
-                            {{--<th>绑定时间</th>--}}
-                            {{--<th width="120px">操作</th>--}}
-                        {{--</tr>--}}
-                        {{--<tr>--}}
-                            {{--<td>xxx</td>--}}
-                            {{--<td>xxx</td>--}}
-                            {{--<td>xxx</td>--}}
-                            {{--<td>xxx</td>--}}
-                            {{--<td>xxx</td>--}}
-                            {{--<td>xxx</td>--}}
-                            {{--<td>--}}
-                                {{--<div class="button-group">--}}
-                                    {{--<a type="button" class="button border-main" href="#"><span class="icon-plus"></span>添加</a>--}}
-                                    {{--<a class="button border-red" href="javascript:void(0)" ><span--}}
-                                                {{--class="icon-book"></span>删除</a>--}}
-                                {{--</div>--}}
-                                {{--<input type="hidden" name="doctor_recommend_id"  id="doctor_recommend_id" value="" />--}}
-                            {{--</td>--}}
-                        {{--</tr>--}}
+
                     </table>
                 </div>
             </form>
@@ -385,11 +373,26 @@
                     page_cur = page; //当前页
                     page_total_num = json.page_total_num; //总页数businessScope unix_to_datetime(unix);   getLocalTime(parseInt(array.ctime,10)) SProductName out_logi_no
 
-                    var li = "<tr><th width='50'>ID</th><th>医生姓名</th><th>医生手机号</th><th>省</th><th>市</th> <th>县/区</th><th>医院</th><th>身份证号码</th><th>开户行</th><th>银行卡号</th><th>操作</th></tr>";
+                    var li = "<tr><th width='50'>ID</th><th>医生姓名</th><th>医生手机号</th><th>省</th><th>市</th> <th>县/区</th><th>医院</th><th>身份证号码</th><th>开户行</th><th>银行卡号</th><th>协议状态</th><th>操作</th></tr>";
                     var list = json.list;
                     $.each(list, function(index, array) { //遍历返回json
+                        var protocol_status;
+                        if(array.protocol_status === '-1'){
+                            protocol_status = '未上传';
+                        }else if(array.protocol_status === '0'){
+                            protocol_status = '待审核';
+                        }else if(array.protocol_status === '1'){
+                            protocol_status = '通过';
+                        }else{
+                            protocol_status = '未通过';
+                        }
                         var recommendAdd ="{{url('admin/doctor/recommendadd/')}}"+"/"+array._id;
-                        li +="<tr><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.doctor_name+"</td> <td>"+array.doctor_mobile+"</td><td>"+array.province_name+"</td><td>"+array.city_name+"</td><td>"+array.region_name+"</td><td>"+array.hospital_name+"</td><td>"+array.id_card+"</td> <td>"+array.bank_name+"</td><td>"+array.bank_card_no+"</td><td width='180'><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='edit(this)' doctorid='"+array._id+"' edit_doctor_name='"+array.doctor_name+"' edit_doctor_mobile='"+array.doctor_mobile+"' edit_password='"+array.password+"' edit_hospital_name='"+array.hospital_name+"' edit_id_card='"+array.id_card+"' edit_bank_name='"+array.bank_name+"' edit_bank_card_no='"+(array.bank_card_no?array.bank_card_no:'')+"' province_id='"+array.province_id+"' region_id='"+array.region_id+"' city_id='"+array.city_id+"' province_name='"+array.province_name+"' region_name='"+array.region_name+"' city_name='"+array.city_name+"'><span class='icon-edit'></span>编辑</a><a type='button' class='button border-main' href='javascript:;' onclick='recommend(this)' doctorid='"+array._id+"'><span class='icon-user-md'></span>推荐人</a><a type='button' class='button border-main' href='"+recommendAdd+"'><span class='icon-user-md'></span>添加推荐人</a></div></td></tr>";
+                        li +="<tr><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.doctor_name+"</td> <td>"+array.doctor_mobile+"</td><td>"+array.province_name+"</td><td>"+array.city_name+"</td><td>"+array.region_name+"</td><td>"+array.hospital_name+"</td><td>"+array.id_card+"</td> <td>"+array.bank_name+"</td><td>"+array.bank_card_no+"</td><td>"+protocol_status+"</td><td width='220'><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='edit(this)' doctorid='"+array._id+"' edit_doctor_name='"+array.doctor_name+"' edit_doctor_mobile='"+array.doctor_mobile+"' edit_password='"+array.password+"' edit_hospital_name='"+array.hospital_name+"' edit_id_card='"+array.id_card+"' edit_bank_name='"+array.bank_name+"' edit_bank_card_no='"+(array.bank_card_no?array.bank_card_no:'')+"' province_id='"+array.province_id+"' region_id='"+array.region_id+"' city_id='"+array.city_id+"' province_name='"+array.province_name+"' region_name='"+array.region_name+"' city_name='"+array.city_name+"'><span class='icon-edit'></span>编辑</a>";
+                        //如果状态为待审核，添加审核按钮
+                        //if(array.protocol_status==='0'){
+                            li +="<a type='button' class='button border-main' href='javascript:;' onclick='check(this)' pid='"+array.protocol_id+"' purl='"+array.protocol_url+"' pstatus='"+array.protocol_status+"'><span class='icon-edit'></span>审核协议</a>";
+                        //}
+                        li +="<a type='button' class='button border-main' href='javascript:;' onclick='recommend(this)' doctorid='"+array._id+"'><span class='icon-user-md'></span>推荐人</a><a type='button' class='button border-main' href='"+recommendAdd+"'><span class='icon-user-md'></span>添加推荐人</a></div></td></tr>";
                     });
                     li +="<tr id ='page-tag'></tr>"
                     $("#list").append(li);
@@ -538,7 +541,59 @@
         $('#recommendBox').css('display','none');
     }
 
-//添加修改医生信息
+    function check(obj){
+        var checkObj =$(obj);
+        var url=checkObj.attr('purl');
+        var status=checkObj.attr('pstatus');
+        $('#content_box').attr('href',url);
+        $('#check_status_box').val(status);
+        $('#check_pid').val(checkObj.attr('pid'));
+        $('#checkbox').fadeIn();
+    }
+    //审核结果弹框取消按钮
+    $('#checkboxCancle').click(function(){
+        $('#checkbox').fadeOut();
+    })
+    //审核结果提交
+    $('#checkboxSure').click(function(){
+        var pid = $('#check_pid').val();
+        var status = $('#check_status_box').val();
+        var comment = $('#comment').val();
+        if(status==2 && comment === ''){
+            modelAlert('请填写不通过的原因');
+            return false;
+        }
+        $.ajax({
+            type: 'post',
+            url: '{{url('admin/doctor/ajax')}}',
+            data: {'action': 'checkProtocol','pid':pid,'status':status,'comment':comment},
+            dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
+            beforeSend: function(XMLHttpRequest) {
+//                $('body').showLoading();
+            },
+            success: function(json) {
+                if (json.status == 1) {
+                    $('#checkbox').fadeOut();
+//                    modelAlert(json.msg);
+                    getData(1);
+
+                } else {
+                    modelAlert(json.msg);
+                }
+            },
+            complete: function() {
+
+            },
+            error: function() {
+                modelAlert("数据异常！");
+            }
+        });
+    });
+
+    //添加修改医生信息
     function edit(obj){
 
         $("#doctorid").val($(obj).attr('doctorid'));
@@ -619,32 +674,25 @@
         }
         $.ajax({
             type: 'post',
-            url: '{{url('admin/doctor/ajax')}}',
+            url: "{{url('admin/doctor/ajax')}}",
             data: {'action': 'docotrEdit','id':id,'doctor_name':doctor_name,'doctor_mobile':doctor_mobile,'password':password,'hospital_name':hospital_name,'id_card':id_card,'bank_name':bank_name,'bank_card_no':bank_card_no,'province_id':province_id,'city_id':city_id,'region_id':region_id,'province_name':province_name,'city_name':city_name,'region_name':region_name },
             dataType: 'json',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             },
-            beforeSend: function(XMLHttpRequest) {
-//                $('body').showLoading();
-            },
             success: function(json) {
                 if (json.status == 1) {
 //                    $("#editBox1").css('display','none');
-                    modelAlert(json.msg);
-                    window.location.href="{{url("admin/doctor/index")}}";
+//                    modelAlert(json.msg);
+                    window.location.href="{{url('admin/doctor/index')}}";
                 } else {
                     modelAlert(json.msg);
                 }
-            },
-            complete: function() {
-
             },
             error: function() {
                 modelAlert("数据异常！");
             }
         });
-
     })
 
 

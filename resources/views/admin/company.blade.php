@@ -18,7 +18,7 @@
                 <button class="button bg-main icon-download" type="button" onclick="add()">添加</button>
             </div>
             <form method="post" action="">
-                <div class="panel admin-panel">
+                <div class="">
 
                     <table class="table table-hover text-center" id="list">
                         <thead>

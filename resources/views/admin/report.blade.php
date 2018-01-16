@@ -256,7 +256,7 @@
             </div>
         </form>
         <form method="post" action="">
-            <div class="panel admin-panel" style="overflow-x: auto">
+            <div class="" style="overflow-x: auto">
                 <table style="white-space: nowrap; " class="table table-hover text-center table-responsive" id="list">
 
                 </table>

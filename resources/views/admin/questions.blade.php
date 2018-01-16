@@ -2,12 +2,6 @@
 
 @section('title','常见问题')
 
-@section('css')
-    <link href="{{ asset('resources/views/home/static/css/bootstrap4.0.0.min.css') }}" rel="stylesheet">
-@endsection
-@section('js')
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" type="text/javascript"></script>
-@endsection
 
 @section('content')
     <div class="panel admin-panel">

@@ -15,10 +15,10 @@
     @section('css')
         <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/pintuer.css')}}">
         <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/main.css')}}">
-        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="http://apps.bdimg.com/libs/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
     @show
     <script src="{{asset('resources/views/admin/static/js/jquery.js')}}"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <script src="{{asset('resources/views/admin/static/js/pintuer.js')}}"></script>
     <script type="text/javascript" src="{{asset('resources/views/admin/static/js/jquery-ui-1.10.4.custom.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('resources/views/admin/static/js/jquery.ui.datepicker-zh-CN.js')}}"></script>
@@ -31,14 +31,14 @@
 <body>
 <div class="header">
     <div class="logo margin-big-left fadein-top">
-        <h1><img src="{{asset('resources/views/admin/static/images/u11.png')}}" class="radius-circle rotate-hover" height="40" alt="mime医学众包服务平台" />MIME医学众包服务平台</h1>
+        <h1><img src="{{asset('resources/views/admin/static/images/u11.png')}}" class="radius-circle rotate-hover" height="40" alt="mime医学众包服务平台" /><span style="color: #428bca;">MIME医学众包服务平台</span></h1>
     </div>
-    <div class="head-l"><a class="button button-little bg-green" href="{{url('login')}}" target="_blank">
+    <div class="head-l"><a class="btn btn-success" href="{{url('login')}}" target="_blank">
             <span class="icon-home"></span> 前台首页</a> &nbsp;&nbsp;
-        <a href="javascript:;" class="button button-little bg-blue">
+        <a href="javascript:;" class="btn btn-primary">
             <span class="icon-wrench"></span>&nbsp;&nbsp;{{session('admin')->user_name}}</a> &nbsp;&nbsp;
 
-        <a class="button button-little bg-red" href="{{url('admin/quit')}}"><span class="icon-power-off"></span> 退出登录</a>
+        <a class="btn btn-danger" href="{{url('admin/quit')}}"><span class="icon-power-off"></span> 退出登录</a>
     </div>
 </div>
 <div class="leftnav">
@@ -54,7 +54,7 @@
             <li @if(Request::is('admin/bigarea/index')) class="active" @endif><a href="{{url('admin/bigarea/index')}}">大区管理</a></li>
             <li @if(Request::is('admin/area/index')) class="active" @endif><a href="{{url('admin/area/index')}}">地区管理</a></li>
             <li @if(Request::is('admin/sales/index')) class="active" @endif><a href="{{url('admin/sales/index')}}">销售组管理</a></li>
-            <li @if(Request::is('admin/hospital/index')) class="active" @endif><a href="{{url('admin/hospital/index')}}">医院管理</a></li>
+            {{--<li @if(Request::is('admin/hospital/index')) class="active" @endif><a href="{{url('admin/hospital/index')}}">医院管理</a></li>--}}
             <li @if(Request::is('admin/materialtype/index')) class="active" @endif><a href="{{url('admin/materialtype/index')}}">素材类型管理</a></li>
             <li @if(Request::is('admin/questions/*')) class="active" @endif><a href="{{url('admin/questions/index')}}">常见问题管理</a></li>
             <li @if(Request::is('admin/report/index')) class="active" @endif><a href="{{url('admin/report/index')}}">报表管理</a></li>

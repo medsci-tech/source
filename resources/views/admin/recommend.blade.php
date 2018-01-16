@@ -56,7 +56,7 @@
                 </div>
             </form>
             <form method="post" action="">
-                <div class="panel admin-panel">
+                <div class="">
                     <table class="table table-hover text-center" id="list">
                         {{--<tr>--}}
                             {{--<th>大区</th>--}}
@@ -155,7 +155,7 @@
                         <div class="tips"></div>
                     </div>
                 </div>
-                <div class="form-group">
+                {{--<div class="form-group">
                     <div class="label">
                         <label>推荐人身份证号码：</label>
                     </div>
@@ -163,7 +163,7 @@
                         <input type="text" class="input" id="edit_recommend_id_card">
                         <div class="tips"></div>
                     </div>
-                </div>
+                </div>--}}
 
             </form>
         </div>
@@ -384,14 +384,14 @@
                 alert('请输入推荐人手机号码!');
                 return false;
             }
-            if(recommend_id_card ==''){
+            /*if(recommend_id_card ==''){
                 alert('请输入推荐人身份证号!');
                 return false;
-            }
+            }*/
             $.ajax({
                 type: 'post',
                 url: '{{url('admin/recommend/ajax')}}',
-                data: {'action': 'updateRecommend','recommend_id':recommend_id,'recommend_mobile':recommend_mobile,'recommend_name':recommend_name,'big_area_id':big_area_id,'area_id':area_id,'sales_id':sales_id,'recommend_id_card':recommend_id_card},
+                data: {'action': 'updateRecommend','recommend_id':recommend_id,'recommend_mobile':recommend_mobile,'recommend_name':recommend_name,'big_area_id':big_area_id,'area_id':area_id,'sales_id':sales_id,/*'recommend_id_card':recommend_id_card,*/},
                 dataType: 'json',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -402,17 +402,17 @@
                 success: function(json) {
                     if (json.status == 1) {
     //                    $("#updateBox").css('display','none');
-                        alert(json.msg);
+//                        alert(json.msg);
                         window.location.href="{{url("admin/recommend/index")}}";
                     }else{
-                        alert(json.msg);
+                        modelAlert(json.msg);
                     }
                 },
                 complete: function() {
 
                 },
                 error: function() {
-                    alert("服务器繁忙！");
+                    modelAlert("服务器繁忙！");
                 }
             });
         })
@@ -456,14 +456,14 @@
                     $("#edit_area_id").append(li);
                     $("#edit_area_id").trigger('change');
                 } else {
-                    alert("非法的请求!");
+                    modelAlert("非法的请求!");
                 }
             },
             complete: function() {
 
             },
             error: function() {
-                alert("服务器繁忙！");
+                modelAlert("服务器繁忙！");
             }
         });
     })
@@ -491,14 +491,14 @@
                     })
                     $("#edit_sales_id").append(li);
                 } else {
-                    alert("非法的请求!");
+                    modelAlert("非法的请求!");
                 }
             },
             complete: function() {
 
             },
             error: function() {
-                alert("服务器繁忙！");
+                modelAlert("服务器繁忙！");
             }
         });
     })

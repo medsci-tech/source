@@ -209,7 +209,7 @@
         if ($("#file")[0].files.length > 0 && token != "") {
             Qiniu_upload($("#file")[0].files[0], token, $("#key").val());
         } else {
-            modelAlert("form input error");
+            modelAlert("请选择要上传的文件");
         }
     })
     //上传文件结束
@@ -234,7 +234,7 @@
             },
             success: function (json) {
                 if (json.status == 1) {
-                    modelAlert(json.msg);
+                    // modelAlert(json.msg);
                     $('.step').hide();
                     $('.step5').show();
                 } else {

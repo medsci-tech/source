@@ -32,7 +32,7 @@ class ReportController extends CommonController
     public function index()
     {
         $materialType = materialType::where('status','1')->get();
-        $company= Company::where('status','1')->get();
+        $company= Company::get();
         $bigarea = Bigarea::where('status','1')->get();
         $area = Area::where('status','1')->get();
         $sales = Sales::where('status','1')->get();
@@ -59,12 +59,13 @@ class ReportController extends CommonController
                             $waitPayAmount += $v->pay_amount;
                         }
                         $doctor = Doctor::where('_id',$v->doctor_id)->first();
-                        if(isset($doctor->doctor_name) && $doctor->doctor_name){
-                            $result[1][$k]->doctor_name =$doctor->doctor_name;
-                        }
-                        if(isset($doctor->doctor_mobile) && $doctor->doctor_mobile){
-                            $result[1][$k]->doctor_mobile =$doctor->doctor_mobile;
-                        }
+                        if($doctor){
+                            $result[1][$k]->doctor_name =$doctor['doctor_name'];
+							$result[1][$k]->doctor_mobile =$doctor['doctor_mobile'];
+                        }else{
+							$result[1][$k]->doctor_name = '';
+							$result[1][$k]->doctor_mobile ='';
+						}
                         $result[1][$k]['doctor_province'] = $doctor['province_name'];
                         $result[1][$k]['doctor_city'] = $doctor['city_name'];
                         $result[1][$k]['doctor_region'] = $doctor['region_name'];
@@ -74,12 +75,14 @@ class ReportController extends CommonController
                         $result[1][$k]['doctor_bank_card_no'] = $doctor['bank_card_no'];
 
                         $recommend = Recommend::where('_id',$v->recommend_id)->first();
-                        if(isset($recommend->recommend_name) && $recommend->recommend_name){
-                            $result[1][$k]->recommend_name =$recommend->recommend_name;
-                        }
-                        if(isset($recommend->recommend_mobile) && $recommend->recommend_mobile){
-                            $result[1][$k]->recommend_mobile =$recommend->recommend_mobile;
-                        }
+                        if($recommend){
+                            $result[1][$k]->recommend_name =$recommend['recommend_name'];
+                            $result[1][$k]->recommend_mobile =$recommend['recommend_mobile'];
+                        }else{
+							$result[1][$k]->recommend_name ='';
+							$result[1][$k]->recommend_mobile = '';
+						}
+
                         $company = Company::where('_id',$recommend->company_id)->first();
                         $bigarea = Bigarea::where('_id',$recommend->big_area_id)->first();
                         $area = Area::where('_id',$recommend->area_id)->first();
@@ -87,7 +90,7 @@ class ReportController extends CommonController
                         if($company['full_name']){
                             $result[1][$k]->company_name =$company['full_name'];
                         }else{
-							$result[1][$k]->big_area_name ='';
+							$result[1][$k]->company_name ='';
 						}
 						if($bigarea['big_area_name']){
                             $result[1][$k]->big_area_name =$bigarea['big_area_name'];
@@ -101,7 +104,9 @@ class ReportController extends CommonController
                         }
                         if($sales['sales_name']){
                             $result[1][$k]->sales_name =$sales['sales_name'];
-                        }
+                        }else{
+							$result[1][$k]->sales_name = '';
+						}
                         $materialtype = MaterialType::where('_id',$v->material_type_id)->first();
 
                         if(isset($materialtype->material_type_name) && $materialtype->material_type_name){

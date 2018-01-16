@@ -30,32 +30,10 @@
             </div>
         </form>
         <form method="post" action="">
-            <div class="panel admin-panel">
+            <div class="">
 
                 <table class="table table-hover text-center" id="list">
-                    {{--<tr>--}}
-                        {{--<th width="50">ID</th>--}}
-                        {{--<th>文件名称</th>--}}
-                        {{--<th>上传时间</th>--}}
-                        {{--<th>文件大小</th>--}}
-                        {{--<th>上传进度</th>--}}
-                        {{--<th>操作</th>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td><input type="checkbox" name="id[]" value="1" />1</td>--}}
-                        {{--<td>医生协议模板.doc</td>--}}
-                        {{--<td>2016-04-12 12:30</td>--}}
-                        {{--<td>1M</td>--}}
-                        {{--<td>上传成功</td>--}}
-                        {{--<td><div class="button-group">--}}
-                                {{--<a type="button" class="button border-main" href="#"><span class="icon-download"></span>下载</a>--}}
-                                {{--<a type="button" class="button border-red" href="#"><span class="icon-trash-o"></span>删除</a>--}}
-                            {{--</div></td>--}}
-                    {{--</tr>--}}
 
-                    {{--<tr>--}}
-                        {{--<td colspan="14"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>--}}
-                    {{--</tr>--}}
                 </table>
             </div>
         </form>

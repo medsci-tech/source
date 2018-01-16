@@ -44,7 +44,7 @@
                 </div>
             </form>
             <form method="post" action="">
-                <div class="panel admin-panel">
+                <div class="">
                     <table class="table table-hover text-center" id="list">
                         {{--<tr>--}}
                             {{--<th>序号</th>--}}

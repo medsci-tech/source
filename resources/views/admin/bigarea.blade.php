@@ -7,12 +7,12 @@
     <div class="panel admin-panel">
         <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>大区管理</strong></div>
         <div class="body-content">
-            <form method="post" class="form-x" action="">
-                <div class="form-group ml3 doctor-w200">
-                    <div class="label">
+            <form method="post" class="form" action="">
+                <div class="form-group">
+                    <div class="label" style="float: left;padding-top:7px;">
                         <label>公司：</label>
                     </div>
-                    <div class="field">
+                    <div class="field" style="float: left;">
                         <select class="input" name="company_id" id="company_id">
                             <option value="">请选择所属公司...</option>
                             @foreach($company as $v)
@@ -29,7 +29,7 @@
                 </div>
             </form>
             <form method="post" action="">
-                <div class="panel admin-panel">
+                <div class="">
                     <table class="table table-hover text-center" id="list">
                         {{--<tr>--}}
                             {{--<th>序号</th>--}}
@@ -100,11 +100,12 @@
                 </div>
             </form>
         </div>
-        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+        <div class="bottom l" class="MsgBottom" style="height: 60px;">
             <div class="btn MsgBtns">
                 <div class="height"></div>
                 <input type="button" class="btn" value="确认" id="sureEdit">　<input type="button" class="btn" value="取消" id="cancleEdit">
                 <input type="hidden" name="bigAreaid"  id="bigAreaid" value="" />
+                <div class="height"></div>
             </div>
         </div>
     </div>

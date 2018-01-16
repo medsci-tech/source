@@ -29,7 +29,7 @@
                             @elseif($doctorProtocol->check_status ==='1')
                                 通过审核
                             @else
-                                驳回 &nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="{{ url('home/userinfo/protocol') }}">重新上传</a>
+                                未通过  <b> (原因：{{ $doctorProtocol->comment }})</b>&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="{{ url('home/userinfo/protocol') }}">重新上传</a>
                             @endif
                         @endunless
                     </div>

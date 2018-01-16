@@ -7,7 +7,10 @@
         <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>地区管理</strong></div>
         <div class="body-content">
             <form method="post" class="form-x" action="">
-                <div class="form-group  doctor-w200" style="min-width: 380px;">
+                <div class="form-group  doctor-w200" style="min-width: 660px;">
+                    <div class="label ml10">
+                        <label>大区：</label>
+                    </div>
                     <select class="form-control l input" id="big_area_id" style="width:30%">
                         <option value="all">选择大区</option>
                         @foreach($bigArea as $v)
@@ -18,19 +21,19 @@
                         <label>地区：</label>
                     </div>
                     <div class="field">
-                        <input type="text" class="input" name="stitle" value="" id="area_name"/>
+                        <input type="text" class="form-control" name="stitle" value="" id="area_name"/>
                         <div class="tips"></div>
                     </div>
                 </div>
 
                 <div class="form-group  tool-btns">
-                    <button class="button bg-main icon-refresh" type="button" id="reset" onclick ="return false;">重置</button>
-                    <button class="button bg-main icon-search" type="button" id="search" onclick ="return false;">查询</button>
-                    <button class="button bg-main icon-plus" type="button" onclick="add()">添加</button>
+                    <button class="btn btn-primary icon-refresh" type="button" id="reset" onclick ="return false;">重置</button>
+                    <button class="btn btn-success icon-search" type="button" id="search" onclick ="return false;">查询</button>
+                    <button class="btn btn-danger icon-plus" type="button" onclick="add()">添加</button>
                 </div>
             </form>
             <form method="post" action="">
-                <div class="panel admin-panel">
+                <div class="">
                     <table class="table table-hover text-center" id="list">
                         {{--<tr>--}}
                             {{--<th>序号</th>--}}
@@ -171,7 +174,7 @@
                 } else {
                     $("#list").empty();
                     $("#list").append("<tr><td colspan='14'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
-                    alert(json.msg);
+                    modelAlert(json.msg);
                 }
             },
             complete: function() {
@@ -180,7 +183,7 @@
             },
             error: function() {
 //                $('body').hideLoading();
-                alert("数据异常！");
+                modelAlert("数据异常！");
             }
         });
     }
@@ -238,7 +241,7 @@
         $("#editAreaName").val($(obj).attr('areaName'));
         $("#editStatus").val($(obj).attr('status'));
         $("#bigAreaId").val($(obj).attr('bigAreaId'));
-        $("#editBox").css('display','block');
+        $("#editBox").fadeIn()
     }
 
     function add(){
@@ -248,7 +251,7 @@
         $('#editStatus option:eq(0)').attr('selected','selected');
         $("#areaid").val('');
         $('#editStatus option:eq(0)').attr('selected','selected');
-        $("#editBox").css('display','block');
+        $("#editBox").fadeIn();
     }
 
     $("#sureEdit").click(function(){
@@ -257,7 +260,7 @@
         var status=$("#editStatus").val();
         var big_area_id=$("#bigAreaId").val();
         if(area_name ==''){
-            alert('请输入区域名称!');
+            modelAlert('请输入区域名称!');
             return false;
         }
         $.ajax({
@@ -274,18 +277,18 @@
             success: function(json) {
 
                 if (json.status == 1) {
-                    $("#editBox").css('display','none');
-                    alert(json.msg);
+                    $("#editBox").fadeOut();
+//                    modelAlert(json.msg);
                     window.location.href="{{url("admin/area/index")}}";
                 } else {
-                    alert(json.msg);
+                    modelAlert(json.msg);
                 }
             },
             complete: function() {
 
             },
             error: function() {
-                alert("数据异常！");
+                modelAlert("数据异常！");
             }
         });
 
@@ -293,7 +296,7 @@
 
 
     $("#cancleEdit").click(function(){
-        $("#editBox").css('display','none');
+        $("#editBox").fadeOut();
     })
 </script>
 @stop

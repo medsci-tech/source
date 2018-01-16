@@ -13,11 +13,11 @@
     <link rel="stylesheet" href="{{asset('resources/views/home/static/css/admin.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('resources/views/home/static/css/jquery-ui.css')}}" />
     <link rel="stylesheet" href="{{asset('resources/views/home/static/css/main.css')}}">
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://apps.bdimg.com/libs/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
     @section('css')
     @show
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <script src="{{asset('resources/views/home/static/js/pintuer.js')}}"></script>
     @section('js')
     @show
@@ -32,7 +32,7 @@
     <div class="margin-big-left l">
         <h1 class="frontLogo"></h1>
     </div>
-    <div class="head-med"><button class="button bg-main btn-addMaterial">上传文件</button></div>
+    <div class="head-med"><button class="btn btn-primary btn-addMaterial">上传文件</button></div>
     <div class="city-info-right clearfix">
         <a href="javascript:;">{{session('user')->doctor_name}}</a>
         <a href="javascript:;">{{session('user')->doctor_mobile}}</a>

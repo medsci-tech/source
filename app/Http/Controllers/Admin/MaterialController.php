@@ -101,7 +101,7 @@ class MaterialController extends CommonController
                         $result[1][$k]->recommend_mobile = $recommend->recommend_mobile;
 //                        $SalesMaterialType = SalesMaterialType::where('sales_id',$recommend->sales_id)->where('material_type_id',$v->material_type_id)->first();
                         if(isset($bigarea->big_area_name)){
-                            $result[1][$k]->big_area_name =$bigarea->big_area_name."({$bigarea->unit})";
+                            $result[1][$k]->big_area_name =$bigarea->big_area_name.($bigarea->unit?"({$bigarea->unit})":'');
                         }else{
 							$result[1][$k]->big_area_name = '';
 						}
@@ -150,7 +150,7 @@ class MaterialController extends CommonController
 
                  //查询销售组自定义的价格，如果不存在，使用素材类型默认价格
                 $SalesMaterialType = SalesMaterialType::where('sales_id',$recommend->sales_id)->where('material_type_id',$material->material_type_id)->first();
-                if(isset($SalesMaterialType) && $SalesMaterialType->_id){
+                if($SalesMaterialType && $SalesMaterialType->_id){
                     $data['pay_amount']=$SalesMaterialType->price * $data['pass_amount'];
                 }else{
 					$data['pay_amount'] = MaterialType::where('_id',$material->material_type_id)->first()->price * $data['pass_amount'];

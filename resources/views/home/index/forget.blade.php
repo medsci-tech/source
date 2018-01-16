@@ -9,49 +9,51 @@
     <link rel="stylesheet" href="{{asset('resources/views/home/static/css/global.css')}}">
     <link rel="stylesheet" href="{{asset('resources/views/home/static/css/main.css')}}">
     <script src="{{asset('resources/views/home/static/js/jquery.js')}}"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 </head>
 <body style="overflow: hidden;height: 100%;">
 <div class="comm registerBox loginBox">
     <div class="regisWrapper loginWrapper">
-        <div class="in2">
+        <div class="in2" style="padding-top:40px;">
             <div class="forgetlogo2"></div>
             <div class="tips-cente tips-center-h2">找回密码</div>
             <form class="form-horizontal forgetForm">
                 <div class="form-group clearfix">
-                    <label class="col-sm-5 control-label">手机号：</label>
-                    <div class="col-sm-4">
-                        <input type="number" class="form-control" name="doctor_mobile" id="doctor_mobile">
-                        <div class="tips"></div>
+                    <label class="col-sm-4 control-label" style="padding-top:2px;">手机号：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="doctor_mobile" id="doctor_mobile">
                     </div>
                 </div>
                 <div class="form-group clearfix">
-                    <label class="col-sm-5 control-label">身份证号：</label>
-                    <div class="col-sm-4">
+                    <label class="col-sm-4 control-label" style="padding-top:2px;">身份证号：</label>
+                    <div class="col-sm-6">
                         <input type="text" class="form-control" name="id_card" id="id_card">
-                        <div class="tips"></div>
                     </div>
                 </div>
                 <div class="form-group clearfix">
-                    <label class="col-sm-5 control-label">新密码：</label>
-                    <div class="col-sm-4">
+                    <label class="col-sm-4 control-label" style="padding-top:2px;">新密码：</label>
+                    <div class="col-sm-6">
                         <input type="password" class="form-control" name="newPassword" id="newPassword">
-                        <div class="tips"></div>
                     </div>
                 </div>
                 <div class="form-group clearfix">
-                    <label class="col-sm-5 control-label">确认新密码：</label>
-                    <div class="col-sm-4">
+                    <label class="col-sm-4 control-label" style="padding-top:2px;">确认新密码：</label>
+                    <div class="col-sm-6">
                         <input type="password" class="form-control" name="repPassword" id="repPassword">
-                        <div class="tips"></div>
                     </div>
                 </div>
                 <a href="javascript:;" class="tj" onclick="resetPassword()">提交</a>
-                <a href="{{url('register')}}" class="wjmm wjmm2">还没有账号？立即注册</a>
+                <div class="form-group clearfix">
+                    <a href="{{url('login')}}" class="col-sm-offset-4" style="padding-left: 15px;">登入</a>
+                    <a href="{{url('register')}}" style="padding-left: 50px;">有账号？立即注册</a>
+                </div>
             </form>
         </div>
 
     </div>
 </div>
+<!-- 模态框（Modal） -->
+@include('layouts/common')
 </body>
 </html>
 
@@ -63,24 +65,24 @@
         var newPassword = $("#newPassword").val();
         var repPassword = $("#repPassword").val();
         if(doctor_mobile ==''){
-            alert('请输入手机号码');
+            modelAlert('请输入手机号码');
             return false;
         }
         if(id_card ==''){
-            alert('请输入身份证号码');
+            modelAlert('请输入身份证号码');
             return false;
         }
         if(newPassword ==''){
-            alert('请输入新密码');
+            modelAlert('请输入新密码');
             return false;
         }
         if(repPassword ==''){
-            alert('请确认输入新密码');
+            modelAlert('请确认输入新密码');
             return false;
         }
 
         if(newPassword !=repPassword){
-            alert('请确认二次输入的密码一致');
+            modelAlert('请确认二次输入的密码一致');
             return false;
         }
 
@@ -103,17 +105,17 @@
             },
             success: function (json) {
                 if (json.status == 1) {
-                    alert(json.msg);
+                    modelAlert(json.msg);
                     window.location.href="{{url('login')}}";
 
                 } else {
-                    alert(json.msg);
+                    modelAlert(json.msg);
                 }
             },
             complete: function () {
             },
             error: function () {
-                alert("服务器繁忙！");
+                modelAlert("服务器繁忙！");
             }
         });
     }

@@ -132,7 +132,7 @@ class UserFileController extends CommonController
 		$vol = Volunteer::select('name','phone')->get();
         $materialType = MaterialType::where('status','1')->get();
 		$uuid=uuid();//素材标识唯一码
-
+		header('Access-Control-Allow-Origin:*');
         return view('home.userfile.addMaterial',compact('materialType','vol','uuid'));
 
     }
@@ -160,10 +160,10 @@ class UserFileController extends CommonController
 		foreach($files as $file){
 			$filePath = $file->getRealPath();//真实文件地址
 			$originalName = $file->getClientOriginalName();
-			$ext = $file->getClientOriginalExtension();//文件后缀名
+//			$ext = $file->getClientOriginalExtension();//文件后缀名
 //				echo $key;
 //				dd($filePath);
-			$key = uuid().'.'.$ext;
+			$key = uuid();
 			// 调用 UploadManager 的 putFile 方法进行文件的上传。
 			list($ret, $err) = $uploadMgr->putFile($token, $key, $filePath);
 			if ($err !== null) {
@@ -242,7 +242,7 @@ class UserFileController extends CommonController
                 }else{
                     $returnInfo=array(
                         'status' => 0,
-                        'msg' => '没有查询到数据',
+                        'msg' => '您还没有上传过素材',
                     );
                 }
                 return response()->json($returnInfo);
