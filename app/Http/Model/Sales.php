@@ -11,6 +11,9 @@ class Sales extends Moloquent {
 
     public function getSalesList($pagesize = 6, $page = 1,$data=array()){
         $handle =SELF::orderBy('_id', 'desc');
+        if(isset($data['company_id']) && $data['company_id'] && $data['company_id'] !='all') {
+            $handle->where('company_id', $data['company_id']);
+        }
         if(isset($data['big_area_id']) && $data['big_area_id'] && $data['big_area_id'] !='all') {
             $handle->where('big_area_id', $data['big_area_id']);
         }

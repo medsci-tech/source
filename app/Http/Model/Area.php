@@ -27,6 +27,13 @@ class Area extends Moloquent {
         return array($totalrows, $result, $pagetotal);
     }
 
+    public function getCompany(){
+		return $this->belongsTo('App\Http\Model\Company');
+	}
+
+	public function getBigArea(){
+		return $this->belongsTo('App\Http\Model\Bigarea');
+	}
 
     public function addArea($data){
 

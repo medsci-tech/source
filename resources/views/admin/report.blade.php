@@ -163,86 +163,42 @@
                   </div>
                 </div>
             </div>
-                <div class="form-group w33" style="width:40%">
+            <div class="form-group w33" style="width:40%">
 
-                    <select class="form-control l input"  id="company_id"  style="min-width:110px">
-                        <option value="all">公司</option>
-                        @foreach($company as $v)
-                            <option value="{{$v->_id}}">{{$v->full_name}}</option>
-                        @endforeach
-                    </select>
-                    <select class="form-control l input"  id="big_area_id"  style="min-width:110px">
-                        <option value="all">大区</option>
-                        @foreach($bigarea as $v)
-                            <option value="{{$v->_id}}">{{$v->big_area_name}}</option>
-                        @endforeach
-                    </select>
-                    <select class="form-control l input"  id="area_id" style="min-width:110px">
-                        <option value="all">地区</option>
-                        @foreach($area as $v)
-                            <option value="{{$v->_id}}">{{$v->area_name}}</option>
-                        @endforeach
-                    </select>
-                    <select class="form-control l input"  id="sales_id" style="min-width:110px">
-                        <option value="all">销售组</option>
-                        @foreach($sales as $v)
-                            <option value="{{$v->_id}}">{{$v->sales_name}}</option>
-                        @endforeach
-                    </select>
+                <select class="form-control l input company_id"  id="company_id"  style="min-width:110px">
+                    <option value="all">公司</option>
+                    @foreach($company as $v)
+                        <option value="{{$v->_id}}">{{$v->full_name}}</option>
+                    @endforeach
+                </select>
+                <select class="form-control l input big_area_id"  id="big_area_id"  style="min-width:110px">
+                    <option value="all">大区</option>
+                </select>
+                <select class="form-control l input area_id"  id="area_id" style="min-width:110px">
+                    <option value="all">地区</option>
+                </select>
+                <select class="form-control l input sales_id"  id="sales_id" style="min-width:110px">
+                    <option value="all">销售组</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>推荐人姓名：</label>
                 </div>
-                <div class="form-group">
-                    <div class="label">
-                        <label>推荐人姓名：</label>
-                    </div>
-                    <div class="field">
-                        <input type="text" class="input" name="recommend_name" value="" id="recommend_name"/>
-                        <div class="tips"></div>
-                    </div>
+                <div class="field">
+                    <input type="text" class="input" name="recommend_name" value="" id="recommend_name"/>
+                    <div class="tips"></div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <div class="label">
-                        <label>推荐人手机号：</label>
-                    </div>
-                    <div class="field">
-                        <input type="text" class="input" name="recommend_mobile" value="" id="recommend_mobile"/>
-                    </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>推荐人手机号：</label>
                 </div>
-
-            {{--<div class="w100 clearfix">--}}
-                {{--<div class="form-group">--}}
-                    {{--<div class="field" style="margin-top:3px;width: 20px;">--}}
-                        {{--<input type="radio" class="input r" name="s_name" value="hospital"/>--}}
-                        {{--<div class="tips"></div>--}}
-                    {{--</div>--}}
-                    {{--<div class="label">--}}
-                        {{--<label>按医院搜索</label>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-
-                {{--<div class="form-group">--}}
-                    {{--<div class="label">--}}
-                        {{--<label>医院名称：</label>--}}
-                    {{--</div>--}}
-                    {{--<div class="field">--}}
-                        {{--<input type="text" class="input" name="hospital_name" value="" id="hospital_name"/>--}}
-                        {{--<div class="tips"></div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="form-group">--}}
-                    {{--<select class="form-control l input" id="hospital_level_id">--}}
-                        {{--<option value="all">医院级别</option>--}}
-                        {{--<option value="1">二甲医院</option>--}}
-                        {{--<option value="2">三甲医院</option>--}}
-                    {{--</select>--}}
-                {{--</div>--}}
-
-
-            {{--</div>--}}
-
-
-
+                <div class="field">
+                    <input type="text" class="input" name="recommend_mobile" value="" id="recommend_mobile"/>
+                </div>
+            </div>
 
             <div class="form-group w100">
                 <div class="label">
@@ -362,7 +318,7 @@
                 $("#list").empty();
                 $("#page_bar").html("<div class='pagelist' id='pagelist'></div>暂无数据");
 
-                alert(json.msg);
+//                alert(json.msg);
             }
         },
         complete: function() {
@@ -371,7 +327,7 @@
         },
         error: function() {
 //                $('body').hideLoading();
-            alert("数据异常！");
+            modelAlert("数据异常！");
         }
     });
     }

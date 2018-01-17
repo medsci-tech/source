@@ -41,20 +41,20 @@ class RecommendController extends CommonController
                         $bigarea = Bigarea::where('_id',$v->big_area_id)->first();
                         $area = Area::where('_id',$v->area_id)->first();
                         $sales = Sales::where('_id',$v->sales_id)->first();
-                        if($bigarea && $bigarea->big_area_name){
-                            $result[1][$k]->big_area_name =$bigarea->big_area_name;
+                        if($bigarea && $bigarea['big_area_name']){
+                            $result[1][$k]->big_area_name =$bigarea['big_area_name'];
                         }else{
-                            $result[1][$k]->big_area_name = '暂无';
+                            $result[1][$k]->big_area_name = '';
                         }
-                        if(isset($area->area_name) && $area->area_name){
-                            $result[1][$k]->area_name =$area->area_name;
+                        if($area && $area['area_name']){
+                            $result[1][$k]->area_name =$area['area_name'];
                         }else{
-                            $result[1][$k]->area_name = '暂无';
+                            $result[1][$k]->area_name = '';
                         }
-                        if($sales!=null && $sales->sales_name){
-                            $result[1][$k]->sales_name =$sales->sales_name;
+                        if($sales && $sales['sales_name']){
+                            $result[1][$k]->sales_name =$sales['sales_name'];
                         }else{
-                            $result[1][$k]->sales_name = '暂无';
+                            $result[1][$k]->sales_name = '';
                         }
                     }
                     $returnInfo=array(

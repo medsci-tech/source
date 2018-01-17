@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Model\Area;
 use App\Http\Model\Bigarea;
+use App\Http\Model\Company;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Crypt;
@@ -20,7 +21,8 @@ class AreaController extends CommonController
     public function index()
     {
         $bigArea=Bigarea::where('status','1')->get();
-        return view('admin.area',compact('bigArea'));
+		$company = Company::get();
+        return view('admin.area',compact('bigArea','company'));
     }
 
 
@@ -59,7 +61,8 @@ class AreaController extends CommonController
                 break;
             case 'edit':
                 $input = Input::all();
-                $this->area->big_area_id =$input['big_area_id'];
+				$this->area->company_id =$input['company_id'];
+				$this->area->big_area_id =$input['big_area_id'];
                 $this->area->area_name =$input['area_name'];
                 $this->area->status =$input['status'];
                 if($input['id'] ==''){
@@ -75,6 +78,7 @@ class AreaController extends CommonController
                         );
                     }
                 }else{
+                    $data['company_id'] =$input['company_id'];
                     $data['big_area_id'] =$input['big_area_id'];
                     $data['area_name'] =$input['area_name'];
                     $data['status'] =$input['status'];

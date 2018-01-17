@@ -8,22 +8,25 @@
         <div class="body-content">
             <form method="post" class="form-x" action="">
 
-                <div class="form-group ">
-                    <select class="form-control l input" id="big_area_id" style="min-width:110px">
-                        <option value="all">选择大区</option>
-                        @foreach($bigarea as $v)
-                            <option value="{{$v->_id}}">{{$v->big_area_name}}({{ $v->getCompany($v->company_id) }})</option>
+                <div class="form-group">
+                    <select class="form-control l input company_id" id="company_id" style="min-width:60px">
+                        <option value="all">选择公司</option>
+                        @foreach($company as $v)
+                            <option value="{{$v->_id}}">{{$v->full_name}}</option>
                         @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group ">
+                    <select class="form-control l input big_area_id" id="big_area_id" style="min-width:110px">
+                        <option value="all">选择大区</option>
                     </select>
                 </div>
 
 
                 <div class="form-group ">
-                    <select class="form-control l input" id="area_id">
+                    <select class="form-control l input area_id" id="area_id">
                         <option value="all">选择区域</option>
-                        @foreach($area as $v)
-                            <option value="{{$v->_id}}">{{$v->area_name}}</option>
-                        @endforeach
                     </select>
                 </div>
 
@@ -32,7 +35,7 @@
                         <label>销售组：</label>
                     </div>
                     <div class="field">
-                        <input type="text" class="input" name="stitle" value="" id="sales_name"/>
+                        <input type="text" class="input form-control" name="stitle" value="" id="sales_name"/>
                         <div class="tips"></div>
                     </div>
                 </div>
@@ -84,14 +87,25 @@
             <form class="alert-form clearfix">
                 <div class="form-group">
                     <div class="label">
+                        <label>公司：</label>
+                    </div>
+                    <div class="field">
+                        <select class="input company_id" id="edit_company_id">
+                            <option value="all">请选择</option>
+                            @foreach($company as $v)
+                                <option value="{{$v->_id}}">{{$v->full_name}}</option>
+                            @endforeach
+                        </select>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
                         <label>大区：</label>
                     </div>
                     <div class="field">
-                        <select class="input" id="edit_big_area_id">
+                        <select class="input big_area_id" id="edit_big_area_id">
                             <option value="all">请选择</option>
-                            @foreach($bigarea as $v)
-                                <option value="{{$v->_id}}">{{$v->big_area_name}}({{ $v->getCompany($v->company_id) }})</option>
-                            @endforeach
                         </select>
                         <div class="tips"></div>
                     </div>
@@ -101,11 +115,8 @@
                         <label>地区：</label>
                     </div>
                     <div class="field">
-                        <select class="input" id="edit_area_id">
+                        <select class="input area_id" id="edit_area_id">
                             <option value="all">请选择</option>
-                            @foreach($area as $v)
-                                <option value="{{$v->_id}}">{{$v->area_name}}</option>
-                            @endforeach
                         </select>
                         <div class="tips"></div>
                     </div>
@@ -133,11 +144,12 @@
                 </div>
             </form>
         </div>
-        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+        <div class="bottom l" class="MsgBottom" style="height: 60px;">
             <div class="btn MsgBtns">
                 <div class="height"></div>
                 <input type="button" class="btn" value="确认" id="sureEdit">　<input type="button" class="btn" value="取消" id="cancleEdit">
                 <input type="hidden" name="sales_id"  id="sales_id" value="" />
+                <div class="height"></div>
             </div>
         </div>
     </div>
@@ -179,11 +191,12 @@
                 </div>
             </form>
         </div>
-        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+        <div class="bottom l" class="MsgBottom" style="height: 60px;">
             <div class="btn MsgBtns">
                 <div class="height"></div>
                 <input type="button" class="btn" value="确认" id="sureEditPrice">　<input type="button" class="btn" value="取消" id="cancleEditPrice">
                 <input type="hidden" name="edit_price_sales_id"  id="edit_price_sales_id" value="" />
+                <div class="height"></div>
             </div>
         </div>
     </div>
@@ -196,13 +209,14 @@
     var total_num, page_size, page_total_num; //总记录数,每页条数,总页数
     var status
     function getData(page) { //获取当前页数据
+        var company_id=$("#company_id").val();
         var big_area_id=$("#big_area_id").val();
         var area_id=$("#area_id").val();
         var sales_name=$("#sales_name").val();
         $.ajax({
             type: 'post',
             url: '{{url('admin/sales/ajax')}}',
-            data: {'page': page, 'action': 'getlist', 'big_area_id': big_area_id, 'area_id': area_id, 'sales_name': sales_name},
+            data: {'page': page, 'action': 'getlist', 'company_id': company_id,'big_area_id': big_area_id, 'area_id': area_id, 'sales_name': sales_name},
             dataType: 'json',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -217,7 +231,7 @@
                     page_size = json.page_size; //每页数量
                     page_cur = page; //当前页
                     page_total_num = json.page_total_num; //总页数businessScope unix_to_datetime(unix);   getLocalTime(parseInt(array.ctime,10)) SProductName out_logi_no
-                    var li = "<tr><th>序号</th><th>大区</th><th>地区</th><th>销售组</th><th>启用状态</th><th>操作</th> </tr>";
+                    var li = "<tr><th>序号</th><th>公司</th><th>大区</th><th>地区</th><th>销售组</th><th>启用状态</th><th>操作</th> </tr>";
                     var list = json.list;
                     var status_button;
                     $.each(list, function(index, array) { //遍历返回json
@@ -227,7 +241,7 @@
                         }else{
                             array.status_button='禁用';
                         }
-                        li +="<tr><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.big_area_name+"</td><td>"+array.area_name+"</td><td>"+array.sales_name+"</td><td>"+array.status_button+"</td><td width='180'><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='edit(this)' sales_id='"+array._id+"' edit_big_area_id='"+array.big_area_id+"' edit_area_id='"+array.area_id+"' edit_sales_name='"+array.sales_name+"' status='"+array.status+"' ><span class='icon-edit'></span>编辑</a><a type='button' class='button border-main' href='javascript:;' onclick='editPrice(this)' sales_id='"+array._id+"'  edit_sales_name='"+array.sales_name+"'><span class='icon-edit'></span>编辑价格</a></div></td></tr>";
+                        li +="<tr><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.company_name+"</td><td>"+array.big_area_name+"</td><td>"+array.area_name+"</td><td>"+array.sales_name+"</td><td>"+array.status_button+"</td><td width='210'><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='edit(this)' sales_id='"+array._id+"' edit_company_id='"+array.company_id+"' edit_big_area_id='"+array.big_area_id+"' edit_area_id='"+array.area_id+"' edit_sales_name='"+array.sales_name+"' status='"+array.status+"' ><span class='icon-edit'></span>编辑</a><a type='button' class='button border-main' href='javascript:;' onclick='editPrice(this)' sales_id='"+array._id+"'  edit_sales_name='"+array.sales_name+"'><span class='icon-edit'></span>编辑价格</a></div></td></tr>";
                     });
                     li +="<tr id ='page-tag'></tr>"
                     $("#list").append(li);
@@ -235,7 +249,7 @@
                 } else {
                     $("#list").empty();
                     $("#list").append("<tr><td colspan='6'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
-                    modelAlert(json.msg);
+//                    modelAlert(json.msg);
                 }
             },
             complete: function() {
@@ -289,6 +303,7 @@
     });
 
     $('#reset').click(function() {
+        $("#company_id").val('all');
         $("#sales_name").val('');
         $("#big_area_id").val('all');
         $("#area_id").val('all');
@@ -299,42 +314,49 @@
 
     function edit(obj){
         $("#sales_id").val($(obj).attr('sales_id'));
+        $("#edit_company_id").val($(obj).attr('edit_company_id'));
         $("#edit_big_area_id").val($(obj).attr('edit_big_area_id'));
         $("#edit_area_id").val($(obj).attr('edit_area_id'));
         $("#edit_sales_name").val($(obj).attr('edit_sales_name'));
         $("#editStatus").val($(obj).attr('status'));
 //        $("#editMaterialType1").css('display','none');
 //        $("#edit_price1").css('display','none');
-        $("#editBox").css('display','block');
+        $("#editBox").fadeIn();
     }
 
     function add(){
         $("#sales_id").val('');
         $("#edit_sales_name").val('');
 //        $("#edit_price").val('');
+        $('#edit_company_id option:eq(0)').attr('selected','selected');
         $('#edit_big_area_id option:eq(0)').attr('selected','selected');
         $('#edit_area_id option:eq(0)').attr('selected','selected');
         $('#editStatus option:eq(0)').attr('selected','selected');
         $("#editMaterialType1").css('display','block');
 //        $("#edit_price1").css('display','block');
-        $("#editBox").css('display','block');
+        $("#editBox").fadeIn();
     }
 
     $("#sureEdit").click(function(){
+        var company_id = $("#edit_company_id").val();
         var big_area_id = $("#edit_big_area_id").val();
         var area_id = $("#edit_area_id").val();
         var sales_name = $("#edit_sales_name").val();
         var status = $("#editStatus").val();
         var sales_id =$("#sales_id").val();
-        if(big_area_id ==''){
+        if(company_id =='all'){
+            modelAlert('请选择公司!');
+            return false;
+        }
+        if(big_area_id =='all'){
             modelAlert('请选择大区!');
             return false;
         }
-        if(area_id ==''){
+        if(area_id =='all'){
             modelAlert('请选择区域!');
             return false;
         }
-        if(sales_name ==''){
+        if(sales_name =='all'){
             modelAlert('请输入销售组名称!');
             return false;
         }
@@ -343,6 +365,7 @@
             url: '{{url('admin/sales/ajax')}}',
             data: {
                 'action': 'editSales',
+                'company_id': company_id,
                 'big_area_id': big_area_id,
                 'area_id': area_id,
                 'sales_name': sales_name,

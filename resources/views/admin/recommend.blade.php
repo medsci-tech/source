@@ -167,11 +167,12 @@
 
             </form>
         </div>
-        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+        <div class="bottom l" class="MsgBottom" style="height: 60px;">
             <div class="btn MsgBtns">
                 <div class="height"></div>
                 <input type="button" class="btn" value="确认" id="sureEdit">　<input type="button" class="btn" value="取消" id="cancleEdit">
                 <input type="hidden" name="recommend_id" id="recommend_id" value="">
+                <div class="height"></div>
             </div>
         </div>
     </div>
@@ -182,7 +183,6 @@
     <script type="text/javascript">
         var page_cur = 1; //当前页
         var total_num, page_size, page_total_num; //总记录数,每页条数,总页数
-        var status
         function getData(page) { //获取当前页数据
             var big_area_id=$("#big_area_id").val();
             var area_id=$("#area_id").val();
@@ -224,7 +224,7 @@
                     } else {
                         $("#list").empty();
                         $("#list").append("<tr><td colspan='14'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
-                        alert(json.msg);
+//                        modelAlert(json.msg);
                     }
                 },
                 complete: function() {
@@ -233,7 +233,7 @@
                 },
                 error: function() {
     //                $('body').hideLoading();
-                    alert("数据异常！");
+                    modelAlert("数据异常！");
                 }
             });
         }
@@ -314,14 +314,14 @@
                         $("#edit_recommend_id_card").val(data.recommend_id_card);
 
                     }else{
-                        alert(json.msg);
+                        modelAlert(json.msg);
                     }
                 },
                 complete: function() {
 
                 },
                 error: function() {
-                    alert("服务器繁忙！");
+                    modelAlert("服务器繁忙！");
                 }
             });
         }
@@ -364,28 +364,28 @@
             var recommend_id =$("#recommend_id").val();
 
             if(big_area_id =='all'){
-                alert('请选择大区!');
+                modelAlert('请选择大区!');
                 return false;
             }
             if(area_id =='all'){
-                alert('请选择地区!');
+                modelAlert('请选择地区!');
                 return false;
             }
             if(sales_id =='all'){
-                alert('请选择销售组!');
+                modelAlert('请选择销售组!');
                 return false;
             }
             if(recommend_name ==''){
-                alert('请输入推荐人姓名!');
+                modelAlert('请输入推荐人姓名!');
                 return false;
             }
 
             if(recommend_mobile ==''){
-                alert('请输入推荐人手机号码!');
+                modelAlert('请输入推荐人手机号码!');
                 return false;
             }
             /*if(recommend_id_card ==''){
-                alert('请输入推荐人身份证号!');
+                modelAlert('请输入推荐人身份证号!');
                 return false;
             }*/
             $.ajax({
@@ -402,7 +402,7 @@
                 success: function(json) {
                     if (json.status == 1) {
     //                    $("#updateBox").css('display','none');
-//                        alert(json.msg);
+//                        modelAlert(json.msg);
                         window.location.href="{{url("admin/recommend/index")}}";
                     }else{
                         modelAlert(json.msg);

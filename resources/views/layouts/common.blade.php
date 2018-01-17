@@ -1,7 +1,7 @@
 <!-- 模态框1（Modal） -->
 {{--提示 alert--}}
 <div class="modal fade" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="ModalAlertLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="top:30%;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"

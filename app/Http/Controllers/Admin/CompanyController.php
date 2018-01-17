@@ -34,7 +34,7 @@ class CompanyController extends Controller
 
 			$company->full_name =$request->full_name;
 			$company->short_name =$request->short_name;
-			$company->status =$request->status;
+//			$company->status =$request->status;
             if($company->save()){
                 return response()->json(['status'=>1,'msg'=>'操作成功']);
             }else{

@@ -336,7 +336,7 @@
                     } else {
                         $("#list").empty();
                         $("#list").append("<tr><td colspan='19'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
-                        modelAlert(json.msg);
+//                        modelAlert(json.msg);
                     }
                 },
                 complete: function() {

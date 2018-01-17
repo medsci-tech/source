@@ -110,7 +110,7 @@
                 } else {
                     $("#list").empty();
                     $("#list").append("<tr><td colspan='5'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
-                    alert(json.msg);
+//                    modelAlert(json.msg);
                 }
             },
             complete: function() {
@@ -119,7 +119,7 @@
             },
             error: function() {
 //                $('body').hideLoading();
-                alert("数据异常！");
+                modelAlert("数据异常！");
             }
         });
     }

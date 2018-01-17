@@ -120,7 +120,7 @@ class UserFileController extends CommonController
             $this->material->pay_status = '0';
             $this->material->pay_amount = '0';
             $this->material->pass_amount = '0';
-            $this->material->comment = '暂无';
+            $this->material->comment = '';
             $this->material->location = 'qiniu';
             //添加时间
             $this->material->addtime = (string)time();
@@ -244,7 +244,7 @@ class UserFileController extends CommonController
                 }else{
                     $returnInfo=array(
                         'status' => 0,
-                        'msg' => '您还没有上传过素材',
+                        'msg' => '暂无数据',
                     );
                 }
                 return response()->json($returnInfo);

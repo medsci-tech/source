@@ -150,8 +150,8 @@
                         getPageBar();
                     } else {
                         $("#list").empty();
-//                        $("#list").append("<tr><td colspan='14'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
-                        modelAlert(json.msg);
+                        $("#list").append("<tr><td colspan='14'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
+//                        modelAlert(json.msg);
                     }
                 },
                 complete: function() {

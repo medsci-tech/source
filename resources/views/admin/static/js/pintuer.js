@@ -500,4 +500,99 @@ $(function(){
 
 	});
 
+	$('.company_id').change(function(){
+		var company_id = $(this).val();
+		var parent = $(this).parents('form');
+		if(company_id=='' || company_id=='all') return false;
+		// ajaxSub(company_id,'getBigArea');
+        $.ajax({
+            type:'post',
+            url:'/admin/sales/ajax',
+            data:{id:company_id,action:'getBigArea'},
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
+            success:function(msg){
+                // console.log(msg);
+                var str = '<option value="">请选择...</option>';
+                for(var i=0,len=msg.length;i<len;i++){
+                    str += '<option value="'+msg[i]['_id']+'">'+msg[i]['big_area_name']+'</option>';
+                }
+                parent.find('.big_area_id').html(str);
+                parent.find('.area_id').html('<option value="">请选择...</option>');
+                parent.find('.sales_id').html('<option value="">请选择...</option>');
+                // console.log(str);
+            }
+        })
+    })
+
+	$('.big_area_id').change(function(){
+		var id = $(this).val();
+		var parent = $(this).parents('form');
+		if(id=='' || id=='all') return false;
+		// ajaxSub(company_id,'getBigArea');
+        $.ajax({
+            type:'post',
+            url:'/admin/sales/ajax',
+            data:{id:id,action:'getArea'},
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
+            success:function(msg){
+                // console.log(msg);
+                var str = '<option value="">请选择...</option>';
+                for(var i=0,len=msg.length;i<len;i++){
+                    str += '<option value="'+msg[i]['_id']+'">'+msg[i]['area_name']+'</option>';
+                }
+                parent.find('.area_id').html(str);
+                parent.find('.sales_id').html('<option value="">请选择...</option>');
+                // console.log(str);
+            }
+        })
+	})
+
+	$('.area_id').change(function(){
+		var id = $(this).val();
+		var parent = $(this).parents('form');
+		if(id=='' || id=='all') return false;
+		// ajaxSub(company_id,'getBigArea');
+        $.ajax({
+            type:'post',
+            url:'/admin/sales/ajax',
+            data:{id:id,action:'getSales'},
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
+            success:function(msg){
+                // console.log(msg);
+                var str = '<option value="">请选择...</option>';
+                for(var i=0,len=msg.length;i<len;i++){
+                    str += '<option value="'+msg[i]['_id']+'">'+msg[i]['sales_name']+'</option>';
+                }
+                parent.find('.sales_id').html(str);
+                // console.log(str);
+            }
+        })
+	})
+
+	var ajaxSub = function(id,action,filed,parent){
+        $.ajax({
+            type:'post',
+            url:'/admin/sales/ajax',
+            data:{id:id,action:action},
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
+            success:function(msg){
+                // console.log(msg);
+                var str = '<option value="">请选择...</option>';
+                for(var i=0,len=msg.length;i<len;i++){
+                    str += '<option value="'+msg[i]['_id']+'">'+msg[i][filed]+'</option>';
+                }
+                parent.find('.area_id').html(str);
+                parent.find('.sales_id').html('<option value="">请选择...</option>');
+                // console.log(str);
+            }
+        })
+	};
 })

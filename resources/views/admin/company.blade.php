@@ -4,7 +4,6 @@
 
 @section('css')
     @parent
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('resources/views/admin/static/css/jquery-ui.css')}}" />
 @endsection
 
@@ -26,7 +25,7 @@
                             <th>编号</th>
                             <th>公司名称</th>
                             <th>公司简称</th>
-                            <th>状态</th>
+                            {{--<th>状态</th>--}}
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -36,7 +35,7 @@
                             <td>{{ $k+1 }}</td>
                             <td>{{ $v->full_name }}</td>
                             <td>{{ $v->short_name }}</td>
-                            <td>{{ $v->status?'启用':'禁用' }}</td>
+                            {{--<td>{{ $v->status?'启用':'禁用' }}</td>--}}
                             <td>
                                 <div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick="edit(this)" data='{{ $v->_id }}' status='{{ $v->status }}' full_name='{{ $v->full_name }}' short_name='{{ $v->short_name }}'><span class='icon-edit'></span>编辑</a></div>
                             </td>
@@ -77,7 +76,7 @@
                         <div class="tips"></div>
                     </div>
                 </div>
-                <div class="form-group">
+                {{--<div class="form-group">
                     <div class="label">
                         <label>状态：</label>
                     </div>
@@ -88,7 +87,7 @@
                         </select>
                         <div class="tips"></div>
                     </div>
-                </div>
+                </div>--}}
             </form>
         </div>
         <div class="bottom l" class="MsgBottom" style="height: 50px;">

@@ -9,18 +9,25 @@
             <form method="post" class="form-x" action="">
                 <div class="form-group  doctor-w200" style="min-width: 660px;">
                     <div class="label ml10">
+                        <label>公司：</label>
+                    </div>
+                    <select class="form-control l input company_id" id="company_id" style="width:20%">
+                        <option value="all">选择公司</option>
+                        @foreach($company as $v)
+                        <option value="{{$v->_id}}">{{$v->full_name}}</option>
+                        @endforeach
+                    </select>
+                    <div class="label ml10">
                         <label>大区：</label>
                     </div>
-                    <select class="form-control l input" id="big_area_id" style="width:30%">
+                    <select class="form-control l input big_area_id" id="big_area_id" style="width:20%">
                         <option value="all">选择大区</option>
-                        @foreach($bigArea as $v)
-                        <option value="{{$v->_id}}">{{$v->big_area_name}}({{ $v->getCompany($v->company_id) }})</option>
-                        @endforeach
+
                     </select>
                     <div class="label ml10">
                         <label>地区：</label>
                     </div>
-                    <div class="field">
+                    <div class="field" style="width:20%">
                         <input type="text" class="form-control" name="stitle" value="" id="area_name"/>
                         <div class="tips"></div>
                     </div>
@@ -35,27 +42,6 @@
             <form method="post" action="">
                 <div class="">
                     <table class="table table-hover text-center" id="list">
-                        {{--<tr>--}}
-                            {{--<th>序号</th>--}}
-                            {{--<th>大区</th>--}}
-                            {{--<th>地区</th>--}}
-                            {{--<th>启用状态</th>--}}
-                            {{--<th>操作</th>--}}
-                        {{--</tr>--}}
-                        {{--<tr>--}}
-                            {{--<td>1</td>--}}
-                            {{--<td>华北大区</td>--}}
-                            {{--<td>湖北</td>--}}
-                            {{--<td>启用</td>--}}
-                            {{--<td width="180"><div class="button-group">--}}
-                                    {{--<a type="button" class="button border-main" href="#"><span class="icon-edit"></span>编辑</a>--}}
-                                    {{--<a type="button" class="button border-red" href="#"><span class="icon-money"></span>禁用</a>--}}
-                                {{--</div></td>--}}
-                        {{--</tr>--}}
-
-                        {{--<tr>--}}
-                            {{--<td colspan="14"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>--}}
-                        {{--</tr>--}}
                     </table>
                 </div>
             </form>
@@ -71,13 +57,25 @@
             <form class="alert-form clearfix">
                 <div class="form-group">
                     <div class="label">
+                        <label>公司：</label>
+                    </div>
+                    <div class="field">
+                        <select class="input company_id" id="companyId">
+                            <option value="">请选择公司...</option>
+                            @foreach($company as $v)
+                            <option value="{{$v->_id}}">{{$v->full_name}}</option>
+                            @endforeach
+                        </select>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
                         <label>大区：</label>
                     </div>
                     <div class="field">
-                        <select class="input" id="bigAreaId">
-                            @foreach($bigArea as $v)
-                            <option value="{{$v->_id}}">{{$v->big_area_name}}({{ $v->getCompany($v->company_id) }})</option>
-                            @endforeach
+                        <select class="input big_area_id" id="bigAreaId">
+                            <option value="">请选择大区...</option>
                         </select>
                         <div class="tips"></div>
                     </div>
@@ -114,11 +112,12 @@
                 {{--</div>--}}
             </form>
         </div>
-        <div class="bottom l" class="MsgBottom" style="height: 45px;">
+        <div class="bottom l" class="MsgBottom" style="height: 60px;">
             <div class="btn MsgBtns">
                 <div class="height"></div>
                 <input type="button" class="btn" value="确认" id="sureEdit">　<input type="button" class="btn" value="取消" id="cancleEdit">
                 <input type="hidden" name="areaid"  id="areaid" value="" />
+                <div class="height"></div>
             </div>
         </div>
     </div>
@@ -174,7 +173,7 @@
                 } else {
                     $("#list").empty();
                     $("#list").append("<tr><td colspan='14'><div class='pagelist' id='pagelist'></div>暂无数据</tr>");
-                    modelAlert(json.msg);
+//                    modelAlert(json.msg);
                 }
             },
             complete: function() {
@@ -228,6 +227,7 @@
     });
 
     $('#reset').click(function() {
+        $("#company_id").val('');
         $("#big_area_id").val('all');
         $("#area_name").val('');
         getData(1);
@@ -237,6 +237,7 @@
 
 
     function edit(obj){
+        $("#companyId").val($(obj).attr('data'));
         $("#areaid").val($(obj).attr('data'));
         $("#editAreaName").val($(obj).attr('areaName'));
         $("#editStatus").val($(obj).attr('status'));
@@ -256,6 +257,7 @@
 
     $("#sureEdit").click(function(){
         var id=$("#areaid").val();
+        var company_id=$("#companyId").val();
         var area_name=$("#editAreaName").val();
         var status=$("#editStatus").val();
         var big_area_id=$("#bigAreaId").val();
@@ -266,7 +268,7 @@
         $.ajax({
             type: 'post',
             url: '{{url('admin/area/ajax')}}',
-            data: {'action': 'edit','id':id,'big_area_id':big_area_id,'status':status,'area_name':area_name },
+            data: {'action': 'edit','id':id,'big_area_id':big_area_id,'company_id':company_id,'status':status,'area_name':area_name },
             dataType: 'json',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')

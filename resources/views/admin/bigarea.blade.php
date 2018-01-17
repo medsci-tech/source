@@ -14,7 +14,7 @@
                     </div>
                     <div class="field" style="float: left;">
                         <select class="input" name="company_id" id="company_id">
-                            <option value="">请选择所属公司...</option>
+                            <option value="">请选择公司...</option>
                             @foreach($company as $v)
                             <option value="{{ $v->_id }}">{{ $v->full_name }}</option>
                             @endforeach
