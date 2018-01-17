@@ -151,7 +151,7 @@
                     page_size = json.page_size; //每页数量
                     page_cur = page; //当前页
                     page_total_num = json.page_total_num; //总页数businessScope unix_to_datetime(unix);   getLocalTime(parseInt(array.ctime,10)) SProductName out_logi_no
-                    var li = "<tr><th>序号</th><th>大区</th><th>地区</th><th>启用状态</th><th>操作</th></tr>";
+                    var li = "<tr><th>序号</th><th>公司</th><th>大区</th><th>地区</th><th>启用状态</th><th>操作</th></tr>";
                     var list = json.list;
                     var status_button;
                     $.each(list, function(index, array) { //遍历返回json
@@ -162,7 +162,7 @@
                             array.status_button='禁用';
 //                            status_button ='启用';
                         }
-                        li +="  <tr><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.big_area_name+"</td><td>"+array.area_name+"</td><td>"+array.status_button+"</td><td width='180'><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='edit(this)' data='"+array._id+"' areaName='"+array.area_name+"' status='"+array.status+"' bigAreaId='"+array.big_area_id+"'><span class='icon-edit'></span>编辑</a></div></td></tr>";
+                        li +="  <tr><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.company_name+"</td><td>"+array.big_area_name+"</td><td>"+array.area_name+"</td><td>"+array.status_button+"</td><td width='180'><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='edit(this)' data='"+array._id+"' areaName='"+array.area_name+"' status='"+array.status+"' bigAreaId='"+array.big_area_id+"'><span class='icon-edit'></span>编辑</a></div></td></tr>";
                     });
                     li +="<tr id ='page-tag'></tr>"
 //                    page_str=getPageBar();

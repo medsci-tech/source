@@ -37,11 +37,18 @@ class AreaController extends CommonController
                 $result=$this->area->getAreaList($pagesize,$input['page'],$input);
                 if(count($result[1])>0) {
                     foreach($result[1] as $k=>$v){
+                        $company = Company::where('_id',$v->company_id)->first();
                         $bigarea = BigArea::where('_id',$v->big_area_id)->first();
-                        if(isset($bigarea->big_area_name) && $bigarea->big_area_name){
-							$company =$bigarea->getCompany($bigarea->company_id);
-							$result[1][$k]->big_area_name =$bigarea->big_area_name."({$company})";
-                        }
+                        if($company){
+							$result[1][$k]->company_name =$bigarea->company_name;
+                        }else{
+							$result[1][$k]->company_name = '';
+						}
+                        if($bigarea){
+							$result[1][$k]->big_area_name =$bigarea->big_area_name;
+                        }else{
+							$result[1][$k]->big_area_name = '';
+						}
                     }
                     $returnInfo=array(
                         'total_num' => $result[0],
