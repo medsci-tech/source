@@ -19,7 +19,20 @@
                     <select class="form-control l input" id="city10" name="city_id"></select>
                     <select class="form-control l input" id="district10" name="region_id"></select>
                 </div>
-                <div class="form-group ml3 doctor-w200">
+                <div class="form-group doctor-w200">
+                    <div class="label">
+                        <label>协议状态：</label>
+                    </div>
+                    <div class="field">
+                        <select class="input form-control" name="protocol_status"  id="protocol_status">
+                            <option value="">请选择</option>
+                            <option value="0">待审核</option>
+                            <option value="1">通过</option>
+                            <option value="2">未通过</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group doctor-w200">
                     <div class="label">
                         <label>医生姓名：</label>
                     </div>
@@ -348,6 +361,7 @@
     var total_num, page_size, page_total_num; //总记录数,每页条数,总页数
     var status
     function getData(page) { //获取当前页数据
+        var protocol_status=$("#protocol_status").val();
         var doctor_name=$("#doctor_name").val();
         var doctor_mobile=$("#doctor_mobile").val();
         var province_id=$("#province_id").val();
@@ -357,7 +371,7 @@
         var doctor_name=$.ajax({
             type: 'post',
             url: '{{url('admin/doctor/ajax')}}',
-            data: {'page': page, 'action': 'getlist','doctor_name': doctor_name, 'doctor_mobile': doctor_mobile, 'province_id': province_id, 'city_id': city_id, 'region_id': region_id, 'id_card': id_card},
+            data: {'page': page, 'action': 'getlist','protocol_status': protocol_status,'doctor_name': doctor_name, 'doctor_mobile': doctor_mobile, 'province_id': province_id, 'city_id': city_id, 'region_id': region_id, 'id_card': id_card},
             dataType: 'json',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')

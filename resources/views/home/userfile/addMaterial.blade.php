@@ -4,7 +4,7 @@
 
 @section('css')
 
-    {{--<link href="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/css/bootstrap-select.min.css" rel="stylesheet">--}}
+    <link href="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="{{ asset('resources/views/home/static/css/fileinput.css') }}" media="all" rel="stylesheet" type="text/css"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('resources/views/home/static/css/theme.css') }}" media="all" rel="stylesheet" type="text/css"/>
@@ -17,7 +17,7 @@
     <script src="{{ asset('resources/views/home/static/js/zh.js')}}" type="text/javascript"></script>
     <script src="{{ asset('resources/views/home/static/js/theme.js') }}" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
-    {{--<script src="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.min.js"></script>--}}
+    <script src="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.min.js"></script>
 @endsection
 
 @section('content')
@@ -26,14 +26,15 @@
     <div style="padding-top:20px; ">
         <form method="post" class="form-horizontal" id="form" action="" enctype="multipart/form-data" role="form">
             <input type="hidden" name="uuid" value="{{ $uuid }}" />
-            <div class="form-group">
+            <div class="form-group" id="recommend">
                 <label for="recommend_id" class="col-md-1 control-label">推荐人：</label>
                 <div class="col-md-6">
                     {{--<input type="text" class="form-control" name="recommend_id" value="{{ old('recommend_id') }}" id="recommend_id" placeholder="请输入推荐人手机号">--}}
                     <select id="recommend_id" name="recommend" class="selectpicker show-tick form-control" data-live-search="true">
-                        @foreach($vol as $v)
+                        <option value="">请输入推荐人手机号</option>
+                       {{-- @foreach($vol as $v)
                             <option value="{{ $v->phone }}">{{ $v->name.'('.$v->phone.')' }}</option>
-                        @endforeach
+                        @endforeach--}}
                     </select>
                 </div>
             </div>
@@ -103,6 +104,7 @@
                 showUpload: false,
                 uploadAsync:true,
 //                overwriteInitial: true,
+                maxFileSize:81920,
                 enctype:'multipart/form-data',
                 dropZoneEnabled: false
             });
@@ -111,16 +113,26 @@
             alert('i = ' + index + ', id = ' + previewId + ', file = ' + file.name);
             });
             */
+            $('#recommend').on('keyup','input',function(){
+                var val = $(this).val();
+                $.post('/home/userfile/ajax',{val:val,action:'getRecommend'},function(res){
+                    var txt='';
+                    for(var i = 0;i <res.length;i++){
+                        txt += '<option value="'+res[i].phone+'">' + res[i].name + res[i].phone +'</option>';
+                    }
+//                    console.log(txt);//
+                    $('#recommend_id').html(txt);
+                    $('.selectpicker').selectpicker('refresh');
+                });
+            })
 
             $('form').on('submit',function(e){
                 e.preventDefault();
-                var model = $('#ModalAlert');
-                var label = $('#ModalAlert .modal-body');
                 var length = $('.kv-preview-thumb').length;
-                if($('#recommend_id').val()==''){
+                /*if($('#recommend_id').val()==''){
                     modelAlert('请选择推荐人');
                     return false;
-                }
+                }*/
 
                 if($('[name="material_type_id"]').val()==''){
                     modelAlert('请选择素材类型');
@@ -136,25 +148,37 @@
                 }
 
                 $('#attachments').val(length);
-
+                var formData = $(this).serialize();
                 //上传文件
                 $("#kv-explorer").fileinput("upload");
-//                var formData = new FormData(this);
-                var formData = $(this).serialize();
-                $.ajax({
-                    type:'post',
-                    data:formData,
+                $("#kv-explorer").on("fileuploaded", function (event, data, previewId, index) {
+                    $.ajax({
+                        type:'post',
+                        data:formData,
 //                    processData: false,
 //                    contentType: false,
-                    success:function(res){
-                        if(res.code==200){
-                            location = '/home/userfile/index';
-                        }else{
-                            modelAlert(res.msg);
+                        success:function(res){
+                            if(res.code==200){
+                                location = '/home/userfile/index';
+                            }else{
+                                modelAlert(res.msg);
+                            }
                         }
-                    }
-                })
+                    })
+                });
+                //异步上传出错
+                $("#kv-explorer").on("fileuploaderror", function (event, data, msg) {
+//                    console.log(event);
+//                    console.log(data);
+//                    console.log(msg);
+                    modelAlert('文件大小不能超过80M');
+                });
+
+//                var formData = new FormData(this);
+
             })
+
+
         });
     </script>
 

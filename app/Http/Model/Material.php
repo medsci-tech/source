@@ -59,6 +59,10 @@ class Material extends Moloquent {
             $handle->whereIn('doctor_id', $ids);
         }
 
+		if(isset($data['doctor_id']) && $data['doctor_id']){
+            $handle->where('doctor_id', $data['doctor_id']);
+        }
+
 
         if(isset($data['isshare']) && $data['isshare']) {
             $handle->where('isshare', $data['isshare']);

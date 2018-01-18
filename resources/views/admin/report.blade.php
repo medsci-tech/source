@@ -4,13 +4,12 @@
 
 @section('css')
     @parent
-    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/admin/static/css/jquery-ui.css')}}" />
+    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/3.1.4/css/bootstrap-datetimepicker.css" rel="stylesheet">
 @endsection
 
 @section('js')
-    <script src="{{asset('resources/views/admin/static/js/distpicker.data.js')}}"></script>
-    <script src="{{asset('resources/views/admin/static/js/distpicker.js')}}"></script>
-    <script src="{{asset('resources/views/admin/static/js/main.js')}}"></script>
+    <script src="https://cdn.bootcss.com/moment.js/2.20.1/moment-with-locales.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/3.1.4/js/bootstrap-datetimepicker.min.js"></script>
 @endsection
 
 
@@ -38,9 +37,9 @@
                     <div class="label">
                         <label>上传时间：</label>
                     </div>
-                    <div class="field" style="width:80%">
-                        <input name="act_start_time" type="text" class="form-control input w25" value="" placeholder="开始时间" title="开始时间" readonly="readonly" style="cursor:pointer;" id="begin_time" />
-                        <input  style="margin-left:2%;" name="act_stop_time" type="text" class="form-control input w25" value="" placeholder="结束时间" title="结束时间" readonly="readonly" style="cursor:pointer;" id="end_time"/>
+                    <div class="field datepicker" style="width:80%">
+                        <input name="act_start_time" type="text" class="form-control input w25" placeholder="开始时间" readonly  style="cursor:pointer;" id="begin_time" />
+                        <input  style="margin-left:2%;cursor:pointer;" name="act_stop_time" type="text" class="form-control input w25" placeholder="结束时间" readonly id="end_time"/>
                     </div>
                 </div>
             </div>
@@ -228,20 +227,29 @@
 
 @section('adminjs')
     <script type="text/javascript">
-        $( "input[name='act_start_time'],input[name='act_stop_time']" ).datetimepicker();
-    </script>
-
-    <script>
-        $("#distpicker5").distpicker({
-            autoSelect: false
+        $('#begin_time').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn'),
+            language:'zh_CN',
+            showTodayButton:true,
+            autoclose:true,
+            clearBtn: true
+            //minDate: '2016-7-1'
+        });
+        $('#end_time').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn'),
+            language:'zh_CN'
         });
     </script>
+
+
 
 
     <script type="text/javascript">
     var page_cur = 1; //当前页
     var total_num, page_size, page_total_num; //总记录数,每页条数,总页数
-    var status
+
     function getData(page) { //获取当前页数据
         var material_name=$("#material_name").val();
         var material_type_id=$("#material_type_id").val();
@@ -277,9 +285,9 @@
 //                $('body').showLoading();
         },
         success: function(json) {
-            console.log(json);
+//            console.log(json);
             if (json.status == 1) {
-                console.log(json);
+//                console.log(json);
                 $("#list").empty();
                 total_num = json.total_num; //总记录数
                 page_size = json.page_size; //每页数量

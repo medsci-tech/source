@@ -64,8 +64,8 @@ input.btnfocus{ background-color:#EC6D51; font-family:微软雅黑;   border-rad
 
 /*医生管理开始*/
 #distpicker5{
-    width:auto;
-    min-width: 340px;
+    width:388px;
+    /*min-width: 340px;*/
 }
 #distpicker5 select , .w33 select{
     width:25%;
@@ -86,7 +86,7 @@ input.btnfocus{ background-color:#EC6D51; font-family:微软雅黑;   border-rad
     width: 100%;
 }
 
-.doctor-w200{min-width: 220px;}
+.doctor-w200{min-width: 188px;}
 /*医生管理结束*/
 
 .form-x .form-group .field76 {

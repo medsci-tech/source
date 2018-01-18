@@ -15,15 +15,12 @@
     @section('css')
         <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/pintuer.css')}}">
         <link rel="stylesheet" href="{{asset('resources/views/admin/static/css/main.css')}}">
-        <link href="http://apps.bdimg.com/libs/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
     @show
     <script src="{{asset('resources/views/admin/static/js/jquery.js')}}"></script>
-    <script src="http://apps.bdimg.com/libs/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="{{asset('resources/views/admin/static/js/pintuer.js')}}"></script>
     <script type="text/javascript" src="{{asset('resources/views/admin/static/js/jquery-ui-1.10.4.custom.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('resources/views/admin/static/js/jquery.ui.datepicker-zh-CN.js')}}"></script>
-    <script type="text/javascript" src="{{asset('resources/views/admin/static/js/jquery-ui-timepicker-addon.js')}}"></script>
-    <script type="text/javascript" src="{{asset('resources/views/admin/static/js/jquery-ui-timepicker-zh-CN.js')}}"></script>
     @section('js')
 
     @show

@@ -16,7 +16,7 @@
 <body>
 <div class="comm registerBox">
     <div class="header">
-        <img src="{{ asset('resources/views/home/static/images/front_logo.png') }}" alt="">
+        <img src="{{ asset('resources/views/home/static/images/front_logo.png') }}" alt="" style="margin-bottom: -8px;">
         | <span>素材收集平台</span>
     </div>
     <div class="content">

@@ -4,10 +4,12 @@
 
 @section('css')
     @parent
-    <link rel="stylesheet" type="text/css" href="{{asset('resources/views/admin/static/css/jquery-ui.css')}}" />
+    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/3.1.4/css/bootstrap-datetimepicker.css" rel="stylesheet">
 @endsection
-
-
+@section('js')
+    <script src="https://cdn.bootcss.com/moment.js/2.20.1/moment-with-locales.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/3.1.4/js/bootstrap-datetimepicker.min.js"></script>
+@endsection
 @section('content')
     <div class="panel admin-panel">
         <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>素材管理</strong></div>
@@ -53,7 +55,7 @@
                     <div class="field" style="width:70%">
                         <div class="doc-dd">
                             <input name="act_start_time" type="text" class="input w25 form-control" value="" placeholder="开始时间" title="开始时间" readonly="readonly" style="cursor:pointer;" id="begin_time" />
-                            <input  style="margin-left:2%;" name="act_stop_time" type="text" class="input w25 form-control" value="" placeholder="结束时间" title="结束时间" readonly="readonly" style="cursor:pointer;" id="end_time"/>
+                            <input  style="margin-left:2%;cursor:pointer;" name="act_stop_time" type="text" class="input w25 form-control" value="" placeholder="结束时间" title="结束时间" readonly="readonly" id="end_time"/>
                         </div>
                     </div>
                 </div>
@@ -253,7 +255,20 @@
 
 @section('adminjs')
     <script type="text/javascript">
-        $( "input[name='act_start_time'],input[name='act_stop_time']" ).datetimepicker();
+        $('#begin_time').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn'),
+            language:'zh_CN',
+            showTodayButton:true,
+            autoclose:true,
+            clearBtn: true
+            //minDate: '2016-7-1'
+        });
+        $('#end_time').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn'),
+            language:'zh_CN'
+        });
     </script>
 
 
@@ -324,7 +339,7 @@
                             //                        <a type="button" class="button border-red" href="#"><span class="icon-trash-o"></span>删除</a>
 
                             {{--var downloadUrl ="{{url('admin/material/downloadfile/')}}"+"/"+array._id;--}}
-                            li +="<tr><td><input type='checkbox' class='check_one' value='"+array._id+"'/></td><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.doctor_name+"</td><td>"+array.doctor_mobile+"</td><td>"+array.created_at+"</td><td>"+array.big_area_name+"</td><td>"+array.area_name+"</td><td>"+array.sales_name+"</td><td style='width:10%;'>"+array.material_name+"</td><td>"+array.material_type_name+"</td><td>"+array.attachments+"</td><td>"+array.recommend_name+"</td><td>"+array.recommend_mobile+"</td><td>"+array.check_status_button+"</td><td>"+array.pass_amount+"</td><td>"+array.pay_amount+"</td><td>"+array.pay_status+"</td> <td>"+array.comment+"</td><td><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='uploadurl(this)' doctor_id='" + array.doctor_id + "' upload_code='" + array.upload_code + "'><span class='icon-download'></span>查看</a>";
+                            li +="<tr><td><input type='checkbox' class='check_one' value='"+array._id+"'/></td><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.doctor_name+"</td><td>"+array.doctor_mobile+"</td><td>"+array.created_at+"</td><td>"+array.big_area_name+"</td><td>"+array.area_name+"</td><td>"+array.sales_name+"</td><td style='width:10%;'>"+array.material_name+"</td><td>"+array.material_type_name+"</td><td>"+array.attachments+"</td><td>"+array.recommend_name+"</td><td>"+array.recommend_mobile+"</td><td>"+array.check_status_button+"</td><td>"+array.pass_amount+"</td><td>"+array.pay_amount+"</td><td>"+array.pay_status+"</td> <td>"+array.comment+"</td><td style='width:210px;'><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='uploadurl(this)' doctor_id='" + array.doctor_id + "' upload_code='" + array.upload_code + "'><span class='icon-download'></span>查看</a>";
                             li += showbutton +"</div></td></tr>";
                         });
 

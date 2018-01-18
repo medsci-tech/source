@@ -69,39 +69,42 @@ class UserFileController extends CommonController
 //				return response()->json(['code'=>400,'msg'=>'请上传文件']);
 //			}
 			//推荐人手机号
-			$rec_phone= $input['recommend'];
+			$rec_phone= $input['recommend']?:'';
 			/*
 			 * 查看推荐人是否存在
 			 * 如果存在，新增素材记录；
 			 * 如果不存在，添加推荐人，新增素材记录
 			 */
-			$recommend = Recommend::where('recommend_mobile',$rec_phone)->first();
-			if(!$recommend){
-				try {
-					$vol = Volunteer::where('phone', $rec_phone)->first();
-					//代表所在公司
-					$unit = $vol->unit;
-					// 如果公司记录不存在，添加
-					$company = Company::where('full_name', $unit->full_name)->first();
-					if (!$company) {
-						$company = Company::create(['full_name'=>$unit->full_name, 'short_name'=>$unit->short_name]);
-					}
+			if($rec_phone){
+				$recommend = Recommend::where('recommend_mobile',$rec_phone)->first();
+				if(!$recommend){
+					try {
+						$vol = Volunteer::where('phone', $rec_phone)->first();
+						//代表所在公司
+						$unit = $vol->unit;
+						// 如果公司记录不存在，添加
+						$company = Company::where('full_name', $unit->full_name)->first();
+						if (!$company) {
+							$company = Company::create(['full_name'=>$unit->full_name, 'short_name'=>$unit->short_name]);
+						}
 
-					//如果公司销售大区不存在，添加
-					$represent = $vol->represent;
-					$bigarea = Bigarea::where(['big_area_name'=>$represent->belong_area,'company_id'=>$company->_id])->first();
-					if(!$bigarea){
-						$bigarea = Bigarea::create(['big_area_name'=>$represent->belong_area,'company_id'=>$company->_id,'status'=>'1']);
-					}
+						//如果公司销售大区不存在，添加
+						$represent = $vol->represent;
+						$bigarea = Bigarea::where(['big_area_name'=>$represent->belong_area,'company_id'=>$company->_id])->first();
+						if(!$bigarea){
+							$bigarea = Bigarea::create(['big_area_name'=>$represent->belong_area,'company_id'=>$company->_id,'status'=>'1']);
+						}
 
-					//添加销售人员信息
-					$recommend = Recommend::create(['recommend_mobile'=>$rec_phone,'recommend_name'=>$vol->name,'company_id'=>$company->_id,'big_area_id'=>$bigarea->_id,'area_id'=>'','sales_id'=>'']);
-					//添加推荐关系
-					DoctorRecommend::firstOrCreate(['recommend_id'=>$recommend->_id,'doctor_id'=>$this->doctor_id]);
-				}catch (\Exception $e){
-					return response()->json(['code'=>400,'msg'=>'添加推荐人失败']);
+						//添加销售人员信息
+						$recommend = Recommend::create(['recommend_mobile'=>$rec_phone,'recommend_name'=>$vol->name,'company_id'=>$company->_id,'big_area_id'=>$bigarea->_id,'area_id'=>'','sales_id'=>'']);
+						//添加推荐关系
+						DoctorRecommend::firstOrCreate(['recommend_id'=>$recommend->_id,'doctor_id'=>$this->doctor_id]);
+					}catch (\Exception $e){
+						return response()->json(['code'=>400,'msg'=>'添加推荐人失败']);
+					}
 				}
 			}
+
 			$uuid = $input['uuid'];
             //素材类型
             $this->material->material_type_id = $input['material_type_id'];
@@ -111,7 +114,7 @@ class UserFileController extends CommonController
             $this->material->attachments = $input['attachments'];
             //医生id
             $this->material->doctor_id = $this->doctor_id;
-            $this->material->recommend_id = $recommend->_id;
+            $this->material->recommend_id = $rec_phone?$recommend->_id:'';
             //素材标识
 			$this->material->upload_code = $uuid;
 
@@ -134,7 +137,6 @@ class UserFileController extends CommonController
 		$vol = Volunteer::select('name','phone')->get();
         $materialType = MaterialType::where('status','1')->get();
 		$uuid=uuid();//素材标识唯一码
-		header('Access-Control-Allow-Origin:*');
         return view('home.userfile.addMaterial',compact('materialType','vol','uuid'));
 
     }
@@ -145,43 +147,47 @@ class UserFileController extends CommonController
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function uploadFiles(Request $request){
-    	//dd($request->file());
-		$uuid = $request->uuid;
-		$files = $request->file('files');
-		//用七牛云上传文件
-		$accessKey = env('QN_AccessKey');
-		$secretKey = env('QN_SecretKey');
-		$bucket = env('QN_Bucket');
-		$auth = new Auth($accessKey,$secretKey);
-		// 生成上传 Token
-		$token = $auth->uploadToken($bucket);
+		try {
+			//dd($request->file());
+			$uuid = $request->uuid;
+			$files = $request->file('files');
+			//用七牛云上传文件
+			$accessKey = env('QN_AccessKey');
+			$secretKey = env('QN_SecretKey');
+			$bucket = env('QN_Bucket');
+			$auth = new Auth($accessKey, $secretKey);
+			// 生成上传 Token
+			$token = $auth->uploadToken($bucket);
 
-		$uploadMgr = new UploadManager();
+			$uploadMgr = new UploadManager();
 
-		$uploadResult = array();
-		foreach($files as $file){
-			$filePath = $file->getRealPath();//真实文件地址
-			$originalName = $file->getClientOriginalName();
-//			$ext = $file->getClientOriginalExtension();//文件后缀名
-//				echo $key;
-//				dd($filePath);
-			$key = uuid();
-			// 调用 UploadManager 的 putFile 方法进行文件的上传。
-			list($ret, $err) = $uploadMgr->putFile($token, $key, $filePath);
-			if ($err !== null) {
-				return response()->json(['code'=>500,'msg'=>$err]);
-			} else {
-				$ret['originalName'] = $originalName;
-				$uploadResult[] =$ret;
+			$uploadResult = array();
+			foreach ($files as $file) {
+				$filePath = $file->getRealPath();//真实文件地址
+				$originalName = $file->getClientOriginalName();
+				//			$ext = $file->getClientOriginalExtension();//文件后缀名
+				//				echo $key;
+				//				dd($filePath);
+				$key = uuid();
+				// 调用 UploadManager 的 putFile 方法进行文件的上传。
+				list($ret, $err) = $uploadMgr->putFile($token, $key, $filePath);
+				if ($err !== null) {
+					return response()->json(['code' => 500, 'msg' => $err]);
+				} else {
+					$ret['originalName'] = $originalName;
+					$uploadResult[] = $ret;
+				}
 			}
-		}
 
-//			dd($res);
-		//添加
-		foreach ($uploadResult as $res) {
-			MaterialLenove::create(['doctor_id' => $this->doctor_id, 'upload_code' => $uuid, 'material_url' => $res['key'], 'path_type' => 'QN', 'filename' => $res['originalName'], 'addtime' => (string)time()]);
+			//			dd($res);
+			//添加
+			foreach ($uploadResult as $res) {
+				MaterialLenove::create(['doctor_id' => $this->doctor_id, 'upload_code' => $uuid, 'material_url' => $res['key'], 'path_type' => 'QN', 'filename' => $res['originalName'], 'addtime' => (string)time()]);
+			}
+			return response()->json(['code' => 200, 'msg' => '文件上传成功']);
+		}catch (\Exception $e){
+			return response()->json(['code' => 500, 'msg' => '文件大小不能超过20M']);
 		}
-		return response()->json(['code'=>200,'msg'=>'文件上传成功']);
 	}
 
     public function downloadFile($material_id){
@@ -217,9 +223,8 @@ class UserFileController extends CommonController
         switch($input['action']){
             case 'getlist':
                 $pagesize=8;
-                $input = Input::all();
                 $input['page']=($input['page']==0 || $input['page']>100) ? 1 :$input['page'];
-                $input['doctor_id'] =session('user')->_id;
+                $input['doctor_id'] =$this->doctor_id;
                 $input['isshare'] = '0';
                 $result=$this->material->getMaterialList($pagesize,$input['page'],$input);
 //                $lenovo=$this->getLenovoInfo();
@@ -348,6 +353,12 @@ class UserFileController extends CommonController
 					);
 				}
 				return response()->json($returnInfo);
+			case 'getRecommend':
+				$vol = Volunteer::where('phone','like','%'.$input['val'].'%')->select('name','phone')->take(20)->get()->toArray();
+				if(!$vol){
+					$vol = [['name'=>'推荐人不存在','phone'=>'']];
+				}
+				return response()->json($vol);
         }
 
     }

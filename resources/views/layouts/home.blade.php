@@ -21,10 +21,6 @@
     <script src="{{asset('resources/views/home/static/js/pintuer.js')}}"></script>
     @section('js')
     @show
-    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery-ui-1.10.4.custom.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery.ui.datepicker-zh-CN.js')}}"></script>
-    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery-ui-timepicker-addon.js')}}"></script>
-    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery-ui-timepicker-zh-CN.js')}}"></script>
 
 </head>
 <body style="background-color:#f2f9fd;">

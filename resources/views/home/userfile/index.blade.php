@@ -1,7 +1,12 @@
 @extends('layouts.home')
 
 @section('title','个人文件')
-
+@section('js')
+    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery-ui-1.10.4.custom.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery.ui.datepicker-zh-CN.js')}}"></script>
+    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery-ui-timepicker-addon.js')}}"></script>
+    <script type="text/javascript" src="{{asset('resources/views/home/static/js/jquery-ui-timepicker-zh-CN.js')}}"></script>
+@endsection
 @section('content')
 <div class="panel admin-panel">
     <div class="panel-head"><strong>个人文件</strong>

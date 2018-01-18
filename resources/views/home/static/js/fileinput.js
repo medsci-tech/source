@@ -4183,7 +4183,7 @@
         elPreviewImage: null,
         elPreviewStatus: null,
         elErrorContainer: null,
-        errorCloseButton: '<button type="button" class="close kv-error-close">&times;</button>',
+        errorCloseButton: '<button type="button" class="close kv-error-close"></button>',
         slugCallback: null,
         dropZoneEnabled: true,
         dropZoneTitleClass: 'file-drop-zone-title',
