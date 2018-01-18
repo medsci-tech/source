@@ -24,7 +24,7 @@
                         <label>医生姓名：</label>
                     </div>
                     <div class="field">
-                        <input type="text" class="input" name="stitle"  id="doctor_name" value=""/>
+                        <input type="text" class="input form-control" name="stitle"  id="doctor_name" value=""/>
                         <div class="tips"></div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                         <label>医生手机号：</label>
                     </div>
                     <div class="field">
-                        <input type="text" class="input" name="surl" id="doctor_mobile" value=""/>
+                        <input type="text" class="input form-control" name="surl" id="doctor_mobile" value=""/>
                     </div>
                 </div>
                 <div class="form-group doctor-w200">
@@ -41,15 +41,15 @@
                         <label>身份证号码：</label>
                     </div>
                     <div class="field">
-                        <input type="text" class="input" name="surl" id="id_card" value=""/>
+                        <input type="text" class="input form-control" name="surl" id="id_card" value=""/>
                     </div>
                 </div>
                 <div class="form-group w100">
                     <div class="field">
-                        <button class="button bg-main icon-plus" type="button" onclick ="add()">添加</button>
+                        <button class="btn btn-success icon-plus" type="button" onclick ="add()">添加</button>
                         {{--<button class="button bg-main icon-sign-out" type="button" onclick ="return false;">导出</button>--}}
-                        <button class="button bg-main icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
-                        <button class="button bg-main icon-search" type="button" id="search" onclick ="return false;">查询</button>
+                        <button class="btn btn-primary icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
+                        <button class="btn btn-danger icon-search" type="button" id="search" onclick ="return false;">查询</button>
                     </div>
                 </div>
             </form>

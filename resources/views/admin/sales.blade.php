@@ -41,9 +41,9 @@
                 </div>
 
                 <div class="form-group  tool-btns">
-                    <button class="button bg-main icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
-                    <button class="button bg-main icon-search" type="button" id="search" onclick ="return false;">查询</button>
-                    <button class="button bg-main icon-plus" type="button" onclick="add()">添加</button>
+                    <button class="btn btn-success icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
+                    <button class="btn btn-primary icon-search" type="button" id="search" onclick ="return false;">查询</button>
+                    <button class="btn btn-danger icon-plus" type="button" onclick="add()">添加</button>
                 </div>
             </form>
             <form method="post" action="">

@@ -32,7 +32,7 @@
                         <label>推荐人姓名：</label>
                     </div>
                     <div class="field">
-                        <input type="text" class="input" name="stitle" value="" id="recommend_name"/>
+                        <input type="text" class="form-control input" name="stitle" value="" id="recommend_name"/>
                         <div class="tips"></div>
                     </div>
                 </div>
@@ -42,16 +42,16 @@
                         <label>推荐人手机号：</label>
                     </div>
                     <div class="field">
-                        <input type="text" class="input" name="surl" value="" id="recommend_mobile"/>
+                        <input type="text" class="form-control input" name="surl" value="" id="recommend_mobile"/>
                     </div>
                 </div>
 
                 <div class="form-group w100">
                     <div class="field">
-                        <button class="button bg-main icon-plus" type="button" onclick="add()">添加</button>
+                        <button class="btn btn-success icon-plus" type="button" onclick="add()">添加</button>
                         {{--<button class="button bg-main icon-sign-out" type="button">导出</button>--}}
-                        <button class="button bg-main icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
-                        <button class="button bg-main icon-search" type="button" id="search" onclick ="return false;">查询</button>
+                        <button class="btn btn-primary icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
+                        <button class="btn btn-danger icon-search" type="button" id="search" onclick ="return false;">查询</button>
                     </div>
                 </div>
             </form>

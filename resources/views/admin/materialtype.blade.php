@@ -19,15 +19,15 @@
                         <label for="sitename">素材类型：</label>
                     </div>
                     <div class="field">
-                        <input type="text" class="input" name="stitle" value="" id="material_type_name"/>
+                        <input type="text" class="form-control input" name="stitle" value="" id="material_type_name"/>
                         <div class="tips"></div>
                     </div>
                 </div>
                 <div class="form-group tool-btns">
-                    <button class="button bg-main icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
-                    <button class="button bg-main icon-search" type="submit" id="search" onclick ="return false;">查询</button>
+                    <button class="btn btn-success icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
+                    <button class="btn btn-primary icon-search" type="submit" id="search" onclick ="return false;">查询</button>
                     <!--<a href="javascript:;" class="button bg-main icon-upload">上传<input class="" type="file"></input></a>-->
-                    <button class="button bg-main icon-download" type="button" onclick="add()">添加</button>
+                    <button class="btn btn-danger icon-download" type="button" onclick="add()">添加</button>
                 </div>
             </form>
             <form method="post" action="">

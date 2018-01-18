@@ -18,14 +18,14 @@
                     <label for="sitename">文件名称：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="stitle" id="file_name" value=""/>
+                    <input type="text" class="input form-control" name="stitle" id="file_name" value=""/>
                     <div class="tips"></div>
                 </div>
             </div>
             <div class="form-group tool-btns">
-                <button class="button bg-main icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
-                <button class="button bg-main icon-search" type="submit" id="search" onclick ="return false;">查询</button>
-                <a href="{{url('admin/tools/toolsadd')}}" class="button bg-main icon-upload">上传</a>
+                <button class="btn btn-success icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
+                <button class="btn btn-primary icon-search" type="submit" id="search" onclick ="return false;">查询</button>
+                <a href="{{url('admin/tools/toolsadd')}}" class="btn btn-danger icon-upload">上传</a>
                 {{--<button class="button bg-main icon-download" type="button">下载 </button>--}}
             </div>
         </form>

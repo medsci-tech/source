@@ -25,7 +25,7 @@
                 <div class="w100 clearfix">
                     <div class="form-group">
                         <div class="field" style="margin-top:3px;width: 20px;">
-                            <input type="radio" class="input r" checked ="checked" name="s_name" value="all"/>
+                            <input type="radio" class="form-control input r" checked ="checked" name="s_name" value="all"/>
                             <div class="tips"></div>
                         </div>
                         <div class="label">
@@ -39,8 +39,8 @@
                         <label>上传时间：</label>
                     </div>
                     <div class="field" style="width:80%">
-                        <input name="act_start_time" type="text" class="input w25" value="" placeholder="开始时间" title="开始时间" readonly="readonly" style="cursor:pointer;" id="begin_time" />
-                        <input  style="margin-left:2%;" name="act_stop_time" type="text" class="input w25" value="" placeholder="结束时间" title="结束时间" readonly="readonly" style="cursor:pointer;" id="end_time"/>
+                        <input name="act_start_time" type="text" class="form-control input w25" value="" placeholder="开始时间" title="开始时间" readonly="readonly" style="cursor:pointer;" id="begin_time" />
+                        <input  style="margin-left:2%;" name="act_stop_time" type="text" class="form-control input w25" value="" placeholder="结束时间" title="结束时间" readonly="readonly" style="cursor:pointer;" id="end_time"/>
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                     <div class="w100 clearfix">
                     <div class="form-group">
                         <div class="field" style="margin-top:3px;width: 20px;">
-                            <input type="radio" class="input r" name="s_name" value="material"/>
+                            <input type="radio" class="form-control input r" name="s_name" value="material"/>
                             <div class="tips"></div>
                         </div>
                         <div class="label">
@@ -65,7 +65,7 @@
                         <label>素材名称：</label>
                     </div>
                     <div class="field">
-                        <input type="text" class="input" name="material_name" id="material_name" value=""/>
+                        <input type="text" class="form-control input" name="material_name" id="material_name" value=""/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -73,7 +73,7 @@
                         <label>素材类型：</label>
                     </div>
                     <div class="field">
-                        <select class="input l" id="material_type_id">
+                        <select class="form-control input l" id="material_type_id">
                             <option value="all" selected="selected">请选择</option>
                             @foreach($materialType as $v)
                                 <option value="{{$v->_id}}">{{$v->material_type_name}}</option>
@@ -87,7 +87,7 @@
                         <label>审核状态：</label>
                     </div>
                     <div class="field">
-                        <select class="input l input" id="check_status">
+                        <select class="form-control input l input" id="check_status">
                             <option value="all" selected="selected">请选择</option>
                             <option value="0">未审核</option>
                             <option value="1">审核通过</option>
@@ -101,7 +101,7 @@
                         <label>支付状态：</label>
                     </div>
                     <div class="field">
-                        <select class="input l" id="pay_status">
+                        <select class="form-control input l" id="pay_status">
                             <option value="all" selected="selected">请选择</option>
                             <option value="1">已支付</option>
                             <option value="0">未支付</option>
@@ -116,7 +116,7 @@
                 <div class="w100 clearfix">
                     <div class="form-group">
                         <div class="field" style="margin-top:3px;width: 20px;">
-                            <input type="radio" class="input r" name="s_name" value="doctor"/>
+                            <input type="radio" class="form-control input r" name="s_name" value="doctor"/>
                             <div class="tips"></div>
                         </div>
                         <div class="label">
@@ -130,7 +130,7 @@
                         <label>医生名称：</label>
                     </div>
                     <div class="field">
-                        <input type="text" class="input" name="doctor_name" id="doctor_name" value=""/>
+                        <input type="text" class="form-control input" name="doctor_name" id="doctor_name" value=""/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -138,7 +138,7 @@
                         <label>医生手机号：</label>
                     </div>
                     <div class="field">
-                        <input type="text" class="input" name="doctor_mobile" id="doctor_mobile" value=""/>
+                        <input type="text" class="form-control input" name="doctor_mobile" id="doctor_mobile" value=""/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -146,7 +146,7 @@
                         <label>身份证号：</label>
                     </div>
                     <div class="field">
-                        <input type="text" class="input" name="doctor_id_card" id="doctor_id_card" value=""/>
+                        <input type="text" class="form-control input" name="doctor_id_card" id="doctor_id_card" value=""/>
                     </div>
                 </div>
             </div>
@@ -155,7 +155,7 @@
             <div class="w100 clearfix">
                 <div class="form-group">
                  <div class="field" style="margin-top:3px;width: 20px;">
-                   <input type="radio" class="input r" name="s_name" value="recommend"/>
+                   <input type="radio" class="form-control input r" name="s_name" value="recommend"/>
                    <div class="tips"></div>
                  </div>
                  <div class="label">
@@ -186,7 +186,7 @@
                     <label>推荐人姓名：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="recommend_name" value="" id="recommend_name"/>
+                    <input type="text" class="form-control input" name="recommend_name" value="" id="recommend_name"/>
                     <div class="tips"></div>
                 </div>
             </div>
@@ -196,7 +196,7 @@
                     <label>推荐人手机号：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="recommend_mobile" value="" id="recommend_mobile"/>
+                    <input type="text" class="form-control input" name="recommend_mobile" value="" id="recommend_mobile"/>
                 </div>
             </div>
 
@@ -205,9 +205,9 @@
                     <label></label>
                 </div>
                 <div class="field">
-                    <button class="button bg-main icon-refresh" type="submit" id="reset" onclick ="return false;"> 重置</button>
-                    <button class="button bg-main icon-search" type="submit" id="search" onclick ="return false;"> 查询</button>
-                    <a  href="{{url('admin/report/reportexcel')}}"class="button bg-main icon-download" type="submit">下载报表</a>
+                    <button class="btn btn-success icon-refresh" type="submit" id="reset" onclick ="return false;"> 重置</button>
+                    <button class="btn btn-primary icon-search" type="submit" id="search" onclick ="return false;"> 查询</button>
+                    <a  href="{{url('admin/report/reportexcel')}}"class="btn btn-danger icon-download" type="submit">下载报表</a>
                 </div>
             </div>
         </form>

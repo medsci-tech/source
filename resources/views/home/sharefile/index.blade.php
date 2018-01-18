@@ -19,13 +19,13 @@
                         <label>工具名称：</label>
                     </div>
                     <div class="field">
-                        <input type="text" class="input" name="s_name" value="" id="file_name"/>
+                        <input type="text" class="form-control input" name="s_name" value="" id="file_name"/>
                         <div class="tips"></div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="field ml10">
-                        <button class="button bg-main" type="button" id="search">查询</button>
+                        <button class="btn btn-primary" type="button" id="search">查询</button>
                     </div>
                 </div>
 

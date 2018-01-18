@@ -7,13 +7,13 @@
     <div class="panel admin-panel">
         <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>大区管理</strong></div>
         <div class="body-content">
-            <form method="post" class="form" action="">
+            <form method="post" class="form-x" action="">
                 <div class="form-group">
-                    <div class="label" style="float: left;padding-top:7px;">
+                    <div class="label" style="float: left;">
                         <label>公司：</label>
                     </div>
                     <div class="field" style="float: left;">
-                        <select class="input" name="company_id" id="company_id">
+                        <select class="input form-control" name="company_id" id="company_id">
                             <option value="">请选择公司...</option>
                             @foreach($company as $v)
                             <option value="{{ $v->_id }}">{{ $v->full_name }}</option>
@@ -23,9 +23,9 @@
                     </div>
                 </div>
                 <div class="form-group  tool-btns">
-                    <button class="button bg-main icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
-                    <button class="button bg-main icon-search" type="button" id="search" onclick ="return false;">查询</button>
-                    <button class="button bg-main icon-plus" type="button" onclick="add()">添加</button>
+                    <button class="btn btn-success icon-refresh" type="reset" id="reset" onclick ="return false;">重置</button>
+                    <button class="btn btn-primary icon-search" type="button" id="search" onclick ="return false;">查询</button>
+                    <button class="btn btn-danger icon-plus" type="button" onclick="add()">添加</button>
                 </div>
             </form>
             <form method="post" action="">

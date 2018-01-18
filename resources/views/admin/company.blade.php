@@ -14,7 +14,7 @@
         <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>公司管理</strong></div>
         <div class="body-content">
             <div class="form-group tool-btns">
-                <button class="button bg-main icon-download" type="button" onclick="add()">添加</button>
+                <button class="btn btn-primary icon-download" type="button" onclick="add()">添加</button>
             </div>
             <form method="post" action="">
                 <div class="">

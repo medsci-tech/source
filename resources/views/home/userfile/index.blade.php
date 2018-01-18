@@ -17,9 +17,9 @@
                 </div>
                 <div class="field" style="width:75%;">
                     <div class="doc-dd">
-                        <input name="act_start_time" type="text" class="input w25" value="" placeholder="开始时间" title="开始时间" readonly="readonly" style="cursor:pointer;" id="begin_time"/>
+                        <input name="act_start_time" type="text" class="form-control input w25" value="" placeholder="开始时间" title="开始时间" readonly="readonly" style="cursor:pointer;width: 40%;" id="begin_time"/>
 
-                        <input  style="margin-left:2%;" name="act_stop_time" type="text" class="input w25" value="" placeholder="结束时间" title="结束时间" readonly="readonly" style="cursor:pointer;" id="end_time"/>
+                        <input name="act_stop_time" type="text" class="form-control input w25" value="" placeholder="结束时间" title="结束时间" readonly="readonly" style="cursor:pointer;width: 40%;margin-left:2%;" id="end_time"/>
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                     <label>素材类型：</label>
                 </div>
                 <div class="field">
-                    <select class="input" id="material_type_id">
+                    <select class="form-control input" id="material_type_id">
                         <option value="all">请选择</option>
                         @foreach($materialType as $v)
                         <option value="{{$v->_id}}">{{$v->material_type_name}}</option>
@@ -45,7 +45,7 @@
                     <label>审核状态：</label>
                 </div>
                 <div class="field">
-                    <select class="input" id="check_status">
+                    <select class="form-control input" id="check_status">
                         <option value="all">请选择</option>
                         <option value="0">未审核</option>
                         <option value="1">通过</option>
@@ -59,20 +59,20 @@
                     <label>素材名称：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input" name="s_name" value="" id="material_name"/>
+                    <input type="text" class="form-control input" name="s_name" value="" id="material_name"/>
                     <div class="tips"></div>
                 </div>
             </div>
 
         </form>
 
-        <form method="post" action="" class="form-x mt15">
+        <form method="post" action="" class="form-x mt20">
             <div class="form-group w100">
                 {{--<div class="label">--}}
                     {{--<label>全部素材</label>--}}
                 {{--</div>--}}
-                <button class="button bg-main l mr20" type="button" id="reset" style="margin-left: 20px;">重置</button>
-                <button class="button bg-main l mr20" type="button" id="search" style="margin-left: 20px;">查询</button>
+                <button class="btn btn-primary l mr20" type="button" id="reset" style="margin-left: 20px;">重置</button>
+                <button class="btn btn-danger l mr20" type="button" id="search" style="margin-left: 20px;">查询</button>
             </div>
             <div class="clear"></div>
             <div class="panel admin-panel">

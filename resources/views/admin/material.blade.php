@@ -18,7 +18,7 @@
                 <label>医生姓名：</label>
                 </div>
                 <div class="field">
-                <input type="text" class="input" name="stitle" id="doctor_name" value=""/>
+                <input type="text" class="input form-control" name="stitle" id="doctor_name" value=""/>
                 <div class="tips"></div>
                 </div>
                 </div>
@@ -28,7 +28,7 @@
                         <label>素材名称：</label>
                     </div>
                     <div class="field">
-                        <input type="text" class="input" name="surl" id="material_name"  value=""/>
+                        <input type="text" class="input form-control" name="surl" id="material_name"  value=""/>
                     </div>
                 </div>
 
@@ -37,7 +37,7 @@
                         <label>素材类型：</label>
                     </div>
                     <div class="field">
-                        <select class="input" id="material_type_id">
+                        <select class="input form-control" id="material_type_id">
                             <option value="all" selected="selected">请选择</option>
                             @foreach($materialType as $v)
                                 <option value="{{$v->_id}}">{{$v->material_type_name}}</option>
@@ -52,8 +52,8 @@
                     </div>
                     <div class="field" style="width:70%">
                         <div class="doc-dd">
-                            <input name="act_start_time" type="text" class="input w25" value="" placeholder="开始时间" title="开始时间" readonly="readonly" style="cursor:pointer;" id="begin_time" />
-                            <input  style="margin-left:2%;" name="act_stop_time" type="text" class="input w25" value="" placeholder="结束时间" title="结束时间" readonly="readonly" style="cursor:pointer;" id="end_time"/>
+                            <input name="act_start_time" type="text" class="input w25 form-control" value="" placeholder="开始时间" title="开始时间" readonly="readonly" style="cursor:pointer;" id="begin_time" />
+                            <input  style="margin-left:2%;" name="act_stop_time" type="text" class="input w25 form-control" value="" placeholder="结束时间" title="结束时间" readonly="readonly" style="cursor:pointer;" id="end_time"/>
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                         <label>审核状态：</label>
                     </div>
                     <div class="field">
-                        <select class="input" id="check_status">
+                        <select class="input form-control" id="check_status">
                             <option value="all" selected="selected">请选择</option>
                             <option value="0">未审核</option>
                             <option value="1">审核通过</option>
@@ -77,7 +77,7 @@
                         <label>支付状态：</label>
                     </div>
                     <div class="field">
-                        <select class="input" id="pay_status">
+                        <select class="input form-control" id="pay_status">
                             <option value="all" selected="selected">请选择</option>
                             <option value="1">已支付</option>
                             <option value="0">未支付</option>
@@ -91,8 +91,8 @@
                         <label></label>
                     </div>
                     <div class="field">
-                        <button class="button bg-main icon-check-square-o" type="submit" id="reset" onclick ="return false;"> 重置</button>
-                        <button class="button bg-main icon-search" type="submit" id="search" onclick ="return false;"> 查询</button>
+                        <button class="btn btn-primary icon-check-square-o" type="submit" id="reset" onclick ="return false;"> 重置</button>
+                        <button class="btn btn-primary icon-search" type="submit" id="search" onclick ="return false;"> 查询</button>
                         {{--<button class="button bg-main icon-download" type="submit"> 下载</button>--}}
                     </div>
                 </div>
@@ -128,13 +128,13 @@
                     <div id ='page-tag'>
                         <div class="pull-left" style="width:320px;padding: 10px">
                             <form action="">
-                                <select id='options' class='options'>
+                                <select id='options' class='options form-control'>
                                     <option value=''>请选择操作类型</option>
                                     <option value='confirm_check'>通过</option>
                                     {{--<option value='refuse_check'>不通过</option>--}}
                                     <option value='pay_all'>支付</option>
                                 </select>
-                                <button class="opt_confirm" style="padding: 5px 12px;" id="option-all">确定</button>
+                                <button class="btn btn-primary opt_confirm" style="padding: 5px 12px;" id="option-all">确定</button>
                             </form>
                         </div>
                         <div id="page-right"></div>
