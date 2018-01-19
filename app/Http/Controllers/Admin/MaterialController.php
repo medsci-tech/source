@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Model\Company;
 use App\Http\Model\Material;
 use App\Http\Model\Doctor;
 use App\Http\Model\MaterialType;
@@ -76,51 +77,52 @@ class MaterialController extends CommonController
                 if(count($result[1])>0) {
                     foreach($result[1] as $k=>$v){
                         $doctor = Doctor::where('_id',$v->doctor_id)->first();
-                        if(isset($doctor->doctor_name) && $doctor->doctor_name){
-                            $result[1][$k]->doctor_name =$doctor->doctor_name;
+                        if($doctor){
+                            $result[1][$k]->doctor_name =$doctor['doctor_name'];
+							$result[1][$k]->doctor_mobile =$doctor['doctor_mobile'];
                         }else{
 							$result[1][$k]->doctor_name = '';
-						}
-                        if(isset($doctor->doctor_mobile) && $doctor->doctor_mobile){
-                            $result[1][$k]->doctor_mobile =$doctor->doctor_mobile;
-                        }else{
 							$result[1][$k]->doctor_mobile = '';
 						}
+
                         $materialtype = MaterialType::where('_id',$v->material_type_id)->first();
 
-                        if(isset($materialtype->material_type_name) && $materialtype->material_type_name){
-                            $result[1][$k]->material_type_name =$materialtype->material_type_name;
+                        if($materialtype){
+                            $result[1][$k]->material_type_name =$materialtype['material_type_name'];
                         }else{
 							$result[1][$k]->material_type_name = '';
 						}
-                        $recommend = Recommend::where('_id',$v->recommend_id)->first();
-                        $bigarea = Bigarea::where('_id',$recommend->big_area_id)->first();
-                        $area = Area::where('_id',$recommend->area_id)->first();
-                        $sales = Sales::where('_id',$recommend->sales_id)->first();
-                        $result[1][$k]->recommend_name = $recommend->recommend_name;
-                        $result[1][$k]->recommend_mobile = $recommend->recommend_mobile;
-//                        $SalesMaterialType = SalesMaterialType::where('sales_id',$recommend->sales_id)->where('material_type_id',$v->material_type_id)->first();
-                        if(isset($bigarea->big_area_name)){
-                            $result[1][$k]->big_area_name =$bigarea->big_area_name.($bigarea->unit?"({$bigarea->unit})":'');
-                        }else{
-							$result[1][$k]->big_area_name = '';
-						}
-                        if(isset($area->area_name) && $area->area_name){
-                            $result[1][$k]->area_name =$area->area_name;
-                        }else{
-                            $result[1][$k]->area_name = '';
-                        }
-                        if(isset($sales->sales_name) &&$sales->sales_name){
-                            $result[1][$k]->sales_name =$sales->sales_name;
-                        }else{
-							$result[1][$k]->sales_name = '';
-						}
-                        $result[1][$k]->price =$v->pay_amount;
-//                        if($SalesMaterialType->price){
-//                            $result[1][$k]->price =$SalesMaterialType->price;
-//                        }
 
-//                        $result[1][$k]['lenovoUrl']="https://content.box.lenovo.com/v2/files/databox/".$v->path."?X-LENOVO-SESS-ID=".$lenovo->{"X-LENOVO-SESS-ID"}."&path_type=".$v->path_type."&from=&neid=".$v->neid."&rev=".$v->rev."";
+						$result[1][$k]->big_area_name = '';
+						$result[1][$k]->company_name = '';
+						$result[1][$k]->area_name = '';
+						$result[1][$k]->sales_name = '';
+						$result[1][$k]->recommend_name = '';
+						$result[1][$k]->recommend_mobile = '';
+                        $recommend = Recommend::where('_id',$v->recommend_id)->first();
+                        if($recommend){
+							$company = Company::where('_id',$recommend['company_id'])->first();
+							$bigarea = Bigarea::where('_id',$recommend['big_area_id'])->first();
+							$area = Area::where('_id',$recommend['area_id'])->first();
+							$sales = Sales::where('_id',$recommend['sales_id'])->first();
+							$result[1][$k]->recommend_name = $recommend['recommend_name'];
+							$result[1][$k]->recommend_mobile = $recommend['recommend_mobile'];
+
+							if($company){
+								$result[1][$k]->company_name =$company->full_name;
+							}
+							if($bigarea){
+								$result[1][$k]->big_area_name =$bigarea->big_area_name;
+							}
+							if(isset($area->area_name) && $area->area_name){
+								$result[1][$k]->area_name =$area->area_name;
+							}
+							if(isset($sales->sales_name) &&$sales->sales_name){
+								$result[1][$k]->sales_name =$sales->sales_name;
+							}
+						}
+
+                        $result[1][$k]->price =$v->pay_amount;
 
                     }
 
@@ -237,13 +239,14 @@ class MaterialController extends CommonController
 						$material = Material::where('_id',$list)->first();
 						$recommend = Recommend::where('_id',$material->recommend_id)->first();
 						//查询销售组自定义的价格，如果不存在，使用素材类型默认价格
-						$SalesMaterialType = SalesMaterialType::where('sales_id',$recommend->sales_id)->where('material_type_id',$material->material_type_id)->first();
-						if(isset($SalesMaterialType) && $SalesMaterialType->_id){
-							$pay_amount =$SalesMaterialType->price * $material->attachments;
-						}else{
-							$pay_amount = MaterialType::where('_id',$material->material_type_id)->first()->price * $material->attachments;
+						$pay_amount = MaterialType::where('_id',$material->material_type_id)->first()->price * $material->attachments;
+						if($recommend){
+							$SalesMaterialType = SalesMaterialType::where(['sales_id'=>$recommend['sales_id'],'material_type_id'=>$material['material_type_id']])->first();
+							if($SalesMaterialType){
+								$pay_amount =$SalesMaterialType['price'] * $material['attachments'];
+							}
 						}
-						Material::where('_id',$list)->update( ['check_status'=>'1','pass_amount'=>$material->attachments,'pay_amount'=>$pay_amount]); //返回更新的记录数
+						Material::where('_id',$list)->update( ['check_status'=>'1','pass_amount'=>$material['attachments'],'pay_amount'=>$pay_amount]); //返回更新的记录数
 					}
 				}elseif($input['option'] === 'pay_all'){//支付
 					//查看是否有未通过审核的数据

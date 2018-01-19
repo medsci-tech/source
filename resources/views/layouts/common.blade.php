@@ -36,9 +36,12 @@
 
             </div>
             <div class="modal-footer">
-                <a class="btn btn-primary btn-url" href="">
+                <button class="btn btn-default" data-dismiss="modal">
+                    取消
+                </button>
+                <button class="btn btn-primary btn-confirm">
                     确定
-                </a>
+                </button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -49,9 +52,10 @@
         $('#ModalAlert').modal('show');
     }
 
-    var modelCom = function(msg,url){
+    var modelCom = function(msg,fuc){
         $('#comModal .modal-body').html(msg);
-        $('#comModal .btn-url').attr('href',url);
         $('#comModal').modal('show');
+        $('#comModal .btn-confirm').on('click',fuc);
+
     }
 </script>

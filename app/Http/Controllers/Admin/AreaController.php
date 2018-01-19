@@ -40,7 +40,7 @@ class AreaController extends CommonController
                         $company = Company::where('_id',$v->company_id)->first();
                         $bigarea = BigArea::where('_id',$v->big_area_id)->first();
                         if($company){
-							$result[1][$k]->company_name =$bigarea->company_name;
+							$result[1][$k]->company_name =$company->full_name;
                         }else{
 							$result[1][$k]->company_name = '';
 						}

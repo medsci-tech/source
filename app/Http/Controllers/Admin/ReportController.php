@@ -72,39 +72,36 @@ class ReportController extends CommonController
                         $result[1][$k]['doctor_bank_name'] = $doctor['bank_name'];
                         $result[1][$k]['doctor_bank_card_no'] = $doctor['bank_card_no'];
 
+						$result[1][$k]->recommend_name ='';
+						$result[1][$k]->recommend_mobile = '';
+						$result[1][$k]->company_name ='';
+						$result[1][$k]->big_area_name ='';
+						$result[1][$k]->area_name = '';
+						$result[1][$k]->sales_name = '';
+
                         $recommend = Recommend::where('_id',$v->recommend_id)->first();
                         if($recommend){
                             $result[1][$k]->recommend_name =$recommend['recommend_name'];
                             $result[1][$k]->recommend_mobile =$recommend['recommend_mobile'];
-                        }else{
-							$result[1][$k]->recommend_name ='';
-							$result[1][$k]->recommend_mobile = '';
-						}
-
-                        $company = Company::where('_id',$recommend->company_id)->first();
-                        $bigarea = Bigarea::where('_id',$recommend->big_area_id)->first();
-                        $area = Area::where('_id',$recommend->area_id)->first();
-                        $sales = Sales::where('_id',$recommend->sales_id)->first();
-                        if($company){
-                            $result[1][$k]->company_name =$company['full_name'];
-                        }else{
-							$result[1][$k]->company_name ='';
-						}
-						if($bigarea){
-                            $result[1][$k]->big_area_name =$bigarea['big_area_name'];
-                        }else{
-							$result[1][$k]->big_area_name ='';
-						}
-                        if($area){
-                            $result[1][$k]->area_name =$area['area_name'];
-                        }else{
-                            $result[1][$k]->area_name = '';
+							$company = Company::where('_id',$recommend['company_id'])->first();
+							$bigarea = Bigarea::where('_id',$recommend['big_area_id'])->first();
+							$area = Area::where('_id',$recommend['area_id'])->first();
+							$sales = Sales::where('_id',$recommend['sales_id'])->first();
+							if($company){
+								$result[1][$k]->company_name =$company['full_name'];
+							}
+							if($bigarea){
+								$result[1][$k]->big_area_name =$bigarea['big_area_name'];
+							}
+							if($area){
+								$result[1][$k]->area_name =$area['area_name'];
+							}
+							if($sales){
+								$result[1][$k]->sales_name =$sales['sales_name'];
+							}
                         }
-                        if($sales){
-                            $result[1][$k]->sales_name =$sales['sales_name'];
-                        }else{
-							$result[1][$k]->sales_name = '';
-						}
+
+
                         $materialtype = MaterialType::where('_id',$v->material_type_id)->first();
 
                         if($materialtype){

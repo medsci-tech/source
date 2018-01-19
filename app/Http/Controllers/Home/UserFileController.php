@@ -147,6 +147,7 @@ class UserFileController extends CommonController
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function uploadFiles(Request $request){
+
 		try {
 			//dd($request->file());
 			$uuid = $request->uuid;
@@ -186,7 +187,7 @@ class UserFileController extends CommonController
 			}
 			return response()->json(['code' => 200, 'msg' => '文件上传成功']);
 		}catch (\Exception $e){
-			return response()->json(['code' => 500, 'msg' => '文件大小不能超过20M']);
+			return response()->json(['code' => 500, 'msg' => '文件大小不能超过80M']);
 		}
 	}
 

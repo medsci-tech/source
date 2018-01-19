@@ -152,19 +152,22 @@
                 //上传文件
                 $("#kv-explorer").fileinput("upload");
                 $("#kv-explorer").on("fileuploaded", function (event, data, previewId, index) {
-                    $.ajax({
-                        type:'post',
-                        data:formData,
+                    if(length <= index +1){
+                        $.ajax({
+                            type:'post',
+                            data:formData,
 //                    processData: false,
 //                    contentType: false,
-                        success:function(res){
-                            if(res.code==200){
-                                location = '/home/userfile/index';
-                            }else{
-                                modelAlert(res.msg);
+                            success:function(res){
+                                if(res.code==200){
+                                    location = '/home/userfile/index';
+                                }else{
+                                    modelAlert(res.msg);
+                                }
                             }
-                        }
-                    })
+                        })
+                    }
+
                 });
                 //异步上传出错
                 $("#kv-explorer").on("fileuploaderror", function (event, data, msg) {

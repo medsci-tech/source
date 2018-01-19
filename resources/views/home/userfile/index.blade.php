@@ -220,36 +220,30 @@
 
         function delete1(obj){
             var id=$(obj).attr('data');
-            if(!confirm("确定要删除该条素材吗？")){
-                return false;
-            }
-            $.ajax({
-                type: 'post',
-                url: '{{url('home/userfile/ajax')}}',
-                data: {'action': 'delete','id':id},
-                dataType: 'json',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                },
-                beforeSend: function(XMLHttpRequest) {
-//                $('body').showLoading();
-                },
-                success: function(json) {
+            modelCom('您确认要删除该条数据吗？',function(){
+                $('#comModal').modal('hide');
+                $.ajax({
+                    type: 'post',
+                    url: '{{url('home/userfile/ajax')}}',
+                    data: {'action': 'delete','id':id},
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
 
-                    if (json.status == 1) {
-                        window.location.href="{{url("home/userfile/index")}}";
-                    } else {
-                        modelAlert(json.msg);
+                    success: function(json) {
+
+                        if (json.status == 1) {
+                            window.location.href="{{url("home/userfile/index")}}";
+                        } else {
+                            modelAlert(json.msg);
+                        }
+                    },
+                    error: function() {
+                        modelAlert("数据异常！");
                     }
-                },
-                complete: function() {
-
-                },
-                error: function() {
-                    modelAlert("数据异常！");
-                }
+                });
             });
-
         }
 
 
