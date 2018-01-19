@@ -561,7 +561,8 @@
         var pid = $('#check_pid').val();
         var status = $('#check_status_box').val();
         var comment = $('#comment').val();
-        if(status == ''){
+        console.log(status);
+        if(!status){
             modelAlert('请选择审核结果');
             return false;
         }
