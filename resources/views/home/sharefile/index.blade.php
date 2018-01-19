@@ -102,7 +102,7 @@
                     $.each(list, function(index, array) { //遍历返回json
 
                         var downloadUrl ="{{url('home/sharefile/downloadfile/')}}/"+array._id;
-                        li +="<tr><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.file_name+"</td> <td>"+array.created_at+"</td><td>"+array.file_weight+"</td><td><div class='button-group'><a type='button' class='button border-main' href='"+downloadUrl+"'><span class='icon-download'></span></a></div></td></tr>";
+                        li +="<tr><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.file_name+"</td> <td>"+array.created_at+"</td><td>"+array.file_weight+"</td><td><div class='button-group'><a type='button' class='button border-main' href='"+downloadUrl+"'><span class='icon-download'></span>下载</a></div></td></tr>";
                     });
                     li +="<tbody>"
                     $("#list").append(li);

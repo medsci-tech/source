@@ -54,7 +54,7 @@
                 </div>
                 <div class="next col-sm-5 col-sm-offset-2">
                     <button class="btn btn-primary btn-next">下一步</button>
-                    <a href="{{url('login')}}">我有账号？立即登录</a>
+                    <a href="{{url('login')}}">我有账号，立即登录</a>
                 </div>
             </div>
         </div>

@@ -220,8 +220,8 @@
 
         function delete1(obj){
             var id=$(obj).attr('data');
-            modelCom('您确认要删除该条数据吗？',function(){
-                $('#comModal').modal('hide');
+            modelConfirm('您确认要删除该条数据吗？',function(){
+                $('#Modal').modal('hide');
                 $.ajax({
                     type: 'post',
                     url: '{{url('home/userfile/ajax')}}',

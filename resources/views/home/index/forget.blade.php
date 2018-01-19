@@ -44,8 +44,8 @@
                 </div>
                 <a href="javascript:;" class="tj" onclick="resetPassword()">提交</a>
                 <div class="form-group clearfix">
-                    <a href="{{url('login')}}" class="col-sm-offset-4" style="padding-left: 15px;">登入</a>
-                    <a href="{{url('register')}}" style="padding-left: 50px;">有账号？立即注册</a>
+                    <a href="{{url('login')}}" class="col-sm-offset-4" style="padding-left: 15px;font-size:14px;">登入</a>
+                    <a href="{{url('register')}}" style="padding-left: 50px;font-size:14px;">没有账号？立即注册</a>
                 </div>
             </form>
         </div>

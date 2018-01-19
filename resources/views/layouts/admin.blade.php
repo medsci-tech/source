@@ -44,8 +44,8 @@
         <li @if(Request::is('admin/material/index')) class="active" @endif><a href="{{url('admin/material/index')}}">素材管理</a></li>
 
         @if(session('admin')->user_name =='admin')
-            <li @if(Request::is('admin/tools/index')) class="active" @endif><a href="{{url('admin/tools/index')}}">工具分享</a></li>
             <li @if(Request::is('admin/doctor/index')) class="active" @endif><a href="{{url('admin/doctor/index')}}">医生管理</a></li>
+            <li @if(Request::is('admin/tools/index')) class="active" @endif><a href="{{url('admin/tools/index')}}">工具分享</a></li>
             <li @if(Request::is('admin/recommend/index')) class="active" @endif><a href="{{url('admin/recommend/index')}}">推荐人管理</a></li>
             <li @if(Request::is('admin/company/index')) class="active" @endif><a href="{{url('admin/company/index')}}">公司管理</a></li>
             <li @if(Request::is('admin/bigarea/index')) class="active" @endif><a href="{{url('admin/bigarea/index')}}">大区管理</a></li>

@@ -166,10 +166,10 @@ class UserFileController extends CommonController
 			foreach ($files as $file) {
 				$filePath = $file->getRealPath();//真实文件地址
 				$originalName = $file->getClientOriginalName();
-				//			$ext = $file->getClientOriginalExtension();//文件后缀名
+				$ext = $file->getClientOriginalExtension();//文件后缀名
 				//				echo $key;
 				//				dd($filePath);
-				$key = uuid();
+				$key = $originalName.date('Ymdhis').'.'.$ext;
 				// 调用 UploadManager 的 putFile 方法进行文件的上传。
 				list($ret, $err) = $uploadMgr->putFile($token, $key, $filePath);
 				if ($err !== null) {
