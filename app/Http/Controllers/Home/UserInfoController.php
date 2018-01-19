@@ -103,10 +103,10 @@ class UserInfoController extends CommonController
 
 			case 'addProtocol':
 				$doctorInfo = $input['doc_data'];
-				$protocol = DoctorProtocol::where('doctor_id',$this->doctor->_id)->first();
+				$protocol = DoctorProtocol::where('doctor_id',$this->doctor_id)->first();
 				if($protocol){//重新上传，更新数据
 					$protocol->file_url = $doctorInfo['file'];
-					$protocol->file_name = $doctorInfo['file_name'];
+					$protocol->file_name = $doctorInfo['filename'];
 					$protocol->check_status = '0';
 					$res = $protocol->save();
 				}else{

@@ -270,7 +270,7 @@ class DoctorController extends CommonController
 					);
 					return response()->json($returnInfo);
 				}
-				$protocol->check_status = $input['status'];
+				$protocol->check_status = $input['status']?:'0';
 				if($input['status'] == 2){
 					$protocol->comment = $input['comment'];
 				}

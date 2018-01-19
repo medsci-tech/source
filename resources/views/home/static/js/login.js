@@ -206,8 +206,10 @@
             xhr.send(formData);
         };
         var token = $("#token").val();
+        var date = new Date();
+        var key = date.getTime() + $("#file")[0].files[0].name;
         if ($("#file")[0].files.length > 0 && token != "") {
-            Qiniu_upload($("#file")[0].files[0], token, $("#key").val());
+            Qiniu_upload($("#file")[0].files[0], token, key);
         } else {
             modelAlert("请选择要上传的文件");
         }

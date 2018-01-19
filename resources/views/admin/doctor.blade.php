@@ -344,18 +344,6 @@
     </div>
     <!--销售区添加弹框结束-->
 
-@stop
-
-@section('adminjs')
-<script>
-    $("#distpicker5").distpicker({
-        autoSelect: false
-    });
-    $("#distpickerAlert").distpicker({
-        autoSelect: false
-    });
-</script>
-
 <script type="text/javascript">
     var page_cur = 1; //当前页
     var total_num, page_size, page_total_num; //总记录数,每页条数,总页数
@@ -403,7 +391,7 @@
                         var recommendAdd ="{{url('admin/doctor/recommendadd/')}}"+"/"+array._id;
                         li +="<tr><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.doctor_name+"</td> <td>"+array.doctor_mobile+"</td><td>"+array.province_name+"</td><td>"+array.city_name+"</td><td>"+array.region_name+"</td><td>"+array.hospital_name+"</td><td>"+array.id_card+"</td> <td>"+array.bank_name+"</td><td>"+array.bank_card_no+"</td><td>"+protocol_status+"</td><td width='220'><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='edit(this)' doctorid='"+array._id+"' edit_doctor_name='"+array.doctor_name+"' edit_doctor_mobile='"+array.doctor_mobile+"' edit_password='"+array.password+"' edit_hospital_name='"+array.hospital_name+"' edit_id_card='"+array.id_card+"' edit_bank_name='"+array.bank_name+"' edit_bank_card_no='"+(array.bank_card_no?array.bank_card_no:'')+"' province_id='"+array.province_id+"' region_id='"+array.region_id+"' city_id='"+array.city_id+"' province_name='"+array.province_name+"' region_name='"+array.region_name+"' city_name='"+array.city_name+"'><span class='icon-edit'></span>编辑</a>";
                         //如果状态为待审核，添加审核按钮
-                        if(array.protocol_status==='0'){
+                        if(array.protocol_status==='0' || array.protocol_status==='2'){
                             li +="<a type='button' class='button border-main' href='javascript:;' onclick='check(this)' pid='"+array.protocol_id+"' purl='"+array.protocol_url+"' pstatus='"+array.protocol_status+"'><span class='icon-edit'></span>审核协议</a>";
                         }
                         li +="<a type='button' class='button border-main' href='javascript:;' onclick='recommend(this)' doctorid='"+array._id+"'><span class='icon-user-md'></span>推荐人</a></div></td></tr>";
@@ -573,6 +561,10 @@
         var pid = $('#check_pid').val();
         var status = $('#check_status_box').val();
         var comment = $('#comment').val();
+        if(status == ''){
+            modelAlert('请选择审核结果');
+            return false;
+        }
         if(status==2 && comment === ''){
             modelAlert('请填写不通过的原因');
             return false;

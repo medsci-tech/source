@@ -19,7 +19,7 @@
                         <form enctype="multipart/form-data">
                             <input type="file" id="file"/>
                             <input type="hidden" id="token" value="{{ $token }}">
-                            <input id="key" value="{{ uuid() }}">
+                            <input id="key" value="">
                         </form>
                     </div>
                     <div class="file-show">
@@ -94,7 +94,7 @@
                     xhr.onreadystatechange = function(response) {
                         if (xhr.readyState == 4 && xhr.status == 200 && xhr.responseText != "") {
                             var blkRet = JSON.parse(xhr.responseText);
-                            console && console.log(blkRet);
+//                            console && console.log(blkRet);
                             //上传成功，跳转下一页
                             data.file = blkRet.key;
                             data.filename = filename;
@@ -104,8 +104,10 @@
                     xhr.send(formData);
                 };
                 var token = $("#token").val();
+                var date = new Date();
+                var key = date.getTime() + $("#file")[0].files[0].name;
                 if ($("#file")[0].files.length > 0 && token != "") {
-                    Qiniu_upload($("#file")[0].files[0], token, $("#key").val());
+                    Qiniu_upload($("#file")[0].files[0], token, key);
                 } else {
                     modelAlert("请选择要上传的文件");
                 }

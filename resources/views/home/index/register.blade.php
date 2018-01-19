@@ -127,7 +127,7 @@
                     <form method="post" action="http://upload.qiniu.com/" enctype="multipart/form-data">
                     <input type="file" name="txt_file" id="file"/>
                     <input name="token" type="hidden" id="token" value="{{ $token }}">
-                    <input id="key" name="key" value="{{ uuid() }}">
+                    <input id="key" name="key" value="">
                     </form>
                 </div>
                 <div class="file-show">
