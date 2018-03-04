@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Home\uploadController;
 use App\Http\Model\Company;
 use App\Http\Model\Material;
 use App\Http\Model\Doctor;
@@ -44,10 +45,10 @@ class MaterialController extends CommonController
     }
 
 
-	public  function downloadSource(Request $request,$material_url){
-    	$material = MaterialLenove::find($material_url);
+	public  function downloadSource(Request $request,$material_id){
+    	$material = MaterialLenove::find($material_id);
 //		dd(($material));
-		$filename=env('QN_Url').$material->material_url;
+		/*$filename=env('QN_Url').$material->material_url;
 		$file  =  fopen($filename, "rb");
 		$name = $material->filename;
 		Header( "Content-type:  application/octet-stream ");
@@ -59,7 +60,29 @@ class MaterialController extends CommonController
 		}
 		echo $contents;
 		fclose($file);
-		exit;
+		exit;*/
+		$filename=$material->material_url;
+//		$file  =  fopen($filename, "rb");
+		$name = $material->filename;
+
+		$client = new uploadController();
+		$cosClient = $client->client;
+		$result = $cosClient->getObject(array(
+			//bucket的命名规则为{name}-{appid} ，此处填写的存储桶名称必须为此格式
+			'Bucket' => 'source-1252490301',
+			'Key' => $filename));
+
+		Header( "Content-type:  application/octet-stream ");
+		Header( "Accept-Ranges:  bytes ");
+		Header( "Content-Disposition:  attachment;  filename= {$name}");
+		/*$contents = "";
+		while (!feof($file)) {
+			$contents .= fread($file, 8192);
+		}
+		echo $contents;
+		fclose($file);
+		exit;*/
+		echo($result['Body']);
     }
 
 
@@ -268,7 +291,7 @@ class MaterialController extends CommonController
                     	if($v->path_type == 'QN'){
 //                    		$downloadUrl = url("admin/material/downloadSource",$v->_id);
 //							$result[$k]['url'] = $downloadUrl;
-							$result[$k]['url'] = env('QN_Url').$v->material_url;
+							$result[$k]['url'] = '/down?key='.$v->material_url;
 						}else{
 							$result[$k]['url']="https://content.box.lenovo.com/v2/files/databox/".$v->path."?X-LENOVO-SESS-ID=".$lenovo->{"X-LENOVO-SESS-ID"}."&path_type=".$v->path_type."&from=&neid=".$v->neid."&rev=".$v->rev."";
 						}

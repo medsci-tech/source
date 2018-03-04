@@ -21,6 +21,7 @@ use App\Http\Model\MaterialLenove;
 use App\Http\Model\Volunteer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Qcloud\Cos\Client;
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
 
@@ -33,6 +34,7 @@ class UserFileController extends CommonController
     }
 
     public function index(){
+	    //dd(uploadController::getAuthorization());
         $materialType = MaterialType::get();
         return view('home.userfile.index',compact('materialType'));
 
@@ -201,22 +203,32 @@ class UserFileController extends CommonController
         }
 
     }
-	public  function downloadSource(Request $request,$material_url){
-		$material = MaterialLenove::find($material_url);
+	public  function downloadSource(Request $request,$material_id){
+		$material = MaterialLenove::find($material_id);
 //		dd(($material));
-		$filename=env('QN_Url').$material->material_url;
-		$file  =  fopen($filename, "rb");
+//		$filename=env('QN_Url').$material->material_url;
+		$filename=$material->material_url;
+//		$file  =  fopen($filename, "rb");
 		$name = $material->filename;
+
+		$client = new uploadController();
+		$cosClient = $client->client;
+		$result = $cosClient->getObject(array(
+			//bucket的命名规则为{name}-{appid} ，此处填写的存储桶名称必须为此格式
+			'Bucket' => 'source-1252490301',
+			'Key' => $filename));
+
 		Header( "Content-type:  application/octet-stream ");
 		Header( "Accept-Ranges:  bytes ");
 		Header( "Content-Disposition:  attachment;  filename= {$name}");
-		$contents = "";
+		/*$contents = "";
 		while (!feof($file)) {
 			$contents .= fread($file, 8192);
 		}
 		echo $contents;
 		fclose($file);
-		exit;
+		exit;*/
+		echo($result['Body']);
 	}
 
     public function ajax(){
@@ -364,6 +376,61 @@ class UserFileController extends CommonController
 
     }
 
+	public function uploadToQcloud(Request $request){
+		try {
+			//dd($request->file());
+			$uuid = $request->uuid;
+			$files = $request->file('files');
 
+			$client = new Client(
+				array(
+					'region' => config('tencentcloud')['region'],
+					'credentials'=> array(
+						'secretId'    => config('tencentcloud')['secret_id'],
+						'secretKey' => config('tencentcloud')['secret_key']
+					)
+				)
+			);
+
+			$uploadResult = array();
+			foreach ($files as $file) {
+				$filePath = $file->getRealPath();//真实文件地址
+				$originalName = $file->getClientOriginalName();
+				$ext = $file->getClientOriginalExtension();//文件后缀名
+				//				echo $key;
+				//				dd($filePath);
+				$key = date('YmdHis').$originalName;
+				// 调用 UploadManager 的 putFile 方法进行文件的上传。
+				$result = $client->upload(
+					//bucket的命名规则为{name}-{appid} ，此处填写的存储桶名称必须为此格式
+					$bucket='source-1252490301',
+					$key,
+					$body=fopen($filePath,'r+')
+				);
+				/*if ($err !== null) {
+					return response()->json(['code' => 500, 'msg' => $err]);
+				} else {
+					$ret['originalName'] = $originalName;
+					$uploadResult[] = $ret;
+				}*/
+//				print_r($ret);
+//				$result = $ret;
+				$result['originalName'] = $originalName;
+//				print_r($result);die;
+//				fclose($body);
+				$uploadResult[] = $result;
+			}
+
+
+			//添加
+			foreach ($uploadResult as $res) {
+				MaterialLenove::create(['doctor_id' => $this->doctor_id, 'upload_code' => $uuid, 'material_url' => $key, 'path_type' => 'QN', 'filename' => $res['originalName'], 'addtime' => (string)time()]);
+			}
+			return response()->json(['code' => 200, 'msg' => '文件上传成功','data'=>$uploadResult]);
+		}catch (\Exception $e){
+			print_r($e->getMessage());
+			return response()->json(['code' => 500, 'msg' => '系统错误']);
+		}
+	}
 
 }

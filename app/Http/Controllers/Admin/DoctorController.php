@@ -52,7 +52,7 @@ class DoctorController extends CommonController
                 	foreach ($list as &$v){
                 		if($v->getProtocol){
 							$v['protocol_status'] = $v->getProtocol->check_status;
-							$v['protocol_url'] = env('QN_Url').$v->getProtocol->file_url;
+							$v['protocol_url'] = '/down?key='.$v->getProtocol->file_url;
 							$v['protocol_id'] = $v->getProtocol->_id;
 						}else{
 							$v['protocol_status'] = '-1';

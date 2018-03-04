@@ -31,6 +31,9 @@
 //});
 
 Route::group(['middleware' => ['web']], function () {
+	Route::any('getAuth', 'Home\uploadController@getAuthorization');
+	Route::post('upload', 'Home\uploadController@upload');
+	Route::get('down', 'Home\uploadController@download');
     Route::group(['middleware'=>'user.login'],function(){
         Route::get('/', 'Home\UserFileController@index');
     });
@@ -63,6 +66,7 @@ Route::group(['middleware' => ['web','user.login'],'prefix'=>'home','namespace'=
     Route::any('userfile/ajax', 'UserFileController@ajax');
     Route::any('userfile/addmaterial', 'UserFileController@addMaterial');
     Route::post('userfile/upload', 'UserFileController@uploadFiles');
+    Route::post('userfile/qcloudUpload', 'UserFileController@uploadToQcloud');
     Route::get('userfile/downloadfile/{material_id}', 'UserFileController@downloadFile');
     Route::get('userfile/downloadSource/{material_url}', 'UserFileController@downloadSource');
 

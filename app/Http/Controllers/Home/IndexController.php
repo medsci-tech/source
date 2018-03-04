@@ -51,13 +51,13 @@ class IndexController extends CommonController
         $sales = Sales::get();
 
 		//用七牛云上传文件
-		$accessKey = env('QN_AccessKey');
-		$secretKey = env('QN_SecretKey');
-		$bucket = env('QN_Bucket');
-		$auth = new Auth($accessKey,$secretKey);
-		// 生成上传 Token
-		$token = $auth->uploadToken($bucket);
-        return view('home.index.register',compact('bigarea','area','sales','token'));
+//		$accessKey = env('QN_AccessKey');
+//		$secretKey = env('QN_SecretKey');
+//		$bucket = env('QN_Bucket');
+//		$auth = new Auth($accessKey,$secretKey);
+//		// 生成上传 Token
+//		$token = $auth->uploadToken($bucket);
+        return view('home.index.register',compact('bigarea','area','sales'));
     }
 
 

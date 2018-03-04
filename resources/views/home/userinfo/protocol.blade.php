@@ -1,7 +1,6 @@
 @extends('layouts.home')
 
 @section('title','上传协议')
-
 @section('content')
     <div class="panel admin-panel">
         <div class="panel-head"><strong>上传协议</strong></div>
@@ -18,8 +17,8 @@
                     <div style="display: none;">
                         <form enctype="multipart/form-data">
                             <input type="file" id="file"/>
-                            <input type="hidden" id="token" value="{{ $token }}">
-                            <input id="key" value="">
+                            {{--<input id="key" value="">--}}
+                           {{-- {{ csrf_field() }}--}}
                         </form>
                     </div>
                     <div class="file-show">
@@ -56,6 +55,7 @@
 @endsection
 
 @section('floorjs')
+
     <script>
         $(function(){
             var data = {};
@@ -75,15 +75,44 @@
                 // alert(filename);
             })
 
-            //七牛云上传文件
-            var Qiniu_UploadUrl = "http://up-z2.qiniu.com";
+            //腾讯云上传文件
+            var Qcloud_UploadUrl = "/upload";
             $(".protocol1 .btn-next").click(function() {
                 var filename = $('#file_name').text();
                 if(!filename){
                     modelAlert('请选择要上传的协议')
                 }
                 //普通上传
-                var Qiniu_upload = function(f, token, key) {
+                var qcloud_upload = function(f,key) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', Qcloud_UploadUrl, true);
+                    var formData;
+                    formData = new FormData();
+//                    if (key !== null && key !== undefined) formData.append('key', key);
+                    formData.append('_token', $('meta[name="_token"]').attr('content'));
+                    formData.append('file', f);
+                    xhr.onreadystatechange = function(response) {
+                        if (xhr.readyState == 4 && xhr.status == 200 && xhr.responseText != "") {
+                            var blkRet = JSON.parse(xhr.responseText);
+//                            console && console.log(blkRet);
+                            //上传成功，跳转下一页
+                            if(blkRet.code == 200){
+                                data.file = blkRet.file_url;
+                                data.filename = filename;
+                                addDoctor(data);
+                            }
+                        }
+                    };
+                    xhr.send(formData);
+                };
+                var date = new Date();
+                var key = date.getTime() + $("#file")[0].files[0].name;
+                if ($("#file")[0].files.length > 0) {
+                    qcloud_upload($("#file")[0].files[0],  key);
+                } else {
+                    modelAlert("请选择要上传的文件");
+                }
+                /*var Qiniu_upload = function(f, token, key) {
                     var xhr = new XMLHttpRequest();
                     xhr.open('POST', Qiniu_UploadUrl, true);
                     var formData;
@@ -110,8 +139,40 @@
                     Qiniu_upload($("#file")[0].files[0], token, key);
                 } else {
                     modelAlert("请选择要上传的文件");
-                }
+                }*/
             })
+            /*var Bucket = 'source-1252490301';
+            var Region = 'ap-beijing';
+            // 初始化实例
+            var cos = new COS({
+                getAuthorization: function (options, callback) {
+                    // 异步获取签名
+                    $.get('/getAuth', {
+                        method: (options.Method || 'get').toLowerCase(),
+                        pathname: '/' + (options.Key || '')
+                    }, function (authorization) {
+                        callback(authorization);
+                    }, 'text');
+                }
+            });
+
+            // 监听选文件
+            document.getElementById('file').onchange = function () {
+
+                var file = this.files[0];
+                if (!file) return;
+
+                // 分片上传文件
+                cos.sliceUploadFile({
+                    Bucket: Bucket,
+                    Region: Region,
+                    Key: file.name,
+                    Body: file,
+                }, function (err, data) {
+                    console.log(err, data);
+                });
+
+            };*/
 
             function addDoctor(data) {
                 $.ajax({
@@ -142,6 +203,8 @@
                     }
                 });
             }
+
+
         })
 
     </script>

@@ -140,7 +140,8 @@
     })
 
     //七牛云上传文件
-    var Qiniu_UploadUrl = "http://up-z2.qiniu.com";
+    // var Qiniu_UploadUrl = "http://up-z2.qiniu.com";
+    var Qcloud_UploadUrl = "/upload";
     var progressbar = $("#progressbar"),
         progressLabel = $(".progress-label");
     progressbar.progressbar({
@@ -160,13 +161,14 @@
             modelAlert('请选择要上传的协议')
         }
         //普通上传
-        var Qiniu_upload = function(f, token, key) {
+        var Qiniu_upload = function(f, key) {
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', Qiniu_UploadUrl, true);
+            xhr.open('POST', Qcloud_UploadUrl, true);
             var formData, startDate;
             formData = new FormData();
-            if (key !== null && key !== undefined) formData.append('key', key);
-            formData.append('token', token);
+            // if (key !== null && key !== undefined) formData.append('key', key);
+            // formData.append('token', token);
+            formData.append('_token', $('meta[name="_token"]').attr('content'));
             formData.append('file', f);
             var taking;
             xhr.upload.addEventListener("progress", function(evt) {
@@ -194,22 +196,27 @@
                     // console && console.log(blkRet);
                     // $("#dialog").html(xhr.responseText).dialog();
                     //上传成功，跳转下一页
-                    data.file = blkRet.key;
-                    data.filename = filename;
-                    // console.log(data)
-                    $('.step3').hide();
-                    $('.step4').show();
+                    // data.file = blkRet.key;
+                    // data.filename = filename;
+                    if(blkRet.code == 200){
+                        data.file = blkRet.file_url;
+                        data.filename = filename;
+                        // console.log(data)
+                        $('.step3').hide();
+                        $('.step4').show();
+                    }
+
                 }
             };
             startDate = new Date().getTime();
             $("#progressbar").show();
             xhr.send(formData);
         };
-        var token = $("#token").val();
+        // var token = $("#token").val();
         var date = new Date();
         var key = date.getTime() + $("#file")[0].files[0].name;
-        if ($("#file")[0].files.length > 0 && token != "") {
-            Qiniu_upload($("#file")[0].files[0], token, key);
+        if ($("#file")[0].files.length > 0) {
+            Qiniu_upload($("#file")[0].files[0], key);
         } else {
             modelAlert("请选择要上传的文件");
         }

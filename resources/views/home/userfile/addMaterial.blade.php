@@ -99,7 +99,7 @@
             $("#kv-explorer").fileinput({
                 theme: 'explorer-fa',
                 language: 'zh',
-                uploadUrl: '/home/userfile/upload?uuid={{ $uuid }}',
+                uploadUrl: '/home/userfile/qcloudUpload?uuid={{ $uuid }}',
                 showRemove:false,
                 showUpload: false,
                 uploadAsync:true,
@@ -174,7 +174,7 @@
 //                    console.log(event);
 //                    console.log(data);
 //                    console.log(msg);
-                    modelAlert('文件大小不能超过80M');
+                    modelAlert('文件上传失败');
                 });
 
 //                var formData = new FormData(this);

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by ...
- * User: zhanghui
- * Date: 16/12/10
- * DesCription:...
- */
-
 
 namespace App\Http\Controllers\Home;
 
@@ -13,8 +6,9 @@ use App\Http\Model\Doctor;
 use App\Http\Model\DoctorProtocol;
 use App\Http\Model\Questions;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Qiniu\Auth;
-
+use Qcloud\Cos\Client;
 
 class UserInfoController extends CommonController
 {
@@ -140,6 +134,10 @@ class UserInfoController extends CommonController
         return view('home/userinfo/questions',['questions'=>$questions]);
     }
 
+	/**
+	 * 七牛云上传
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
     public function uploadProtocol(){
 		//用七牛云上传文件
 		$accessKey = env('QN_AccessKey');
@@ -152,4 +150,29 @@ class UserInfoController extends CommonController
 		return view('home/userinfo/protocol',compact('token'));
 	}
 
+
+	/**
+	 * 腾讯云上传
+	 *
+	 */
+	public function qcloudUpload(Request $request){
+		$cosClient = new Client([
+			'region'=>env('COS_REGION'),
+			'credentials'=>[
+				'secretId'=>env('COS_KEY'),
+				'secretKey'=>env('COS_SECRET')
+			]
+		]);
+		try {
+			$result = $cosClient->putObject(array(
+				//bucket的命名规则为{name}-{appid} ，此处填写的存储桶名称必须为此格式
+				'Bucket' => env('COS_BUCKET'),
+				'Key' => '11',
+				'Body' => 'Hello World!'));
+			print_r($result);
+		} catch (\Exception $e) {
+			echo "$e\n";
+		}
+
+	}
 }
