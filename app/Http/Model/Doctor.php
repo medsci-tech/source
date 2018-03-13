@@ -54,8 +54,9 @@ class Doctor extends Moloquent {
     public function getDoctorList($pagesize = 6, $page = 1,$data=array()){
         $handle =SELF::orderBy('_id', 'desc');
         if(isset($data['protocol_status']) &&  $data['protocol_status']!=='') {
-        	$ids = DoctorProtocol::where('check_status',$data['protocol_status'])->pluck('doctor_id')->toArray();
-            $handle->whereIn('_id', $ids);
+        	/*$ids = DoctorProtocol::where('check_status',$data['protocol_status'])->pluck('doctor_id')->toArray();
+            $handle->whereIn('_id', $ids);*/
+	        $handle->where('protocol_check_status', $data['protocol_status']);
         }
         if(isset($data['province_id']) &&  $data['province_id']) {
             $handle->where('provice_id', $data['provice_id']);

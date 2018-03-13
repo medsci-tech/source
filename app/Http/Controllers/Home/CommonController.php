@@ -16,6 +16,7 @@ class CommonController extends Controller
     public $doctor_id;
     public $doctor_name;
     public $doctor_mobile;
+    public $protocol_check_status;
 
     function __construct() {
         $this->middleware(function ($request, $next) {
@@ -23,6 +24,7 @@ class CommonController extends Controller
                 $this->doctor_id =$doctor->_id;
                 $this->doctor_name =$doctor->doctor_name;
                 $this->doctor_mobile =$doctor->doctor_mobile;
+                $this->protocol_check_status =$doctor->protocol_check_status;
             }
            return $next($request);
         });
