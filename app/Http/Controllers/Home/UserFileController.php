@@ -339,34 +339,35 @@ class UserFileController extends CommonController
                 break;
 			case 'checkProtocol':
 				//用户是否有上传协议，如果有，则进行素材上传，否则先上传协议
-				$protocol = DoctorProtocol::where('doctor_id',$this->doctor_id)->first();
-				if($protocol){
-					if($protocol->check_status === '0'){
-						$returnInfo=array(
-							'url'=>url('home/userinfo/index'),
-							'status' => 0,
-							'msg' => '您的协议正在审核中，请耐心等待...',
-						);
-					}elseif($protocol->check_status === '2'){
-						$returnInfo=array(
-							'url'=>url('home/userinfo/protocol'),
-							'status' => 0,
-							'msg' => '您的协议审核未通过，请修改后重新上传',
-						);
-					}else{
-						$returnInfo=array(
-							'url'=>url('home/userfile/addmaterial'),
-							'status' => 1,
-							'msg' => '您的协议已通过审核，可以开始上传素材啦...',
-						);
-					}
-				}else{
+				$protocol = Doctor::where('doctor_id',$this->doctor_id)->first();
+
+				if($protocol->protocol_check_status === '1'){
+					$returnInfo=array(
+						'url'=>url('home/userinfo/index'),
+						'status' => 0,
+						'msg' => '您的协议正在审核中，请耐心等待...',
+					);
+				}elseif($protocol->check_status === '3'){
 					$returnInfo=array(
 						'url'=>url('home/userinfo/protocol'),
 						'status' => 0,
+						'msg' => '您的协议审核未通过，请修改后重新上传',
+					);
+				}elseif($protocol->protocol_check_status === '2'){
+					$returnInfo=array(
+						'url'=>url('home/userfile/addmaterial'),
+						'status' => 1,
+						'msg' => '您的协议已通过审核，可以开始上传素材啦...',
+					);
+				}else{
+					$returnInfo = array(
+						'url' => url('home/userinfo/protocol'),
+						'status' => 0,
 						'msg' => '您还未上传协议，请先上传',
 					);
+
 				}
+
 				return response()->json($returnInfo);
 			case 'getRecommend':
 				$vol = Volunteer::where('phone','like','%'.$input['val'].'%')->select('name','phone')->take(20)->get()->toArray();
