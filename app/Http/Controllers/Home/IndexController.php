@@ -124,6 +124,7 @@ class IndexController extends CommonController
                 $this->doctor->hospital_name = $doctorInfo['hospital_name'];
                 $this->doctor->bank_card_no  = $doctorInfo['bank_card_no'];
                 $this->doctor->bank_name     = $doctorInfo['bank_name'];
+                $this->doctor->protocol_check_status     = '0';//协议审核状态 0.未上传 1.待审核 2.通过 3.驳回
 
                 if($this->doctor->save()){
 					$docotr = $this->doctor->where('doctor_mobile',$doctorInfo['doctor_mobile'])->first();
@@ -134,7 +135,7 @@ class IndexController extends CommonController
 							'doctor_id'=>$docotr->_id,
 							'file_url'=>$doctorInfo['file'],
 							'file_name'=>$doctorInfo['filename'],
-							'check_status'=>'0' //审核状态 0.未审核 1.通过 2.驳回
+//							'check_status'=>'0' //协议审核状态 0.未上传 1.待审核 2.通过 3.驳回
 						]);
 					}
 

@@ -26,9 +26,10 @@
                     <div class="field">
                         <select class="input form-control" name="protocol_status"  id="protocol_status">
                             <option value="">请选择</option>
-                            <option value="0">待审核</option>
-                            <option value="1">通过</option>
-                            <option value="2">未通过</option>
+                            <option value="0">未上传</option>
+                            <option value="1">待审核</option>
+                            <option value="2">已通过</option>
+                            <option value="3">被驳回</option>
                         </select>
                     </div>
                 </div>
@@ -202,8 +203,8 @@
                     </div>
                     <div class="field">
                         <select class="input" id="check_status_box">
-                            <option value="1">通过</option>
-                            <option value="2">不通过</option>
+                            <option value="2">通过</option>
+                            <option value="3">不通过</option>
                         </select>
                         <div class="tips"></div>
                     </div>
@@ -379,11 +380,11 @@
                     var list = json.list;
                     $.each(list, function(index, array) { //遍历返回json
                         var protocol_status;
-                        if(array.protocol_status === '-1'){
+                        if(array.protocol_check_status === '0'){
                             protocol_status = '未上传';
-                        }else if(array.protocol_status === '0'){
+                        }else if(array.protocol_check_status === '1'){
                             protocol_status = '待审核';
-                        }else if(array.protocol_status === '1'){
+                        }else if(array.protocol_check_status === '2'){
                             protocol_status = '通过';
                         }else{
                             protocol_status = '未通过';
@@ -391,8 +392,8 @@
                         var recommendAdd ="{{url('admin/doctor/recommendadd/')}}"+"/"+array._id;
                         li +="<tr><td>"+(page_size*(page_cur-1)+index+1)+"</td><td>"+array.doctor_name+"</td> <td>"+array.doctor_mobile+"</td><td>"+array.province_name+"</td><td>"+array.city_name+"</td><td>"+array.region_name+"</td><td>"+array.hospital_name+"</td><td>"+array.id_card+"</td> <td>"+array.bank_name+"</td><td>"+array.bank_card_no+"</td><td>"+protocol_status+"</td><td width='220'><div class='button-group'><a type='button' class='button border-main' href='javascript:;' onclick='edit(this)' doctorid='"+array._id+"' edit_doctor_name='"+array.doctor_name+"' edit_doctor_mobile='"+array.doctor_mobile+"' edit_password='"+array.password+"' edit_hospital_name='"+array.hospital_name+"' edit_id_card='"+array.id_card+"' edit_bank_name='"+array.bank_name+"' edit_bank_card_no='"+(array.bank_card_no?array.bank_card_no:'')+"' province_id='"+array.province_id+"' region_id='"+array.region_id+"' city_id='"+array.city_id+"' province_name='"+array.province_name+"' region_name='"+array.region_name+"' city_name='"+array.city_name+"'><span class='icon-edit'></span>编辑</a>";
                         //如果状态为待审核，添加审核按钮
-                        if(array.protocol_status==='0' || array.protocol_status==='2'){
-                            li +="<a type='button' class='button border-main' href='javascript:;' onclick='check(this)' pid='"+array.protocol_id+"' purl='"+array.protocol_url+"' pstatus='"+array.protocol_status+"'><span class='icon-edit'></span>审核协议</a>";
+                        if(array.protocol_check_status==='1' || array.protocol_check_status==='3'){
+                            li +="<a type='button' class='button border-main' href='javascript:;' onclick='check(this)' pid='"+array.protocol_id+"' purl='"+array.protocol_url+"' pstatus='"+array.protocol_check_status+"'><span class='icon-edit'></span>审核协议</a>";
                         }
                         li +="<a type='button' class='button border-main' href='javascript:;' onclick='recommend(this)' doctorid='"+array._id+"'><span class='icon-user-md'></span>推荐人</a></div></td></tr>";
                     });
@@ -566,7 +567,7 @@
             modelAlert('请选择审核结果');
             return false;
         }
-        if(status==2 && comment === ''){
+        if(status==3 && comment === ''){
             modelAlert('请填写不通过的原因');
             return false;
         }

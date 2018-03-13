@@ -51,11 +51,11 @@ class DoctorController extends CommonController
                 	$list = $result[1];
                 	foreach ($list as &$v){
                 		if($v->getProtocol){
-							$v['protocol_status'] = $v->getProtocol->check_status;
+							//$v['protocol_status'] = $v->getProtocol->check_status;
 							$v['protocol_url'] = '/down?key='.$v->getProtocol->file_url;
 							$v['protocol_id'] = $v->getProtocol->_id;
 						}else{
-							$v['protocol_status'] = '-1';
+							//$v['protocol_status'] = '-1';
 							$v['protocol_url'] = '';
 							$v['protocol_id'] = '';
 						}
@@ -270,11 +270,16 @@ class DoctorController extends CommonController
 					);
 					return response()->json($returnInfo);
 				}
-				$protocol->check_status = $input['status']?:'0';
-				if($input['status'] == 2){
+//				$protocol->check_status = $input['status']?:'0';
+				if($input['status'] == 3){
 					$protocol->comment = $input['comment'];
 				}
 				$protocol->save();
+
+				$doctor = Doctor::find($protocol->doctor_id);
+				$doctor->protocol_check_status=$input['status']?:'1';
+				$doctor->save();
+
 				$returnInfo=array(
 					'status' => 1,
 					'msg' => '审核成功',

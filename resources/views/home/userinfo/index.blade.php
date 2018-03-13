@@ -21,17 +21,15 @@
                     <div class="col-sm-1"></div>
                     <div class="col-xs-3 col-sm-2 text-right">协议状态：</div>
                     <div class="col-xs-8 col-sm-4">
-                        @unless($doctor->have_protocol)
+                        @if($doctor->protocol_check_status === '0')
                             协议未上传 &nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="{{ url('home/userinfo/protocol') }}">上传协议</a>
-                        @else
-                            @if($doctorProtocol->check_status ==='0')
+                        @elseif($doctor->protocol_check_status ==='1')
                                 待审核
-                            @elseif($doctorProtocol->check_status ==='1')
+                        @elseif($doctor->protocol_check_status ==='2')
                                 通过审核
-                            @else
-                                未通过  <b> (原因：{{ $doctorProtocol->comment }})</b>&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="{{ url('home/userinfo/protocol') }}">重新上传</a>
-                            @endif
-                        @endunless
+                        @else
+                            未通过  <b> (原因：{{ $doctorProtocol->comment }})</b>&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="{{ url('home/userinfo/protocol') }}">重新上传</a>
+                        @endif
                     </div>
                 </div>
                 <div class="row">

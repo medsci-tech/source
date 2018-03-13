@@ -10,6 +10,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Model\Company;
+use App\Http\Model\Doctor;
 use App\Http\Model\DoctorProtocol;
 use App\Http\Model\Material;
 use App\Http\Model\MaterialType;
@@ -42,10 +43,11 @@ class UserFileController extends CommonController
 
     public function addMaterial(Request $request){
     	//检测协议是否通过
-		$protocol = DoctorProtocol::where('doctor_id',$this->doctor_id)->first();
-		if(!$protocol || $protocol->check_status === '2'){
+//		$protocol = DoctorProtocol::where('doctor_id',$this->doctor_id)->first();
+		$protocol =Doctor::find($this->doctor_id)->protocol_check_status;//协议审核状态 0.未上传 1.待审核 2.通过 3.驳回
+		if($protocol === '0' || $protocol === '3'){
 			return redirect('home/userinfo/protocol');
-		}elseif($protocol->check_status === '0'){
+		}elseif($protocol === '1'){
 			return redirect('home/userinfo/index');
 		}
         if($request->isMethod('post')) {
