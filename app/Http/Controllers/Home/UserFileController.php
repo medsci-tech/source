@@ -339,7 +339,7 @@ class UserFileController extends CommonController
                 break;
 			case 'checkProtocol':
 				//用户是否有上传协议，如果有，则进行素材上传，否则先上传协议
-				$protocol = Doctor::where('doctor_id',$this->doctor_id)->first();
+				$protocol = Doctor::find($this->doctor_id);
 
 				if($protocol->protocol_check_status === '1'){
 					$returnInfo=array(
