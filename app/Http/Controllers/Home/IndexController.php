@@ -137,6 +137,8 @@ class IndexController extends CommonController
 							'file_name'=>$doctorInfo['filename'],
 //							'check_status'=>'0' //协议审核状态 0.未上传 1.待审核 2.通过 3.驳回
 						]);
+		                $this->doctor->protocol_check_status = '1';
+		                $this->doctor->save();
 					}
 
        //             $this->registerUserCenter($input);
