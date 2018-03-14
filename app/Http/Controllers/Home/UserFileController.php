@@ -370,7 +370,15 @@ class UserFileController extends CommonController
 
 				return response()->json($returnInfo);
 			case 'getRecommend':
-				$vol = Volunteer::where('phone','like','%'.$input['val'].'%')->select('name','phone')->take(20)->get()->toArray();
+				$source_vol = Recommend::where('recommend_mobile','like','%'.$input['val'].'%')/*->select('recommend_name as name','recommend_mobile as phone')*/->take(20)->get(['recommend_name','recommend_mobile'])->toArray();
+				$vol = Volunteer::where('phone','like','%'.$input['val'].'%')->select('name','phone')->take(20)->orderBy('id')->get()->toArray();//print_r($vol);
+				$vol_phones = Volunteer::where('phone','like','%'.$input['val'].'%')->take(20)->orderBy('id')->pluck('phone')->toArray();//dd($vol_phones);
+				foreach ($source_vol as $v){
+					$k = array_search($v['recommend_mobile'],$vol_phones);
+					unset($vol[$k]);
+				}
+				$vol = array_merge($source_vol,$vol);
+
 				if(!$vol){
 					$vol = [['name'=>'推荐人不存在','phone'=>'']];
 				}

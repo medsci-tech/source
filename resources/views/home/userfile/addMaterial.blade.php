@@ -16,7 +16,7 @@
     <script src="{{ asset('resources/views/home/static/js/fileinput.js') }}" type="text/javascript"></script>
     <script src="{{ asset('resources/views/home/static/js/zh.js')}}" type="text/javascript"></script>
     <script src="{{ asset('resources/views/home/static/js/theme.js') }}" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
+    <script src="{{ asset('resources/views/home/static/js/popper.min.js')}}" type="text/javascript"></script>
     <script src="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.min.js"></script>
 @endsection
 
@@ -116,9 +116,10 @@
             $('#recommend').on('keyup','input',function(){
                 var val = $(this).val();
                 $.post('/home/userfile/ajax',{val:val,action:'getRecommend'},function(res){
+//                    console.log(res);
                     var txt='';
                     for(var i = 0;i <res.length;i++){
-                        txt += '<option value="'+res[i].phone+'">' + res[i].name + res[i].phone +'</option>';
+                        txt += '<option value="'+(res[i].phone || res[i].recommend_mobile)+'">' +( res[i].name || res[i].recommend_name) + (res[i].phone || res[i].recommend_mobile) +'</option>';
                     }
 //                    console.log(txt);//
                     $('#recommend_id').html(txt);
