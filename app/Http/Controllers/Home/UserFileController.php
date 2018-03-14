@@ -375,7 +375,7 @@ class UserFileController extends CommonController
 				$vol_phones = Volunteer::where('phone','like','%'.$input['val'].'%')->take(20)->orderBy('id')->pluck('phone')->toArray();//dd($vol_phones);
 				foreach ($source_vol as $v){
 					$k = array_search($v['recommend_mobile'],$vol_phones);
-					unset($vol[$k]);
+					if($k!==false) unset($vol[$k]);
 				}
 				$vol = array_merge($source_vol,$vol);
 
