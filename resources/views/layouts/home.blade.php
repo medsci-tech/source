@@ -16,7 +16,7 @@
     <link href="http://apps.bdimg.com/libs/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
     @section('css')
     @show
-    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <script src="{{asset('resources/views/home/static/js/pintuer.js')}}"></script>
     @section('js')

@@ -134,7 +134,12 @@ class UserFileController extends CommonController
             if(!$this->material->save()){
 				return response()->json(['code'=>400,'msg'=>'发布失败']);
             }
-
+			//添加素材
+	        $files = json_decode($input['file']);//dd($files);
+//	        MaterialLenove::
+	        foreach ($files as $res) {
+		        MaterialLenove::create(['doctor_id' => $this->doctor_id, 'upload_code' => $uuid, 'material_url' => $res->key, 'path_type' => 'QN', 'filename' => $res->fileName, 'addtime' => (string)time()]);
+	        }
 			return response()->json(['code'=>200,'msg'=>'上传成功']);
         }
 

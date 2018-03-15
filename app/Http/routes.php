@@ -37,6 +37,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware'=>'user.login'],function(){
         Route::get('/', 'Home\UserFileController@index');
     });
+    Route::any('sign', 'Home\IndexController@getAuthorization');
     Route::get('register', 'Home\IndexController@register');
     Route::get('agree', 'Home\IndexController@agree');
     Route::any('index/ajax', 'Home\IndexController@ajax');

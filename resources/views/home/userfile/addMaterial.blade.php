@@ -13,6 +13,7 @@
 
 @section('js')
     <script src="{{asset('resources/views/home/static/js/pintuer.js')}}"></script>
+    <script src="{{asset('resources/views/home/static/js/cos-js-sdk-v5.js')}}"></script>
     <script src="{{ asset('resources/views/home/static/js/fileinput.js') }}" type="text/javascript"></script>
     <script src="{{ asset('resources/views/home/static/js/zh.js')}}" type="text/javascript"></script>
     <script src="{{ asset('resources/views/home/static/js/theme.js') }}" type="text/javascript"></script>
@@ -71,6 +72,7 @@
                     <input id="kv-explorer" type="file" multiple name="files[]">
                 </div>
             </div>
+            {{--<input id="file-selector" type="file">--}}
             <div class="clear"></div>
             <br>
             <div class="form-group">
@@ -79,18 +81,38 @@
                     <button class="btn btn-default">取消</button>
                 </div>
             </div>
-
         </form>
 
     </div>
 </div>
-
+<div class="mask"></div>
+<div id="preloader_3"><span>0</span></div>
 @endsection
 
 @section('floorjs')
 
     <script>
         $(document).ready(function () {
+            var uploadFiles = '';//上传的文件
+            var fileNum = 0;
+            var fileSize = 0;
+
+            var Bucket = 'source-1252490301';
+            var Region = 'ap-beijing';
+
+// 初始化实例
+            var cos = new COS({
+                getAuthorization: function (options, callback) {
+                    // 异步获取签名
+                    $.get('/sign', {
+                        method: (options.Method || 'get').toLowerCase(),
+                        pathname: '/' + (options.Key || '')
+                    }, function (authorization) {
+                        callback(authorization);
+                    }, 'text');
+                }
+            });
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -103,37 +125,45 @@
                 showRemove:false,
                 showUpload: false,
                 uploadAsync:true,
-//                overwriteInitial: true,
+                overwriteInitial: false,
                 maxFileSize:81920,
                 enctype:'multipart/form-data',
-                dropZoneEnabled: false
-            });
-            /*
-            $("#test-upload").on('fileloaded', function(event, file, previewId, index) {
-            alert('i = ' + index + ', id = ' + previewId + ', file = ' + file.name);
-            });
-            */
-            $('#recommend').on('keyup','input',function(){
-                var val = $(this).val();
-                $.post('/home/userfile/ajax',{val:val,action:'getRecommend'},function(res){
-//                    console.log(res);
-                    var txt='';
-                    for(var i = 0;i <res.length;i++){
-                        txt += '<option value="'+(res[i].phone || res[i].recommend_mobile)+'">' +( res[i].name || res[i].recommend_name) + (res[i].phone || res[i].recommend_mobile) +'</option>';
-                    }
-//                    console.log(txt);//
-                    $('#recommend_id').html(txt);
-                    $('.selectpicker').selectpicker('refresh');
-                });
-            })
+                dropZoneEnabled: false,
+                layoutTemplates:{
+                    actionDelete:'',//隐藏删除按钮
+                }
+            }).on("filebatchselected", function(event, files) {
+                //选择文件后处理事件
+//                console.log(files)
+                uploadFiles = files;
+                //计算文件的中大小
+                fileSize = 0;
+                uploadFiles.forEach(function (ele) {
+                    fileSize += ele.size;
+                })
+//                console.log(fileSize);
+            })/*.on("fileselect", function(event, numFiles, label) {
+
+                console.log(event,numFiles,label)
+                fileNum += numFiles;//当前页上传文件的总数
+            })*/.on('fileremoved', function(event, id, index) {
+//                console.log(event,'id = ' + id + ', index = ' + index);
+            })/*.on('change', function(event) {
+
+//                console.log(event);
+
+            }).on('filedeleted', function(event, id) {
+
+                console.log('Uploaded thumbnail successfully removed',id);
+
+            })*/;
+
+
 
             $('form').on('submit',function(e){
                 e.preventDefault();
-                var length = $('.kv-preview-thumb').length;
-                /*if($('#recommend_id').val()==''){
-                    modelAlert('请选择推荐人');
-                    return false;
-                }*/
+
+                var length = uploadFiles.length;
 
                 if($('[name="material_type_id"]').val()==''){
                     modelAlert('请选择素材类型');
@@ -151,8 +181,73 @@
                 $('#attachments').val(length);
                 var formData = $(this).serialize();
                 //上传文件
-                $("#kv-explorer").fileinput("upload");
-                $("#kv-explorer").on("fileuploaded", function (event, data, previewId, index) {
+//                $("#kv-explorer").fileinput("upload");
+                $('.mask').toggle();
+                $('#preloader_3').toggle();
+                // 分片上传文件
+                var uploadSize = 0;
+                var prevSize = 0;
+                var percent = 0;
+                var timer;
+                var fileInfo = [];
+                uploadFiles.forEach(function (file,index) {
+                    var date = new Date();
+                    var now = date.getTime() + '-';
+                    fileInfo.push( {fileName:file.name,key:now+file.name});
+                    cos.sliceUploadFile({
+                        Bucket: Bucket,
+                        Region: Region,
+                        Key: now+file.name,
+                        Body: file,
+                        onProgress: function (progressData) {
+//                            console.log(JSON.stringify(progressData));
+                            uploadSize = prevSize + progressData.loaded;//已上传的文件大小
+                            var percent_up = parseInt(uploadSize/fileSize*100);
+                            timer = setInterval(function () {
+                                if(percent< percent_up){
+                                    $('#preloader_3 span').html(percent++);
+                                }else{
+                                    clearInterval(timer);
+                                }
+                            },30)
+                            if(progressData.percent == 1){
+                                prevSize+= progressData.total;
+                            }
+
+                        }
+                    }, function (err, data) {
+                        console.log(err, data);
+                        if(err){
+                            modelAlert('文件上传失败');
+                            return ;
+                        }else{
+                            if(index+1>=length ){
+                                formData += '&file='+ JSON.stringify(fileInfo);
+                                $.ajax({
+                                    type:'post',
+                                    data:formData,
+//                    processData: false,
+//                    contentType: false,
+                                    success:function(res){
+//                                        console.log(res);
+                                        if(res.code==200){
+                                            location = '/home/userfile/index';
+                                        }else{
+                                            modelAlert(res.msg);
+                                        }
+                                    }
+                                })
+                                $('.mask').toggle();
+                                $('#preloader_3').toggle();
+                            }
+
+                        }
+
+                    });
+                })
+
+
+                /*$("#kv-explorer").on("fileuploaded", function (event, data, previewId, index) {
                     if(length <= index +1){
                         $.ajax({
                             type:'post',
@@ -176,13 +271,25 @@
 //                    console.log(data);
 //                    console.log(msg);
                     modelAlert('文件上传失败');
-                });
+                });*/
 
 //                var formData = new FormData(this);
 
             })
 
-
+            $('#recommend').on('keyup','input',function(){
+                var val = $(this).val();
+                $.post('/home/userfile/ajax',{val:val,action:'getRecommend'},function(res){
+//                    console.log(res);
+                    var txt='';
+                    for(var i = 0;i <res.length;i++){
+                        txt += '<option value="'+(res[i].phone || res[i].recommend_mobile)+'">' +( res[i].name || res[i].recommend_name) + (res[i].phone || res[i].recommend_mobile) +'</option>';
+                    }
+//                    console.log(txt);//
+                    $('#recommend_id').html(txt);
+                    $('.selectpicker').selectpicker('refresh');
+                });
+            })
         });
     </script>
 
