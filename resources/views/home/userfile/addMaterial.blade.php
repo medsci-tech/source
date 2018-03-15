@@ -126,7 +126,7 @@
                 showUpload: false,
                 uploadAsync:true,
                 overwriteInitial: false,
-                maxFileSize:81920,
+//                maxFileSize:81920,
                 enctype:'multipart/form-data',
                 dropZoneEnabled: false,
                 layoutTemplates:{
