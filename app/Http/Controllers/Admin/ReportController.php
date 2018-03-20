@@ -141,11 +141,11 @@ class ReportController extends CommonController
     public function reportExcel(){
 
 	set_time_limit(0);
-	ini_set('memory_limit', '0');
+//	ini_set('memory_limit', '0');
 
         $report_request = Cache::get('report_request');
 //        $material =Material::get();
-//        ini_set('memory_limit', '526M');
+        ini_set('memory_limit', '526M');
         $material = $this->report->getReportExportList($report_request);
 //        dd($material);
         $totalPayAmount=0;
@@ -169,40 +169,40 @@ class ReportController extends CommonController
             if ($recommend) {
                 $material[$k]->recommend_name = $recommend['recommend_name'];
 				$material[$k]->recommend_mobile = $recommend['recommend_mobile'];
+	            $company = Company::where('_id', $recommend->company_id)->first();
+	            $bigarea = Bigarea::where('_id', $recommend->big_area_id)->first();
+	            $area = Area::where('_id', $recommend->area_id)->first();
+	            $sales = Sales::where('_id', $recommend->sales_id)->first();
+	            if ($company) {
+		            $material[$k]->big_area_name = $company['full_name'];
+	            }else{
+		            $material[$k]->full_name = '';
+	            }
+	            if ($bigarea) {
+		            $material[$k]->big_area_name = $bigarea['big_area_name'];
+	            }else{
+		            $material[$k]->big_area_name = '';
+	            }
+	            if ($area) {
+		            $material[$k]->area_name = $area['area_name'];
+	            } else {
+		            $material[$k]->area_name = '';
+	            }
+	            if ($sales) {
+		            $material[$k]->sales_name = $sales['sales_name'];
+	            }else{
+		            $material[$k]->sales_name = '';
+	            }
+	            $materialtype = MaterialType::where('_id', $v->material_type_id)->first();
 
+	            if ($materialtype) {
+		            $material[$k]->material_type_name = $materialtype['material_type_name'];
+	            }else{
+		            $material[$k]->material_type_name = '';
+	            }
 			}
 
-            $company = Company::where('_id', $recommend->company_id)->first();
-            $bigarea = Bigarea::where('_id', $recommend->big_area_id)->first();
-            $area = Area::where('_id', $recommend->area_id)->first();
-            $sales = Sales::where('_id', $recommend->sales_id)->first();
-            if ($company) {
-                $material[$k]->big_area_name = $company['full_name'];
-            }else{
-				$material[$k]->full_name = '';
-			}
-			if ($bigarea) {
-                $material[$k]->big_area_name = $bigarea['big_area_name'];
-            }else{
-				$material[$k]->big_area_name = '';
-			}
-            if ($area) {
-                $material[$k]->area_name = $area['area_name'];
-            } else {
-                $material[$k]->area_name = '';
-            }
-            if ($sales) {
-                $material[$k]->sales_name = $sales['sales_name'];
-            }else{
-				$material[$k]->sales_name = '';
-			}
-            $materialtype = MaterialType::where('_id', $v->material_type_id)->first();
 
-            if ($materialtype) {
-                $material[$k]->material_type_name = $materialtype['material_type_name'];
-            }else{
-				$material[$k]->material_type_name = '';
-			}
         }
 
         $titleRow =array(
