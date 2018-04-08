@@ -97,7 +97,7 @@ class RecommendController extends CommonController
                     $this->recommend->big_area_id =$input['big_area_id'];
                     $this->recommend->area_id =$input['area_id'];
                     $this->recommend->sales_id =$input['sales_id'];
-                    $this->recommend->recommend_id_card =$input['recommend_id_card'];
+                    //$this->recommend->recommend_id_card =$input['recommend_id_card'];
                     $this->recommend->addtime =(string)time();
                         if($this->recommend->save()){
                             $returnInfo=array(
@@ -117,7 +117,7 @@ class RecommendController extends CommonController
                     $data['big_area_id'] = $input['big_area_id'];
                     $data['area_id'] = $input['area_id'];
                     $data['sales_id'] = $input['sales_id'];
-                    $data['recommend_id_card'] = $input['recommend_id_card'];
+                    //$data['recommend_id_card'] = $input['recommend_id_card'];
                     if ($this->recommend->where('_id', $input['recommend_id'])->update($data)) {
                         $returnInfo = array(
                             'status' => 1,
